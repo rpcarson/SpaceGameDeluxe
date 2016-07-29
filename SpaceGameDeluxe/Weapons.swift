@@ -11,8 +11,6 @@ import SpriteKit
 
 class BasicWeapon: WeaponType {
     
-    //  var timer: NSTimer!
-    
     var damage: Double = 1
     var ammoCount: Int = 100
     var rateOfFire: Double = 0.25
@@ -30,7 +28,10 @@ class BasicWeapon: WeaponType {
     var body: SKPhysicsBody {
         let physicsBody = SKPhysicsBody(rectangleOfSize: projectileSize)
         physicsBody.affectedByGravity = false
-        physicsBody.collisionBitMask = MaskValue.projectile
+        physicsBody.collisionBitMask = 0
+        physicsBody.categoryBitMask = MaskValue.projectile
+        physicsBody.contactTestBitMask = MaskValue.enemy | MaskValue.destructable
+        physicsBody.usesPreciseCollisionDetection = true
         return physicsBody
     }
     
@@ -76,10 +77,5 @@ class BasicWeapon: WeaponType {
             
         }
     }
-    
-    
-    //    init(owner: SKSpriteNode) {
-    //        self.owner = owner
-    //    }
     
 }

@@ -20,13 +20,13 @@ class Player: SKSpriteNode, PlayerType {
     
     var armor: ArmorType?
     var shield: ShieldType?
-    var health: Int = 200
-    var maxHealth: Int = 200
+    var health: Double = 1000
+    var maxHealth: Double = 1000
     var primaryWeapon: WeaponType = BasicWeapon()
     var secondaryWeapon: WeaponType?
     var superWeapon: WeaponType?
     
-    var playerTexture: SKTexture = SKTexture(imageNamed: "crappyPlayer")
+    var playerTexture: SKTexture = SKTexture(imageNamed: PlayerTextures.Player.rawValue)
     
     // func move, extension
     
@@ -36,7 +36,7 @@ class Player: SKSpriteNode, PlayerType {
     func destruct() {
         //unknown
     }
-    func decreaseHealth(byAmount: Double) {
+    func decreaseHealth(amount: Double) {
         //unknown
     }
     

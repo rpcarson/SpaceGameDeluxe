@@ -12,6 +12,9 @@
 		5B32A27D1D3C46DB008389C5 /* Weapons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32A27C1D3C46DB008389C5 /* Weapons.swift */; };
 		5B32A27F1D3C4700008389C5 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32A27E1D3C4700008389C5 /* Protocols.swift */; };
 		5B32A2811D3C4727008389C5 /* Enemies.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32A2801D3C4727008389C5 /* Enemies.swift */; };
+		5B57480A1D4C022F005EB35D /* Minion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B5748091D4C022F005EB35D /* Minion.swift */; };
+		5B57480C1D4C0254005EB35D /* Textures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B57480B1D4C0254005EB35D /* Textures.swift */; };
+		5B57480E1D4C0BD0005EB35D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B57480D1D4C0BD0005EB35D /* Extensions.swift */; };
 		5B857D3C1D36F666008DE265 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B857D3B1D36F666008DE265 /* AppDelegate.swift */; };
 		5B857D3E1D36F666008DE265 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 5B857D3D1D36F666008DE265 /* GameScene.sks */; };
 		5B857D401D36F666008DE265 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B857D3F1D36F666008DE265 /* GameScene.swift */; };
@@ -49,6 +52,9 @@
 		5B32A27C1D3C46DB008389C5 /* Weapons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weapons.swift; sourceTree = "<group>"; };
 		5B32A27E1D3C4700008389C5 /* Protocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		5B32A2801D3C4727008389C5 /* Enemies.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Enemies.swift; sourceTree = "<group>"; };
+		5B5748091D4C022F005EB35D /* Minion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Minion.swift; sourceTree = "<group>"; };
+		5B57480B1D4C0254005EB35D /* Textures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Textures.swift; sourceTree = "<group>"; };
+		5B57480D1D4C0BD0005EB35D /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		5B857D381D36F666008DE265 /* SpaceGameDeluxe.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceGameDeluxe.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B857D3B1D36F666008DE265 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B857D3D1D36F666008DE265 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -94,6 +100,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B5748081D4C021E005EB35D /* Enemies */ = {
+			isa = PBXGroup;
+			children = (
+				5B32A2801D3C4727008389C5 /* Enemies.swift */,
+				5B5748091D4C022F005EB35D /* Minion.swift */,
+			);
+			name = Enemies;
+			sourceTree = "<group>";
+		};
 		5B857D2F1D36F666008DE265 = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +141,7 @@
 				5BF4B1EF1D452B94005C4BBD /* Scenes */,
 				5BF4B1ED1D452B37005C4BBD /* Models */,
 				5BF4B1EE1D452B6B005C4BBD /* Supporting */,
+				5B57480D1D4C0BD0005EB35D /* Extensions.swift */,
 			);
 			path = SpaceGameDeluxe;
 			sourceTree = "<group>";
@@ -151,9 +167,10 @@
 		5BF4B1ED1D452B37005C4BBD /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				5B57480B1D4C0254005EB35D /* Textures.swift */,
 				5B32A27C1D3C46DB008389C5 /* Weapons.swift */,
-				5B32A2801D3C4727008389C5 /* Enemies.swift */,
 				5B32A27A1D3C46BA008389C5 /* Player.swift */,
+				5B5748081D4C021E005EB35D /* Enemies */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -317,12 +334,15 @@
 				5B32A27D1D3C46DB008389C5 /* Weapons.swift in Sources */,
 				5BDCDAF81D402D1D00DF7DFF /* RandomNumbers.swift in Sources */,
 				5B857D421D36F666008DE265 /* GameViewController.swift in Sources */,
+				5B57480A1D4C022F005EB35D /* Minion.swift in Sources */,
 				5B32A2811D3C4727008389C5 /* Enemies.swift in Sources */,
 				5B857D3C1D36F666008DE265 /* AppDelegate.swift in Sources */,
 				5BF4B1EC1D452B27005C4BBD /* Layers.swift in Sources */,
+				5B57480C1D4C0254005EB35D /* Textures.swift in Sources */,
 				5BDCDAF61D40209800DF7DFF /* Timer.swift in Sources */,
 				5B32A27B1D3C46BA008389C5 /* Player.swift in Sources */,
 				5B32A27F1D3C4700008389C5 /* Protocols.swift in Sources */,
+				5B57480E1D4C0BD0005EB35D /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

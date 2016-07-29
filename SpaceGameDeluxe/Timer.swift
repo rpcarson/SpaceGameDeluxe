@@ -24,3 +24,12 @@ class WeaponTimer {
     
     
 }
+
+
+class SpawnTimer {
+   
+    
+    
+    
+}
+

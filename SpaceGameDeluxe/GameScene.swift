@@ -11,6 +11,9 @@ import SpriteKit
 class GameScene: SKScene, SKPhysicsContactDelegate {
     
     var fireTouchLocation: CGPoint?
+    var enemies = [BasicEnemy]()
+    
+    var enemyTimer: Double = 0
     
     let backgroundLayer = BackgroundLayer()
     let worldLayer = WorldLayer()
@@ -24,7 +27,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
     
     let player = Player.sharedInstance
-    let enemy = BasicEnemy()
     
     var leftButton: UIButton!
     var rightButton: UIButton!
@@ -99,50 +101,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     
     override func didMoveToView(view: SKView) {
         self.view?.scene?.size = appDelegate.window!.frame.size
-        //self.view?.scene?.size = UIScreen.mainScreen().applicationFrame.size
-
-       // setupButtons()
         
         addPlayer()
         setupTouchZones()
-        
-        print(self.view?.scene?.size.width)
-        print(self.view?.scene?.size.height)
-        
-        
+
         physicsWorld.contactDelegate = self
+        physicsWorld.gravity = CGVector(dx: 0, dy: 0)
         backgroundColor = UIColor.blackColor()
 
-        
-        /* Setup your scene here */
-        
-        let myLabel = SKLabelNode(fontNamed:"Chalkduster")
-        myLabel.text = "Space game Deluxe"
-        myLabel.fontSize = 45
-        myLabel.position = CGPoint(x:CGRectGetMidX(self.frame), y:CGRectGetMidY(self.frame))
-        
-        // self.addChild(myLabel)
-        
-      
-        
-       // worldLayer.addChild(player)
-        
-       
-        
-        /*
-        let action = SKAction.runBlock { 
-            enemy.spawn(inScene: self)
-
-        }
-        
-        let delay = SKAction.waitForDuration(1)
-        let sequence = SKAction.sequence([action, delay])
-        
-        self.runAction(SKAction.repeatActionForever(sequence))
-        */
-        // BasicEnemy.spawn(inScene: self)
-       
-        
     }
     
     func startFiring() {
@@ -172,9 +138,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        
-        BasicEnemy.spawn(inScene: self)
-        
+                
         for touch in touches {
             let location = touch.locationInNode(self)
             
@@ -194,14 +158,86 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         for touch in touches {
             let location = touch.locationInNode(self)
-            
             if fireZone.containsPoint(location) || nullZone.containsPoint(location) {
                 endFiring()
             }
         }
     }
+    
+    func didBeginContact(contact: SKPhysicsContact) {
+        
+      //  print("physics contact")
+        
+        print("body A \(contact.bodyA.categoryBitMask)")
+        print("body B\(contact.bodyB.categoryBitMask)")
+        
+        let nodeA = contact.bodyA.node
+        let nodeB = contact.bodyB.node
+        let categoryA = contact.bodyA.categoryBitMask
+        let categoryB = contact.bodyB.categoryBitMask
+        
+        print("NODE A \(nodeA)")
+        print("NODE B \(nodeB)")
+        
+        let projectileMask = player.primaryWeapon.projectile.categoryBitMask
+        
+        let projectileIsA = categoryA == MaskValue.projectile
+        let destructableIsA = categoryA == MaskValue.destructable
+        let projectileIsB = categoryB == MaskValue.projectile
+        let destructableIsB = categoryB == MaskValue.destructable
+        
+        let projectile = categoryA == MaskValue.projectile ? nodeA : nodeB
+        let destructable = categoryA == MaskValue.destructable ? nodeA : nodeB
+        
+        if projectileIsA  {
+            print("projectile is A")
+        }
+        if projectileIsB {
+            print("projectile is B")
+        }
+        
+        if destructableIsB {
+            print("destruvtable is B")
+        }
+        
+        if destructableIsA {
+            print("destruvtable is A")
+        }
+        
+        if (projectileIsA && destructableIsB) || (projectileIsB && destructableIsA) {
+            
+            projectile?.remove()
+            
+            if let enemy = destructable as? DestructableType {
+                let damage = player.primaryWeapon.damage
+                enemy.decreaseHealth(damage)
+            }
+            
+            print("PROJ AND DESTRUCT CONATCT")
+            
+        }
+        
+    }
    
     override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
+
+        enemyTimer += 1
+        
+        if enemyTimer % 50 == 0 {
+            BasicEnemy.spawn(inScene: self)
+            print("100 frame spawn")
+        }
+        if enemyTimer % 10 == 0 {
+            print("10 frame spawn")
+            Minion.spawn(inScene: self)
+        }
+        for enemy in enemies {
+            if enemy.actionForKey("move") == nil {
+                enemy.move()
+            }
+        }
+        
+        
+        
     }
 }

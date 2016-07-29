@@ -23,6 +23,8 @@ struct MaskValue {
     static let projectile: UInt32 = 1
     static let enemy: UInt32 = 2
     static let scene: UInt32 = 3
+    static let destructable: UInt32 = 4
+
   
 }
 
@@ -51,11 +53,10 @@ protocol ArmorType {
 }
 
 protocol DestructableType {
-    var maxHealth: Int { get set }
-    var health: Int { get set }
+    var maxHealth: Double { get set }
+    var health: Double { get set }
     
-    
-    func decreaseHealth(byAmount: Double)
+    func decreaseHealth(amount: Double)
     func destruct()
 }
 
