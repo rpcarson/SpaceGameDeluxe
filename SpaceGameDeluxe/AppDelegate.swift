@@ -8,6 +8,9 @@
 
 import UIKit
 
+var debugMode: Bool = false
+
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 

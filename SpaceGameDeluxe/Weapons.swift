@@ -9,20 +9,27 @@
 import SpriteKit
 
 
+enum ProjectileSpeed: Double {
+    case VerySlow = 5
+    case Slow = 3
+    case Medium = 2
+    case Fast = 1
+}
+
+
+
 class BasicWeapon: WeaponType {
     
     var damage: Double = 1
     var ammoCount: Int = 100
     var rateOfFire: Double = 0.25
+    var projectileSpeed: Double = ProjectileSpeed.Slow.rawValue
+    var projectileSize = CGSize(width: 6, height: 3)
     
-    let projectileSpeed: Double = 0.75
-    
-    let projectileSize = CGSize(width: 6, height: 3)
-    
-    var owner: SKSpriteNode?
+    var owner: SKSpriteNode
     
     var firingPosition: CGPoint {
-        return CGPoint(x: Player.sharedInstance.position.x + Player.sharedInstance.size.width/2, y: Player.sharedInstance.position.y)
+        return CGPoint(x:  owner.position.x + owner.size.width/2 , y: owner.position.y)
     }
     
     var body: SKPhysicsBody {
@@ -30,21 +37,23 @@ class BasicWeapon: WeaponType {
         physicsBody.affectedByGravity = false
         physicsBody.collisionBitMask = 0
         physicsBody.categoryBitMask = MaskValue.projectile
-        physicsBody.contactTestBitMask = MaskValue.enemy | MaskValue.destructable
+        physicsBody.contactTestBitMask = MaskValue.destructable | MaskValue.enemy
         physicsBody.usesPreciseCollisionDetection = true
         return physicsBody
     }
     
-    var projectile: AnyObject {
-        let node = SKShapeNode(rectOfSize: projectileSize)
-        node.fillColor = UIColor.redColor()
+    var projectile: SKSpriteNode {
+        let node = SKSpriteNode(color: UIColor.redColor(), size: projectileSize)        
+        node.texture = WeaponTextures.BasicBullet.getTexture()
         node.physicsBody = body
         node.position = firingPosition
         return node
     }
     
-    func fire(inScene: SKScene) {
-        let scene = inScene as! GameScene
+    func fire() {
+        
+        print("fire")
+        let scene = owner.scene as! GameScene
         let touchLocation = scene.fireTouchLocation
         
         guard let location = touchLocation else { return }
@@ -62,8 +71,8 @@ class BasicWeapon: WeaponType {
         print("PLAYER LOC \(Player.sharedInstance.position)")
         */
         
-        if let shapeNode = projectile as? SKShapeNode {
-            let moveAction = SKAction.moveTo(destination, duration: self.projectileSpeed*2)
+        if let shapeNode = projectile as? SKSpriteNode {
+            let moveAction = SKAction.moveTo(destination, duration: self.projectileSpeed)
             let despawn = SKAction.removeFromParent()
             let sequence = SKAction.sequence([moveAction, despawn])
             let nodeRotation = atan2(adjustedY, adjustedX)
@@ -72,10 +81,25 @@ class BasicWeapon: WeaponType {
             
             shapeNode.runAction(sequence, withKey: "fire")
             
-            inScene.addChild(shapeNode)
+            scene.addChild(shapeNode)
             shapeNode.runAction(sequence)
             
         }
     }
     
+    func configureWeapon(damage: Double, ammoCount: Int, rateOfFire: Double, projectileSize: CGSize, projectileSpeed: Double ) {
+        self.damage = damage
+        self.ammoCount = ammoCount
+        self.rateOfFire = rateOfFire
+        self.projectileSize = projectileSize
+        self.projectileSpeed = projectileSpeed
+    }
+    
+    required init(owner: SKSpriteNode) {
+        self.owner = owner
+        if owner.name == "player"  {
+            body.categoryBitMask = MaskValue.playerProjectile
+        }
+    }
+
 }

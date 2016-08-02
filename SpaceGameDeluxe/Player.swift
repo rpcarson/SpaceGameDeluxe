@@ -9,20 +9,25 @@
 import SpriteKit
 
 
+
+
 class Player: SKSpriteNode, PlayerType {
-    
+   
     static let sharedInstance = Player()
     
-    var body: SKPhysicsBody
+    var body: SKPhysicsBody!
     
-    var shipAgility: CGFloat = 1
-    var enginePower: CGFloat = 1
+    var _size = CGSize(width: 100, height: 40)
+    
+    var enginePower: EnginePower = EnginePower.x1
+    var agilityMultiplier: AgilityMultiplier = AgilityMultiplier.x1
+    var baseAgility: CGFloat = 10
     
     var armor: ArmorType?
     var shield: ShieldType?
     var health: Double = 1000
     var maxHealth: Double = 1000
-    var primaryWeapon: WeaponType = BasicWeapon()
+    var weapon: WeaponType?
     var secondaryWeapon: WeaponType?
     var superWeapon: WeaponType?
     
@@ -30,7 +35,7 @@ class Player: SKSpriteNode, PlayerType {
     
     // func move, extension
     
-    func attack(withWeapon: WeaponType) {
+    func attack() {
         //unknown
     }
     func destruct() {
@@ -40,22 +45,40 @@ class Player: SKSpriteNode, PlayerType {
         //unknown
     }
     
+    func configureAgility(multiplier: AgilityMultiplier) {
+        body.mass = baseAgility / multiplier.rawValue
+    }
+    
+    func adjustEnginePower(power: EnginePower) {
+        enginePower = power
+    }
+    
     func setupPhysicsBody() {
-        self.physicsBody = body
+        body = SKPhysicsBody(texture: playerTexture, size: _size)
         body.affectedByGravity = false
+        body.dynamic = true
+        body.linearDamping = 0.1
         body.collisionBitMask = MaskValue.player
         body.categoryBitMask = MaskValue.player
-        body.dynamic = true
+        self.physicsBody = body
+
+        configureAgility(agilityMultiplier)
+    }
     
+    func setupSprite() {
+        texture = playerTexture
+        size = _size
+        name = "player"
+        
+        setupPhysicsBody()
     }
     
     init() {
-        self.body = SKPhysicsBody(texture: playerTexture, size: playerTexture.size())
         super.init(texture: playerTexture, color: UIColor.clearColor(), size: playerTexture.size())
-        self.xScale = 0.25
-        self.yScale = 0.25
         
-        setupPhysicsBody()
+        weapon = BasicWeapon(owner: self)
+        
+        setupSprite()
         
     }
     
@@ -73,9 +96,6 @@ extension Player {
     
     func move(inScene: SKScene, point: CGPoint) {
         
-        shipAgility = 1
-        enginePower = 1
-        
         let currentPositionY = self.position.y
         let indicatedY = point.y
         
@@ -85,8 +105,8 @@ extension Player {
         
         var impulseVector: CGVector {
             switch directionOfTap {
-            case _ where directionOfTap > 0: return CGVectorMake(0, -100 * enginePower)
-            case _ where directionOfTap < 0: return CGVectorMake(0, 100 * enginePower)
+            case _ where directionOfTap > 0: return CGVectorMake(0, -100 * enginePower.rawValue)
+            case _ where directionOfTap < 0: return CGVectorMake(0, 100 * enginePower.rawValue)
             case 0: return CGVectorMake(0, 0)
             default: fatalError()
             }
@@ -97,33 +117,63 @@ extension Player {
         let impulseToApply = CGVectorMake(0, adjustedImpulse)
         
         body.applyImpulse(impulseToApply)
-
+        
         
         /*
-        print("Impulse mechanics")
-        print("CURRENT IMPULSE\(currentImpulse)")
-        print("ADJUSTED IMPULSE\(adjustedImpulse)")
-        print("Applied IMpulse\(impulseToApply)")
-        print("locartion of tap\(directionOfTap)")
-        */
-
+         print("Impulse mechanics")
+         print("CURRENT IMPULSE\(currentImpulse)")
+         print("ADJUSTED IMPULSE\(adjustedImpulse)")
+         print("Applied IMpulse\(impulseToApply)")
+         print("locartion of tap\(directionOfTap)")
+         */
+        
     }
     
 }
 
 extension Player {
     
-    func fire(inScene: SKScene) {
-    primaryWeapon.fire(inScene)
-       
-    }
-  
+    func firePrimary(inScene: SKScene) {
+        if let weapon = weapon {
+            weapon.fire()
+        }
+        
     }
     
+    func fireSecondary() {
+        
+    }
+    
+    func fireSuper() {
+        
+    }
+    
+}
 
 
+extension Player {
+    
+    enum AgilityMultiplier: CGFloat {
+        case x1 = 1
+        case x125 = 1.25
+        case x150 = 1.5
+        case x175 = 1.75
+        case x2 = 2
+    }
 
+}
 
+extension Player {
+    
+    enum EnginePower: CGFloat {
+        case x1 = 1
+        case x125 = 1.25
+        case x150 = 1.5
+        case x175 = 1.75
+        case x2 = 2
+    }
+    
+}
 
 
 

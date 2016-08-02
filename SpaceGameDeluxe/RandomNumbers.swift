@@ -13,6 +13,10 @@ import GameKit
 
 
 struct RandomNumbers {
+    
+    static func getRandomTo10() -> CGFloat {
+        return CGFloat(GKRandomSource.sharedRandom().nextIntWithUpperBound(10))
+    }
    
     static func randomXFromLeft(inScene scene: SKScene) -> CGFloat {
         

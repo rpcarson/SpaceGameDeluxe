@@ -24,26 +24,21 @@ struct MaskValue {
     static let enemy: UInt32 = 2
     static let scene: UInt32 = 3
     static let destructable: UInt32 = 4
+    static let enemyProjectile: UInt32 = 5
+    static let playerProjectile: UInt32 = 6
 
   
 }
 
 
-protocol PlayerType: DestructableType, AttackType {
+protocol PlayerType: Destructable, Attacker {
     var shield: ShieldType? { get set }
     var armor: ArmorType? { get set }
-    var primaryWeapon: WeaponType { get set }
     var secondaryWeapon: WeaponType? { get set }
     var superWeapon: WeaponType? { get set }
 }
 
-protocol Textured {
-    var imageAsset: SKTexture { get set }
-}
 
-protocol AttackType {
-    func attack(withWeapon: WeaponType)
-}
 
 
 protocol ArmorType {
@@ -52,13 +47,7 @@ protocol ArmorType {
     var mitigationFactor: Double { get set }
 }
 
-protocol DestructableType {
-    var maxHealth: Double { get set }
-    var health: Double { get set }
-    
-    func decreaseHealth(amount: Double)
-    func destruct()
-}
+
 
 protocol ShieldType {
     var maxShield: Double { get set }
@@ -70,38 +59,24 @@ protocol ShieldType {
     
 }
 
-protocol WeaponType {
-    
-    var damage: Double { get set }
-    var rateOfFire: Double { get set }
-    var ammoCount: Int { get set }
-    
-    var projectile: AnyObject { get }
-    var body: SKPhysicsBody { get }
-    
-    func fire(inScene: SKScene)
-
-    
-}
 
 protocol Overheatable: WeaponType {
+   
     var maxHeat: Double { get set }
     var cooldownRate: Double { get set }
     var heatupRate: Double { get set }
     var overheatDelay: Double { get set }
     
     func overheat()
-    func increaseHeat(byAmount: Double)
-    func decreaseHeat(byAmount: Double)
+    func adjustHeat(byAmount: Double)
+  
 }
 
 
-protocol Spawnable {
-    static func spawn(inScene scene: SKScene)
+
+protocol EnemyType: Destructable, Attacker {
 
 }
-
-protocol EnemyType: DestructableType, AttackType, Spawnable { }
 
 
 
