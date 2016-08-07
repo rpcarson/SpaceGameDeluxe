@@ -11,9 +11,20 @@ import SpriteKit
 protocol ActionScene {
     var frameCount: Double { get set }
     var pattern: ScenePattern? { get }
+    
+    
+
 }
 
+
+
+
+let worldLayer = SKNode()
+
+
 class GameScene: SKScene, SKPhysicsContactDelegate, ActionScene {
+    
+   
     
     var fireTouchLocation: CGPoint?
     var enemies = [BasicEnemy]()
@@ -31,7 +42,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ActionScene {
     let player = Player.sharedInstance
     
     override func didMoveToView(view: SKView) {
-        addPlayer()
+      //  addPlayer()
         setupTouchZones()
         setupPhysics()
         
@@ -39,6 +50,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ActionScene {
         pattern?.delegate = self
         
         backgroundColor = UIColor.blackColor()
+        
+        addChild(worldLayer)
+        let position = CGPoint(x: player.size.width / 2 + 10, y: self.frame.height/2)
+        player.position = position
+        worldLayer.addChild(player)
+        
         
     }
     
@@ -104,7 +121,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ActionScene {
     
     func didBeginContact(contact: SKPhysicsContact) {
         
-        //  print("physics contact")
+          print("physics contact")
         
         let nodeA = contact.bodyA.node
         let nodeB = contact.bodyB.node
@@ -118,6 +135,12 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ActionScene {
         
         let projectile = categoryA == MaskValue.projectile ? nodeA : nodeB
         let destructable = categoryA == MaskValue.destructable ? nodeA : nodeB
+        let enemyProjectile = categoryA == MaskValue.enemyProjectile ? nodeA : nodeB
+        let player = categoryA == MaskValue.player ? nodeA : nodeB
+        
+        
+        print(categoryA)
+        print(categoryB)
         /*
          if projectileIsA  {
          print("projectile is A")
@@ -145,11 +168,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ActionScene {
             projectile?.remove()
             
             if var enemy = destructable as? Destructable {
-                let damage = player.weapon!.damage
-                enemy.decreaseHealth(damage)
+                let damage = Player.sharedInstance.weapon2?.weaponType.damage
+                enemy.decreaseHealth(damage!)
             }
             
-            //  print("PROJ AND DESTRUCT CONATCT")
+            print("PROJ AND DESTRUCT CONATCT")
+            
+        }
+        
+        if (categoryA == MaskValue.player && categoryB == MaskValue.enemyProjectile) || (categoryB == MaskValue.player && categoryA == MaskValue.enemyProjectile) {
+            
+            print("enemy proj contact plaer")
+            
+            if let projectile = enemyProjectile {
+                projectile.remove()
+            }
             
         }
         

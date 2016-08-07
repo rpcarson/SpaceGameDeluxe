@@ -36,7 +36,7 @@ class MinionGun: BasicWeapon {
         }
     }
     
-    override init(owner: SKSpriteNode) {
+     required init(owner: SKSpriteNode) {
         super.init(owner: owner)
         self.owner = owner
 

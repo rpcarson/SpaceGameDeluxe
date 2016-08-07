@@ -6,17 +6,18 @@
 //  Copyright © 2016 Reed Carson. All rights reserved.
 //
 
-import Foundation
+import SpriteKit
 
 
 protocol Attacker {
-    var weapon: WeaponType? { get set }
+    var weapon: Weapon? { get set }
+    var projectileOrigin: CGPoint { get }
     func attack()
 }
 
 extension Attacker {
     func attack() {
-        weapon?.fire()
         print("\(self) is attacking")
     }
 }
+

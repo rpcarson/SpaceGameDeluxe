@@ -12,34 +12,15 @@ import SpriteKit
 
 
 class Minion: BasicEnemy {
-   
-    func attack() {
-        if let node = weapon?.projectile {
-           // node.position = weapon.owner.position
-        
-            let point = CGPoint(x: 0, y: node.position.y)
-            node.position = self.position
-           scene!.addChild(node)
-            print("is node")
-            print(self.scene)
-            let action = SKAction.moveTo(point, duration: 1)
-            
-            let delay = SKAction.waitForDuration(weapon!.rateOfFire)
-            let reload = SKAction.waitForDuration(2)
-            
-            //let fullSequence = SKAction.sequence([action,delay,fireSequence,delay,fireSequence,reload])
-            node.runAction(action, withKey: "fire")
-        }
-        
-      
-    }
     
     override init() {
         super.init()
         
-        configure(EnemyTextures.Minion.getTexture(), size: CGSize(width: 75, height: 40), health: 5, weapon: BasicWeapon(owner: self))
+        configure(EnemyTextures.Minion.getTexture(), size: CGSize(width: 75, height: 40), health: 5, weapon: BaseGun(owner: self))
         
         name = "minion"
+        print(self.position)
+
         
     }
     
@@ -49,13 +30,3 @@ class Minion: BasicEnemy {
 
 }
 
-
-/*
- 
- override class func getType() -> Minion {
- return Minion()
- }
- 
- 
- 
- */

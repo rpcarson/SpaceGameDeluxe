@@ -1,8 +1,8 @@
 //
-//  Weapons.swift
+//  PlayerWeapons.swift
 //  SpaceGameDeluxe
 //
-//  Created by Reed Carson on 7/17/16.
+//  Created by Reed Carson on 8/6/16.
 //  Copyright © 2016 Reed Carson. All rights reserved.
 //
 
@@ -43,7 +43,7 @@ class BasicWeapon: WeaponType {
     }
     
     var projectile: SKSpriteNode {
-        let node = SKSpriteNode(color: UIColor.redColor(), size: projectileSize)        
+        let node = SKSpriteNode(color: UIColor.redColor(), size: projectileSize)
         node.texture = WeaponTextures.BasicBullet.getTexture()
         node.physicsBody = body
         node.position = firingPosition
@@ -64,12 +64,12 @@ class BasicWeapon: WeaponType {
         let destination = CGPoint(x: location.x + adjustedX, y: location.y + adjustedY)
         
         /*
-        print("Firing Coordinates")
-        print("DESTINATION \(destination)")
-        print("TOUCH Y \(location.y)")
-        print("TOUCH X \(location.x)")
-        print("PLAYER LOC \(Player.sharedInstance.position)")
-        */
+         print("Firing Coordinates")
+         print("DESTINATION \(destination)")
+         print("TOUCH Y \(location.y)")
+         print("TOUCH X \(location.x)")
+         print("PLAYER LOC \(Player.sharedInstance.position)")
+         */
         
         if let shapeNode = projectile as? SKSpriteNode {
             let moveAction = SKAction.moveTo(destination, duration: self.projectileSpeed)
@@ -101,5 +101,5 @@ class BasicWeapon: WeaponType {
             body.categoryBitMask = MaskValue.playerProjectile
         }
     }
-
+    
 }

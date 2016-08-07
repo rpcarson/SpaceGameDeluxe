@@ -17,7 +17,6 @@ enum PlayerTextures: String {
         case .Player: return SKTexture(imageNamed: PlayerTextures.Player.rawValue)
         }
     }
-    
 }
 
 enum WeaponTextures: String {
@@ -31,6 +30,7 @@ enum WeaponTextures: String {
 }
 
 enum EnemyTextures: String {
+  
     case BasicEnemy = "alien1"
     case Minion = "stupidAssMinion1"
     case Mine = "mine1"
@@ -46,5 +46,21 @@ enum EnemyTextures: String {
         case .Jet: return SKTexture(imageNamed: EnemyTextures.Jet.rawValue)
             
         }
+    }
+    
+    func getSize() -> CGSize {
+        
+        
+        return CGSize(width: 40, height: 40)
+    }
+    
+    func getProjectileOrigin(position: CGPoint) -> CGPoint {
+        let x = position.x
+        let y = position.y
+        let height = getTexture().size().height
+        let width = getTexture().size().width
+        //TODO: - COmplete texture offset calclulations
+        
+        return CGPoint(x: x - width/2, y: y)
     }
 }

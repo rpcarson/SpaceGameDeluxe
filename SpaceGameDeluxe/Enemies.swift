@@ -10,9 +10,26 @@ import SpriteKit
 import GameKit
 
 
+enum HeathValue: Double {
+    case BasicEnemy = 100
+    case Minion = 10
+    case Mine = 20
+}
+
+
 class BasicEnemy: SKSpriteNode, Destructable, Attacker {
     
-    var weapon: WeaponType?
+    var projectileOrigin: CGPoint {
+       // return CGPoint(x: self.position.x - self.size.width/2, y: self.position.y)
+        print(self.position)
+
+        return EnemyTextures.Minion.getProjectileOrigin(self.position)
+    }
+    
+    let healthValue = HeathValue.BasicEnemy.rawValue
+    let level = 1
+    
+    var weapon: Weapon?
     var health: Double = 1000
     var maxHealth: Double = 1000
     
@@ -25,7 +42,7 @@ class BasicEnemy: SKSpriteNode, Destructable, Attacker {
     //MARK: - Setup and Init
     
   
-    func configure(texture: SKTexture, size: CGSize, health: Double, weapon: WeaponType?) {
+    func configure(texture: SKTexture, size: CGSize, health: Double, weapon: Weapon?) {
         
         self.health = health
         self.weapon = weapon
@@ -39,6 +56,8 @@ class BasicEnemy: SKSpriteNode, Destructable, Attacker {
         physicsBody?.collisionBitMask = 0
         physicsBody?.categoryBitMask = MaskValue.destructable
         physicsBody?.contactTestBitMask = MaskValue.playerProjectile
+        
+        
        
     }
     
@@ -46,6 +65,7 @@ class BasicEnemy: SKSpriteNode, Destructable, Attacker {
         super.init(texture: EnemyTextures.BasicEnemy.getTexture(), color: UIColor.clearColor(), size: CGSize(width: 50, height: 50))
         
         configure(EnemyTextures.BasicEnemy.getTexture(), size: CGSize(width: 50, height: 50), health: 1000, weapon: nil)
+        
         
          name = "basicEnemy"
         

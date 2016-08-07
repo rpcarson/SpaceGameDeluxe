@@ -11,11 +11,13 @@ import SpriteKit
 
 
 
-class Player: SKSpriteNode, PlayerType {
-   
+class Player: SKSpriteNode, Destructable {
     static let sharedInstance = Player()
-    
-    var body: SKPhysicsBody!
+
+    var projectileOrigin: CGPoint {
+        return position
+    }
+   
     
     var _size = CGSize(width: 100, height: 40)
     
@@ -28,8 +30,10 @@ class Player: SKSpriteNode, PlayerType {
     var health: Double = 1000
     var maxHealth: Double = 1000
     var weapon: WeaponType?
+    var weapon2: Weapon?
     var secondaryWeapon: WeaponType?
-    var superWeapon: WeaponType?
+    var tertiaryWeapon: WeaponType?
+    
     
     var playerTexture: SKTexture = SKTexture(imageNamed: PlayerTextures.Player.rawValue)
     
@@ -46,7 +50,7 @@ class Player: SKSpriteNode, PlayerType {
     }
     
     func configureAgility(multiplier: AgilityMultiplier) {
-        body.mass = baseAgility / multiplier.rawValue
+        physicsBody?.mass = baseAgility / multiplier.rawValue
     }
     
     func adjustEnginePower(power: EnginePower) {
@@ -54,13 +58,12 @@ class Player: SKSpriteNode, PlayerType {
     }
     
     func setupPhysicsBody() {
-        body = SKPhysicsBody(texture: playerTexture, size: _size)
-        body.affectedByGravity = false
-        body.dynamic = true
-        body.linearDamping = 0.1
-        body.collisionBitMask = MaskValue.player
-        body.categoryBitMask = MaskValue.player
-        self.physicsBody = body
+        physicsBody = SKPhysicsBody(texture: playerTexture, size: _size)
+        physicsBody?.affectedByGravity = false
+        physicsBody?.dynamic = true
+        physicsBody?.linearDamping = 0.1
+        physicsBody?.collisionBitMask = 0
+        physicsBody?.categoryBitMask = MaskValue.player
 
         configureAgility(agilityMultiplier)
     }
@@ -77,6 +80,8 @@ class Player: SKSpriteNode, PlayerType {
         super.init(texture: playerTexture, color: UIColor.clearColor(), size: playerTexture.size())
         
         weapon = BasicWeapon(owner: self)
+        weapon2 = BasePlayerGun(owner: self)
+     
         
         setupSprite()
         
@@ -112,11 +117,11 @@ extension Player {
             }
         }
         
-        let currentImpulse = body.velocity.dy
-        let adjustedImpulse = (impulseVector.dy - currentImpulse)
+        let currentImpulse = physicsBody?.velocity.dy
+        let adjustedImpulse = (impulseVector.dy - currentImpulse!)
         let impulseToApply = CGVectorMake(0, adjustedImpulse)
         
-        body.applyImpulse(impulseToApply)
+        physicsBody?.applyImpulse(impulseToApply)
         
         
         /*
@@ -134,8 +139,12 @@ extension Player {
 extension Player {
     
     func firePrimary(inScene: SKScene) {
+        
+        if let weapon = weapon2 {
+            weapon.trackingFire()
+        }
         if let weapon = weapon {
-            weapon.fire()
+            //weapon.fire()
         }
         
     }
