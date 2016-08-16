@@ -11,7 +11,7 @@ import SpriteKit
 
 
 
-class Player: SKSpriteNode, Destructable {
+class Player: SKSpriteNode, Destructable, Attacker {
     static let sharedInstance = Player()
 
     var projectileOrigin: CGPoint {
@@ -29,7 +29,7 @@ class Player: SKSpriteNode, Destructable {
     var shield: ShieldType?
     var health: Double = 1000
     var maxHealth: Double = 1000
-    var weapon: WeaponType?
+    var weapon: Weapon?
     var weapon2: Weapon?
     var secondaryWeapon: WeaponType?
     var tertiaryWeapon: WeaponType?
@@ -64,6 +64,7 @@ class Player: SKSpriteNode, Destructable {
         physicsBody?.linearDamping = 0.1
         physicsBody?.collisionBitMask = 0
         physicsBody?.categoryBitMask = MaskValue.player
+        physicsBody?.contactTestBitMask = MaskValue.enemy | MaskValue.enemyProjectile
 
         configureAgility(agilityMultiplier)
     }
@@ -79,8 +80,8 @@ class Player: SKSpriteNode, Destructable {
     init() {
         super.init(texture: playerTexture, color: UIColor.clearColor(), size: playerTexture.size())
         
-        weapon = BasicWeapon(owner: self)
-        weapon2 = BasePlayerGun(owner: self)
+
+        weapon = BasePlayerGun(owner: self)
      
         
         setupSprite()
@@ -99,7 +100,7 @@ class Player: SKSpriteNode, Destructable {
 
 extension Player {
     
-    func move(inScene: SKScene, point: CGPoint) {
+    func move(point: CGPoint) {
         
         let currentPositionY = self.position.y
         let indicatedY = point.y
@@ -113,7 +114,7 @@ extension Player {
             case _ where directionOfTap > 0: return CGVectorMake(0, -100 * enginePower.rawValue)
             case _ where directionOfTap < 0: return CGVectorMake(0, 100 * enginePower.rawValue)
             case 0: return CGVectorMake(0, 0)
-            default: fatalError()
+            default: print("impulseVector failure \n");fatalError()
             }
         }
         
@@ -138,13 +139,9 @@ extension Player {
 
 extension Player {
     
-    func firePrimary(inScene: SKScene) {
-        
-        if let weapon = weapon2 {
-            weapon.trackingFire()
-        }
+    func firePrimary() {
         if let weapon = weapon {
-            //weapon.fire()
+            weapon.trackingFire()
         }
         
     }

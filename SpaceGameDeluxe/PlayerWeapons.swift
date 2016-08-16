@@ -16,7 +16,13 @@ enum ProjectileSpeed: Double {
     case Fast = 1
 }
 
+struct RateOfFire {
+    static let fast = 0.25
+    static let medium = 0.75
+    static let slow = 1.25
+}
 
+/*
 
 class BasicWeapon: WeaponType {
     
@@ -103,3 +109,5 @@ class BasicWeapon: WeaponType {
     }
     
 }
+ 
+ */

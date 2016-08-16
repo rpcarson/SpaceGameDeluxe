@@ -20,8 +20,9 @@ extension SKNode {
 extension GameScene {
     
     func startFiring() {
+        guard let weapon = player.weapon else { return }
         fire()
-        timer = NSTimer.scheduledTimerWithTimeInterval(player.weapon!.rateOfFire, target: self, selector: #selector(GameScene.fire), userInfo: nil, repeats: true)
+        timer = NSTimer.scheduledTimerWithTimeInterval(weapon.weaponType.rateOfFire, target: self, selector: #selector(GameScene.fire), userInfo: nil, repeats: true)
     }
     func endFiring() {
         if timer != nil {
@@ -30,11 +31,13 @@ extension GameScene {
     }
     
     func fire() {
-        player.firePrimary(self)
+        player.firePrimary()
     }
 }
 
 extension GameScene {
+    
+    
     func setupTouchZones() {
         let nullSize = CGSize(width: self.frame.width * 0.25, height: self.frame.height)
         let moveSize = CGSize(width: self.frame.width * 0.25, height: self.frame.height)
@@ -68,10 +71,47 @@ extension GameScene {
             nullZone.hidden = true
         }
         
-        self.scene?.addChild(nullZone)
-        self.scene?.addChild(fireZone)
-        self.scene?.addChild(moveZone)
+        zoneLayer.addChild(nullZone)
+        zoneLayer.addChild(fireZone)
+        zoneLayer.addChild(moveZone)
         
     }
     
 }
+
+extension GameScene {
+    func setupLayers() {
+        addChild(backgroundLayer)
+        addChild(worldLayer)
+        addChild(hudLayer)
+        addChild(zoneLayer)
+        
+        worldLayer.addChild(actorLayer)
+        worldLayer.addChild(projectileLayer)
+    }
+    
+    func loadPattern() {
+        pattern = ScenePatternOne(scene: self)
+    }
+    
+    func setupBoundary() {
+        boundary.color = SKColor.redColor()
+        boundary.size = CGSize(width: self.frame.width * 2, height: self.frame.height*2)
+        addChild(boundary)
+        boundary.setup()
+        
+    }
+    
+    func setupPhysics() {
+        physicsWorld.contactDelegate = contactHandler
+        physicsWorld.gravity = CGVector(dx: 0, dy: 0)
+    }
+    
+    func addPlayer() {
+        let position = CGPoint(x: player.size.width / 2 + 10, y: self.frame.height/2)
+        player.position = position
+        worldLayer.addChild(player)
+        
+    }
+}
+

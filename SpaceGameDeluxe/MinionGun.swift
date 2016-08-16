@@ -7,7 +7,7 @@
 //
 
 import SpriteKit
-
+/*
 
 class MinionGun: BasicWeapon {
     
@@ -28,10 +28,10 @@ class MinionGun: BasicWeapon {
         
         let fullSequence = SKAction.sequence([fireSequence,delay,fireSequence,delay,fireSequence,reload])
         
-        let repeatSequence = SKAction.repeatActionForever(fullSequence)
+       // let repeatSequence = SKAction.repeatActionForever(fullSequence)
         
-        if let node = projectile as? SKShapeNode {
-            scene!.addChild(node)
+       // if let node = projectile as? SKShapeNode {
+         //   scene!.addChild(node)
            // node.runAction(fireSequence)
         }
     }
@@ -45,3 +45,5 @@ class MinionGun: BasicWeapon {
 
     
 }
+
+*/

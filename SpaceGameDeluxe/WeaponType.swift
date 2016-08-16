@@ -24,7 +24,7 @@ extension WeaponType {
 
 struct BasicChainGun: WeaponType {
     var damage: Double = 1
-    var rateOfFire: Double = 1
+    var rateOfFire: Double = RateOfFire.fast
     
     func fire() {
         

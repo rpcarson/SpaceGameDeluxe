@@ -13,10 +13,10 @@ struct BasePlayerGun: PlayerWeapon {
     var firePattern: FiringPattern = BurstThree()
     var weaponType: WeaponType = BasicChainGun()
     var projectile: Projectile = BasicBullet()
-    var owner: Player
+    var owner: SKSpriteNode
     var tracking: Bool = false
     
-    init(owner: Player) {
+    init(owner: SKSpriteNode) {
         self.owner = owner
         
         

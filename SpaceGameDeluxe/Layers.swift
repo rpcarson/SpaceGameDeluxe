@@ -9,9 +9,9 @@
 import SpriteKit
 
 enum ZPosition: CGFloat {
-    case Background
-    case World
-    case HUD
+    case Background = -2
+    case World = 2
+    case HUD = 4
 }
 
 class BackgroundLayer: SKNode {
@@ -23,6 +23,18 @@ class HUDLayer: SKNode {
 }
 
 class WorldLayer: SKNode {
+    
+}
+
+class ActorLayer: SKNode {
+    
+}
+
+class ProjectileLayer: SKNode {
+    
+}
+
+class ZoneLayer: SKNode {
     
 }
 

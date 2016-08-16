@@ -13,16 +13,16 @@ protocol Weapon {
     var weaponType: WeaponType { get set }
     var projectile: Projectile { get set }
     var tracking: Bool { get set }
+    var owner: SKSpriteNode { get set }
     
     func dumbfire()
     func trackingFire()
     func fire()
     
+    init(owner: SKSpriteNode)
+    
     
 }
-
-
-
 
 
 //MARK: PlayerWeapon Protocol
@@ -30,19 +30,21 @@ protocol Weapon {
 
 
 protocol PlayerWeapon: Weapon {
-    var owner: Player { get set }
-    init(owner: Player)
+  //  var owner: Player { get set }
+ //   init(owner: Player)
 }
 
 extension PlayerWeapon {
     
+    
     func addNode() -> Projectile? {
-        guard let scene = owner.scene else { return nil }
+        guard let scene = owner.scene as? GameScene else { return nil }
         let node = projectile.dynamicType.init()
-        node.position = owner.projectileOrigin
-        node.physicsBody?.categoryBitMask = MaskValue.projectile
-        node.physicsBody?.contactTestBitMask = MaskValue.destructable | MaskValue.enemy
-        scene.addChild(node)
+        node.position = (owner as! Player).projectileOrigin
+        node.physicsBody?.categoryBitMask = MaskValue.playerProjectile
+        node.physicsBody?.contactTestBitMask = MaskValue.destructable
+        scene.projectileLayer.addChild(node)
+        node.name = "playerProjectile"
         return node
     }
     
@@ -96,19 +98,20 @@ extension PlayerWeapon {
 //MARK: EnemyWeapon protocol
 
 protocol EnemyWeapon: Weapon {
-    var owner: BasicEnemy { get set }
-    init(owner: BasicEnemy)
+   // var owner: BasicEnemy { get set }
+   // init(owner: BasicEnemy)
 }
 
 extension EnemyWeapon {
    
     func addNode() -> Projectile? {
-        guard let scene = owner.scene else { return nil }
+        guard let scene = owner.scene as? GameScene else { return nil }
         let node = projectile.dynamicType.init()
-        node.position = owner.projectileOrigin
+        node.position = (owner as! Attacker).projectileOrigin
         node.physicsBody?.categoryBitMask = MaskValue.enemyProjectile
         node.physicsBody?.contactTestBitMask = MaskValue.player
-        scene.addChild(node)
+        scene.projectileLayer.addChild(node)
+        node.name = "enemyProjectile"
         return node
     }
   
@@ -170,6 +173,7 @@ extension EnemyWeapon {
             let move = SKAction.moveByX(-UIScreen.mainScreen().bounds.width, y: 0, duration: projectile.projectileSpeed)
             
             let despawn = SKAction.removeFromParent()
+        let wait = SKAction.waitForDuration(2)
             let seq = SKAction.sequence([move,despawn])
             node.runAction(seq)
         
@@ -191,7 +195,7 @@ extension EnemyWeapon {
         
         node.physicsBody?.applyImpulse(CGVectorMake(X/magnitude * CGFloat(projectile.projectileSpeed), Y/magnitude * CGFloat(projectile.projectileSpeed)))
         
-        print("MASS \(node.physicsBody?.mass)")
+        //print("MASS \(node.physicsBody?.mass)")
         
     }
     

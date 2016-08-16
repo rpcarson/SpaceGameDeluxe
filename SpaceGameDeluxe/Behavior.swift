@@ -9,14 +9,52 @@
 import SpriteKit
 
 
+enum BehaviorType {
+    case Approach
+}
+
+
 protocol Behavior {
     var pattern: SKAction { get }
 }
 
 extension Behavior {
-
+    var screenWidth: CGFloat {
+      return UIScreen.mainScreen().bounds.width
+    }
+    
 }
 
+
+struct Approach: Behavior {
+    
+    var duration: Double
+   
+    var pattern: SKAction {
+        return moveRightToLeft()
+    }
+    
+    func moveRightToLeft() -> SKAction {
+        
+        let despawn = SKAction.removeFromParent()
+        let move = SKAction.moveToX(-screenWidth/2, duration: duration)
+        let sequence = SKAction.sequence([move, despawn])
+        
+        return sequence
+    }
+    
+    init(duration: Double) {
+        self.duration = duration
+    }
+}
+
+
+
+
+
+
+
+/*
 protocol EnemyBehavior {
     var node: SKSpriteNode { get set }
     var scene: SKScene { get set }
@@ -56,26 +94,11 @@ extension EnemyBehavior {
     
     internal func spawnNode() {
         node.position = spawnPoint
-        scene.addChild(node)
+        (scene as! ActionScene).actorLayer.addChild(node)
     }
 }
 
-struct Approach: Behavior {
-   let screenWidth = UIScreen.mainScreen().bounds.width
 
-    var pattern: SKAction {
-        return moveRightToLeft()
-    }
-    
-    func moveRightToLeft() -> SKAction {
-    
-        let despawn = SKAction.removeFromParent()
-        let move = SKAction.moveToX(-screenWidth/2, duration: 7)
-        let sequence = SKAction.sequence([move, despawn])
-        
-        return sequence
-    }
-}
 
 
 struct BasicApproach: EnemyBehavior {
@@ -88,16 +111,16 @@ struct BasicApproach: EnemyBehavior {
         return CGPoint(x: nodeHeight, y: nodeHeight)
     }
     
-    internal func moveRightToLeft(node: SKSpriteNode) -> SKAction {
-        
-        let destination = CGPoint(x: -node.size.width, y: nodeY)
-        
-        let despawn = SKAction.removeFromParent()
-        let move = SKAction.moveTo(destination, duration: 5)
-        let sequence = SKAction.sequence([move, despawn])
-        
-        return sequence
-    }
+//    internal func moveRightToLeft(node: SKSpriteNode) -> SKAction {
+//        
+//        let destination = CGPoint(x: -node.size.width, y: nodeY)
+//        
+//        let despawn = SKAction.removeFromParent()
+//        let move = SKAction.moveTo(destination, duration: 5)
+//        let sequence = SKAction.sequence([move, despawn])
+//        
+//        return sequence
+//    }
     
    internal func moveRightToLeft() -> SKAction {
         
@@ -121,3 +144,8 @@ struct BasicApproach: EnemyBehavior {
     }
     
 }
+
+
+*/
+
+

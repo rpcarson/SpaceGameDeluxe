@@ -14,7 +14,7 @@ class Mine: BasicEnemy {
     var damage: Double = 50
     
     func spin() {
-        let spin = SKAction.applyTorque(RandomNumbers.getRandomTo10()/10, duration: 10)
+      //  let spin = SKAction.applyTorque(RandomNumbers.getRandomTo10()/10, duration: 10)
        // self.runAction(spin)
         
         print("spinning")
@@ -31,7 +31,6 @@ class Mine: BasicEnemy {
         
         spin()
         
-        name = "mine"
     }
     
     required init?(coder aDecoder: NSCoder) {

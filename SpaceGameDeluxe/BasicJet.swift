@@ -1,29 +1,26 @@
 //
-//  Minion.swift
+//  BasicJet.swift
 //  SpaceGameDeluxe
 //
-//  Created by Reed Carson on 7/29/16.
+//  Created by Reed Carson on 8/15/16.
 //  Copyright © 2016 Reed Carson. All rights reserved.
 //
 
 import SpriteKit
 
-
-
-
-class Minion: BasicEnemy {
+class BasicJet: BasicEnemy {
     
     override init() {
         super.init()
         
-        configure(EnemyTextures.Minion.getTexture(), size: CGSize(width: 75, height: 40), health: EnemyTextures.Minion.healthValue, weapon: BaseGun(owner: self))
-
+        configure(EnemyTextures.Jet.getTexture(), size: CGSize(width: 100, height: 70), health: EnemyTextures.Jet.healthValue, weapon: BaseGun(owner: self))
+        
         
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
+    
 }
-

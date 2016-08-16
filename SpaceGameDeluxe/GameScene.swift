@@ -11,25 +11,37 @@ import SpriteKit
 protocol ActionScene {
     var frameCount: Double { get set }
     var pattern: ScenePattern? { get }
-    
-    
-
+    var spawner: Spawner? { get set }
+    var worldLayer: WorldLayer { get  }
+    var hudLayer: HUDLayer { get  }
+    var backgroundLayer: BackgroundLayer { get  }
+    var actorLayer: ActorLayer { get  }
+    var projectileLayer: ProjectileLayer { get  }
+    var zoneLayer: ZoneLayer { get  }
 }
 
 
 
-
-let worldLayer = SKNode()
-
-
-class GameScene: SKScene, SKPhysicsContactDelegate, ActionScene {
+class GameScene: SKScene, ActionScene {
     
-   
+    var spawner: Spawner?
+    
+    let contactHandler = ContactHandler()
+    
+    let boundary = PhysicsBoundary()
+    
+    let worldLayer = WorldLayer()
+    let hudLayer = HUDLayer()
+    let backgroundLayer = BackgroundLayer()
+    let actorLayer = ActorLayer()
+    let projectileLayer = ProjectileLayer()
+    let zoneLayer = ZoneLayer()
     
     var fireTouchLocation: CGPoint?
     var enemies = [BasicEnemy]()
     
     var frameCount: Double = 0
+    
     var pattern: ScenePattern?
     
     var moveZone: SKShapeNode!
@@ -42,36 +54,32 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ActionScene {
     let player = Player.sharedInstance
     
     override func didMoveToView(view: SKView) {
-      //  addPlayer()
+        
+        
+        
+        spawner = Spawner(actionScene: self)
+        
+        setupScene()
+        
+       // pattern?.compileArray()
+        
+        
+
+    }
+    
+    func setupScene() {
+        setupLayers()
         setupTouchZones()
         setupPhysics()
-        
-        pattern = PatternOne(scene: self)
-        pattern?.delegate = self
+        loadPattern()
+        setupBoundary()
+        addPlayer()
         
         backgroundColor = UIColor.blackColor()
         
-        addChild(worldLayer)
-        let position = CGPoint(x: player.size.width / 2 + 10, y: self.frame.height/2)
-        player.position = position
-        worldLayer.addChild(player)
-        
-        
     }
     
-    func setupPhysics() {
-        physicsWorld.contactDelegate = self
-        physicsWorld.gravity = CGVector(dx: 0, dy: 0)
-    }
-    
-    func addPlayer() {
-        let position = CGPoint(x: player.size.width / 2 + 10, y: self.frame.height/2)
-        player.position = position
-        self.addChild(player)
-    }
-    
-    
-    
+  
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         for touch in touches {
@@ -102,7 +110,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ActionScene {
                 startFiring()
             }
             if moveZone.containsPoint(location) {
-                player.move(self, point: location)
+                player.move(location)
             }
             if nullZone.containsPoint(location) {
                 endFiring()
@@ -120,6 +128,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ActionScene {
     }
     
     func didBeginContact(contact: SKPhysicsContact) {
+        
+        //collisionHandler.didBeginContact(contact)
+        
+        /*
         
           print("physics contact")
         
@@ -175,16 +187,40 @@ class GameScene: SKScene, SKPhysicsContactDelegate, ActionScene {
             print("PROJ AND DESTRUCT CONATCT")
             
         }
-        
-        if (categoryA == MaskValue.player && categoryB == MaskValue.enemyProjectile) || (categoryB == MaskValue.player && categoryA == MaskValue.enemyProjectile) {
+        if (categoryA == MaskValue.projectile && categoryB == MaskValue.boundary) || (categoryB == MaskValue.boundary && categoryA == MaskValue.projectile) {
             
             print("enemy proj contact plaer")
             
-            if let projectile = enemyProjectile {
+            if let projectile = projectile {
                 projectile.remove()
+                print("\(projectile) bing removed")
             }
             
         }
+        
+        if (categoryA == MaskValue.projectile && categoryB == MaskValue.boundary) || (categoryB == MaskValue.projectile && categoryA == MaskValue.boundary) {
+
+            print("projectile vs boundary")
+            
+            if let projectile = projectile {
+                projectile.remove()
+                print("\(projectile) bing removed")
+            }
+            
+        }
+        
+        if (categoryA == MaskValue.enemyProjectile && categoryB == MaskValue.player) || (categoryB == MaskValue.enemyProjectile && categoryA == MaskValue.player) {
+            
+            print("projectile vs player")
+            
+            if let projectile = enemyProjectile {
+                projectile.remove()
+                       print("\(projectile) bing removed")
+            }
+            
+        }
+ 
+ */
         
     }
     

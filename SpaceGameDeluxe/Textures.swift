@@ -29,38 +29,81 @@ enum WeaponTextures: String {
     }
 }
 
-enum EnemyTextures: String {
+enum EnemyTextures {
   
-    case BasicEnemy = "alien1"
-    case Minion = "stupidAssMinion1"
-    case Mine = "mine1"
-    case SquareJet = "strafeJet"
-    case Jet = "crapEnemy1"
+    case BasicEnemy
+    case Minion
+    case Mine
+    case SquareJet
+    case Jet
     
     func getTexture() -> SKTexture {
         switch self {
-        case .BasicEnemy: return SKTexture(imageNamed: EnemyTextures.BasicEnemy.rawValue)
-        case .Minion: return SKTexture(imageNamed: EnemyTextures.Minion.rawValue)
-        case .Mine: return SKTexture(imageNamed: EnemyTextures.Mine.rawValue)
-        case .SquareJet: return SKTexture(imageNamed: EnemyTextures.SquareJet.rawValue)
-        case .Jet: return SKTexture(imageNamed: EnemyTextures.Jet.rawValue)
+        case .BasicEnemy: return SKTexture(imageNamed: "alien1")
+        case .Minion: return SKTexture(imageNamed: "stupidAssMinion1")
+        case .Mine: return SKTexture(imageNamed: "mine1")
+        case .SquareJet: return SKTexture(imageNamed: "strafeJet")
+        case .Jet: return SKTexture(imageNamed: "crapEnemy1")
             
         }
     }
     
     func getSize() -> CGSize {
+        switch self {
+        case .BasicEnemy: return CGSize(width: 50, height: 50)
+        case .Minion: return CGSize(width: 50, height: 50)
+        case .Mine: return CGSize(width: 50, height: 50)
+        case .SquareJet: return CGSize(width: 50, height: 50)
+        case .Jet: return CGSize(width: 50, height: 50)
+    }
         
-        
-        return CGSize(width: 40, height: 40)
     }
     
     func getProjectileOrigin(position: CGPoint) -> CGPoint {
         let x = position.x
         let y = position.y
-        let height = getTexture().size().height
+       // let height = getTexture().size().height
         let width = getTexture().size().width
         //TODO: - COmplete texture offset calclulations
         
         return CGPoint(x: x - width/2, y: y)
     }
+    
+    var healthValue: Double {
+        switch self {
+        case .BasicEnemy: return 100
+        case .Minion: return 10
+        case .Mine: return 20
+        case .SquareJet: return 10
+        case .Jet: return 40
+        }
+    }
+    
+    var weapon: EnemyWeapon {
+        switch self {
+        case .BasicEnemy: return BaseGun()
+        case .Minion: return BaseGun()
+        case .Mine: return BaseGun()
+        case .SquareJet: return BaseGun()
+        case .Jet: return BaseGun()
+        }
+    }
+    
+    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//

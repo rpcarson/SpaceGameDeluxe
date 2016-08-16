@@ -10,10 +10,17 @@ import SpriteKit
 import GameKit
 
 
-enum HeathValue: Double {
-    case BasicEnemy = 100
-    case Minion = 10
-    case Mine = 20
+//enum HeathValue: Double {
+//    case BasicEnemy = 100
+//    case Minion = 10
+//    case Mine = 20
+//}
+
+
+struct HealthValue {
+    static let basicEnemy = 100.0
+    static let minion = 10.0
+    static let mine = 20.0
 }
 
 
@@ -21,13 +28,15 @@ class BasicEnemy: SKSpriteNode, Destructable, Attacker {
     
     var projectileOrigin: CGPoint {
        // return CGPoint(x: self.position.x - self.size.width/2, y: self.position.y)
-        print(self.position)
+       // print(self.position)
 
         return EnemyTextures.Minion.getProjectileOrigin(self.position)
     }
     
-    let healthValue = HeathValue.BasicEnemy.rawValue
+    var healthValue = HealthValue.basicEnemy
     let level = 1
+    
+    var enemyType: EnemyTextures = EnemyTextures.BasicEnemy
     
     var weapon: Weapon?
     var health: Double = 1000
@@ -49,10 +58,13 @@ class BasicEnemy: SKSpriteNode, Destructable, Attacker {
         self.size = size
         self.texture = texture
         
+        name = "enemy"
+       // print("name set \(self.name)")
+        
         physicsBody = SKPhysicsBody(texture: texture, size: size)
-        physicsBody?.dynamic = false
+        physicsBody?.dynamic = true
         physicsBody?.affectedByGravity = false
-        physicsBody?.usesPreciseCollisionDetection = true
+        physicsBody?.usesPreciseCollisionDetection = false
         physicsBody?.collisionBitMask = 0
         physicsBody?.categoryBitMask = MaskValue.destructable
         physicsBody?.contactTestBitMask = MaskValue.playerProjectile
@@ -61,14 +73,30 @@ class BasicEnemy: SKSpriteNode, Destructable, Attacker {
        
     }
     
+    func defaultConfiguration() {
+        health = enemyType.healthValue
+        
+    }
+    
     init() {
         super.init(texture: EnemyTextures.BasicEnemy.getTexture(), color: UIColor.clearColor(), size: CGSize(width: 50, height: 50))
         
-        configure(EnemyTextures.BasicEnemy.getTexture(), size: CGSize(width: 50, height: 50), health: 1000, weapon: nil)
         
+        configure(EnemyTextures.BasicEnemy.getTexture(), size: EnemyTextures.BasicEnemy.getSize(), health: EnemyTextures.BasicEnemy.healthValue, weapon: nil)
         
-         name = "basicEnemy"
-        
+    }
+    
+    convenience init(withBehavior behavior: SKAction) {
+        self.init()
+        self.runAction(behavior)
+    }
+    
+    convenience init(texture: SKTexture, size: CGSize, health: Double, weapon: Weapon?) {
+        self.init()
+        self.texture = texture
+        self.health = health
+        self.weapon = weapon
+        self.size = size
     }
     
     required init?(coder aDecoder: NSCoder) {

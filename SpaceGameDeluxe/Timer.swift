@@ -20,7 +20,7 @@ class Timer {
 
 class WeaponTimer {
     
-     let timer = NSTimer(timeInterval: Player.sharedInstance.weapon!.rateOfFire, target: Player.sharedInstance, selector: #selector(Player.sharedInstance.firePrimary), userInfo: nil, repeats: true)
+    // let timer = NSTimer(timeInterval: Player.sharedInstance.weapon!.rateOfFire, target: Player.sharedInstance, selector: #selector(Player.sharedInstance.firePrimary), userInfo: nil, repeats: true)
     
     
 }

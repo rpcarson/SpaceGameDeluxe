@@ -9,28 +9,6 @@
 import SpriteKit
 
 
-struct MaskValue {
-    struct Collision {
-        static let player: UInt32 = 0
-        static let projectile: UInt32 = 1
-        static let enemy: UInt32 = 2
-        static let scene: UInt32 = 3
-    }
-    struct Category {
-        
-    }
-    static let player: UInt32 = 1
-    static let projectile: UInt32 = 2
-    static let enemy: UInt32 = 3
-    static let scene: UInt32 = 4
-    static let destructable: UInt32 = 5
-    static let enemyProjectile: UInt32 = 6
-    static let playerProjectile: UInt32 = 7
-
-  
-}
-
-
 protocol PlayerType: Destructable, Attacker {
     var shield: ShieldType? { get set }
     var armor: ArmorType? { get set }

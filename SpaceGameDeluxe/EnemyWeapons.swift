@@ -16,14 +16,17 @@ struct BaseGun: EnemyWeapon {
     var weaponType: WeaponType = BasicChainGun()
     var projectile: Projectile = BasicBullet()
     
-    var owner: BasicEnemy
+    var owner: SKSpriteNode = BasicEnemy()
     var tracking: Bool = false
     
-    init(owner: BasicEnemy) {
+    init(owner: SKSpriteNode) {
         self.owner = owner
-
+    }
+    
+    init() {
         
     }
+
     
     init(owner: BasicEnemy, pattern: FiringPattern, type: WeaponType, projectile: Projectile, tracking: Bool) {
         self.owner = owner

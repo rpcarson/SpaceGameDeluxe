@@ -13,9 +13,10 @@ protocol FiringPattern {
     func pattern(weapon: Weapon)
 }
 
+protocol EnemyFiringPattern: FiringPattern { }
 
 
-struct BurstThree: FiringPattern {
+struct BurstThree: EnemyFiringPattern {
     
     func pattern(weapon: Weapon) {
         let fire = SKAction.runBlock {
@@ -26,13 +27,11 @@ struct BurstThree: FiringPattern {
             }
         }
         for i in 0..<3 {
-            let wait = SKAction.waitForDuration(Double(i)/weapon.weaponType.rateOfFire)
+            let wait = SKAction.waitForDuration(Double(i))
             let sequence = SKAction.sequence([wait, fire])
             
-            worldLayer.runAction(sequence)
-            
-            print(weapon.weaponType.rateOfFire/2)
-            
+            (weapon.owner.scene as! GameScene).worldLayer.runAction(sequence)
+                        
         }
         
     }
