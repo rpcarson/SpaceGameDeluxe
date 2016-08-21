@@ -10,6 +10,8 @@ import UIKit
 
 var debugMode: Bool = false
 
+var simulationSpeed: CGFloat = 2
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

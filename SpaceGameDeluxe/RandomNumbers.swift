@@ -6,11 +6,8 @@
 //  Copyright © 2016 Reed Carson. All rights reserved.
 //
 
-import Foundation
 import SpriteKit
 import GameKit
-
-
 
 struct RandomNumbers {
     

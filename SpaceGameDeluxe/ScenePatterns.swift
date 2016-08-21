@@ -8,16 +8,13 @@
 
 import SpriteKit
 
-
-
-
 protocol ScenePattern {
     var actions: [SKAction] { get set }
     var scene: ActionScene { get set }
     var timeOfLastAction: Double { get set }
-    mutating func addArrayItem(item: (SKAction, Double))
+    
     mutating func updateScene()
-    mutating func compileArray()
+    mutating func compilePattern()
 }
 
 struct ScenePatternOne: ScenePattern {
@@ -25,52 +22,89 @@ struct ScenePatternOne: ScenePattern {
     var scene: ActionScene
     var actions: [SKAction] = []
     var timeOfLastAction: Double = 0
+    var totalTimeElapsed: Double = 0
+    
+    var totalRunTime: Double {
+        return timeOfLastAction
+    }
     var spawn: Spawner {
         return scene.spawner!
     }
     
-    internal mutating func compileArray() {
-        
-        addArrayItem(spawn.makeAction(0, action: spawn.spawnJet(.Middle, speed: 10)))
-        
-        addArrayItem(spawn.makeAction(timeOfLastAction + 3, action: spawn.spawnJet(.Top, speed: 10)))
-        
-        addArrayItem(spawn.makeAction(timeOfLastAction + 3, action: spawn.spawnJet(.Bottom, speed: 10)))
-        
-        addArrayItem(spawn.makeAction(timeOfLastAction + 5, action: spawn.spawnJet(.MidTop, speed: 10)))
-        
+    func runPattern() {
+        let group = SKAction.group(actions)
+        scene.worldLayer.runAction(group)
     }
-    internal mutating func addArrayItem(item: (SKAction, Double)) {
-        timeOfLastAction = item.1
-        actions.append(item.0)
+    
+    mutating func compilePattern() {
         
+        //  addPatternComponent(spawn.threeMinApproach(), wait: 0)
+        
+        //  addPatternComponent(spawn.tripleJetCruiseIn(), wait: 2)
+        
+        addPatternComponent(spawn.spawnMinion(.Top, speed: 20), wait: 0)
+        addPatternComponent(spawn.spawnTrackingMinion(.Middle, speed: 20), wait: 0)
+        addPatternComponent(spawn.spawnMinion(.Bottom, speed: 20), wait: 0)
+        
+        addPatternComponent(spawn.spawnMinion(.MidTop, speed: 12), wait: 5)
+        addPatternComponent(spawn.spawnMinion(.MidBottom, speed: 12), wait: 0)
+        
+        addPatternComponent(spawn.spawnMissileMinion(.Top, speed: 25), wait: 3)
+        addPatternComponent(spawn.spawnMissileMinion(.Bottom, speed: 25), wait: 0)
+        
+        addPatternComponent(spawn.runCustomPattern(EnemyType.basicJet, behavior: Approach(duration: 40), spawnPoint: .Middle, fireDelay: 2, hostile: true), wait: 2)
+        
+        addPatternComponent(spawn.spawnApproach(EnemyType.basicEnemy, point: .Middle, speed: 20, hostile: true), wait: 2)
+        
+      
+        
+        /*
+         addPatternComponent(spawn.spawnMinion(.MidBottom, speed: 20), wait: 0)
+         addPatternComponent(spawn.spawnMinion(.MidTop, speed: 20), wait: 2)
+         addPatternComponent(spawn.spawnTrackingMinion(.MidBottom, speed: 20), wait: 0)
+         addPatternComponent(spawn.spawnMinion(.MidTop, speed: 20), wait: 2)
+         addPatternComponent(spawn.spawnMinion(.MidBottom, speed: 20), wait: 0)
+         addPatternComponent(spawn.spawnMinion(.MidTop, speed: 20), wait: 2)
+         addPatternComponent(spawn.spawnMinion(.MidBottom, speed: 20), wait: 0)
+         */
     }
-
+    
+    typealias PatternComponent = SKAction
+    
+    private mutating func createPatternComponent(wait: Double, action: SKAction) -> (PatternComponent) {
+        let time = wait + timeOfLastAction
+        let delay = SKAction.waitForDuration(time)
+        timeOfLastAction = time
+        return (SKAction.sequence([delay, action]))
+    }
+    
+    private mutating func addPatternComponent(action: SKAction, wait: Double) {
+        let component = createPatternComponent(wait, action: action)
+        actions.append(component)
+    }
+    
     
     mutating func updateScene() {
         let count = scene.frameCount
         
-        if count == 90 {
-            let group = SKAction.group(actions)
-            scene.worldLayer.runAction(group)
+        if count % 30 == 0 {
+            totalTimeElapsed += 1
+            print(totalTimeElapsed)
         }
         
-        
+        if count == 30 {
+            runPattern()
+        }
         
     }
     
     init(scene: ActionScene) {
+        
         self.scene = scene
-        compileArray()
+        compilePattern()
+        print(totalRunTime)
     }
 }
-
-extension ScenePattern {
-    
-    
-}
-
-
 
 
 

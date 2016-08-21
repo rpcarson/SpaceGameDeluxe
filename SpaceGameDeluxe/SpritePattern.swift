@@ -9,11 +9,11 @@
 import SpriteKit
 
 
+
 protocol Pattern {
     var sprite: BasicEnemy { get set }
     var behavior: Behavior { get set }
     var spawnPoint: SpawnPoint { get set }
-  //  var scene: SKScene { get set }
     
     func spawn(actionScene: ActionScene)
     func run(hostile: Bool, scene: ActionScene)
@@ -21,26 +21,31 @@ protocol Pattern {
 }
 
 extension Pattern {
+    
     internal func spawn(actionScene: ActionScene) {
         sprite.position = spawnPoint.getPointForNode(sprite)
         actionScene.worldLayer.addChild(sprite)
     }
     
-    func run(hostile: Bool = true, scene: ActionScene) {
+    func run(hostile: Bool, scene: ActionScene) {
+        
+    }
+    
+    func run(hostile: Bool = true, fireDelay: Double = 0, scene: ActionScene) {
         spawn(scene)
         sprite.runAction(behavior.pattern)
-        if hostile == true {
-            sprite.weapon?.fire()
+        
+        if hostile {
+            sprite.weapon?.fire(fireDelay)
         }
+    
     }
-
     
     init(sprite: BasicEnemy, behavior: Behavior, spawnPoint: SpawnPoint) {
         self.init(sprite: sprite, behavior: behavior, spawnPoint: spawnPoint)
         self.sprite = sprite
         self.behavior = behavior
         self.spawnPoint = spawnPoint
-      //  self.scene = scene
     }
 }
 
@@ -49,7 +54,6 @@ struct SimplePattern: Pattern {
     var sprite: BasicEnemy
     var behavior: Behavior
     var spawnPoint: SpawnPoint
-   // var scene: SKScene
     
 }
 

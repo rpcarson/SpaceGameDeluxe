@@ -26,6 +26,12 @@ struct BaseGun: EnemyWeapon {
     init() {
         
     }
+    
+    init(tracking: Bool, owner: SKSpriteNode) {
+        self.init(owner: owner)
+        self.tracking = tracking
+        self.projectile = BasicBullet(source: self)
+    }
 
     
     init(owner: BasicEnemy, pattern: FiringPattern, type: WeaponType, projectile: Projectile, tracking: Bool) {
@@ -33,6 +39,7 @@ struct BaseGun: EnemyWeapon {
         self.firePattern = pattern
         self.weaponType = type
         self.projectile = projectile
+        projectile.source = self
         self.tracking = tracking
         
     }

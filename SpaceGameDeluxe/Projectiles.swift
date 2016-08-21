@@ -11,46 +11,44 @@ import SpriteKit
 
 class Projectile: SKSpriteNode {
     var projectileSpeed: Double = 4
+    var source: Weapon?
+    
+
 }
 
 
 
 class BasicBullet: Projectile {
     
-    var _size = CGSize(width: 30, height: 20)
-    var _texture = WeaponTextures.BasicBullet.getTexture()
-    
-    func setupSprite() {
+    func configure(texture: SKTexture, size: CGSize, speed: Double) {
        
-        physicsBody = SKPhysicsBody(texture: _texture, size: _size)
+        self.texture = texture
+        
+        self.size = size
+        self.projectileSpeed = speed
+
+        name = "projectile"
+        physicsBody = SKPhysicsBody(texture: texture, size: size)
+        physicsBody?.dynamic = true
         physicsBody?.affectedByGravity = false
-        physicsBody?.collisionBitMask = 0
-        //physicsBody?.categoryBitMask = MaskValue.enemyProjectile
-        //physicsBody?.contactTestBitMask = MaskValue.player
         physicsBody?.usesPreciseCollisionDetection = true
-        zPosition = 2
+        physicsBody?.collisionBitMask = 0
         physicsBody?.mass = 1
         physicsBody?.density = 1
-      
-    }
     
-    func configure(projectileSpeed: Double, texture: SKTexture, size: CGSize) {
-        self.projectileSpeed = projectileSpeed
-        self._texture = texture
-        self._size = size
     }
     
     init() {
-        super.init(texture: _texture, color: UIColor.clearColor(), size: _size)
-       
-        setupSprite()
+        super.init(texture: WeaponTextures.BasicBullet.getTexture(), color: UIColor.clearColor(), size: CGSize(width: 50, height: 50))
+    }
+    
+    init(source: Weapon) {
+        super.init(texture: WeaponTextures.BasicBullet.getTexture(), color: UIColor.clearColor(), size: CGSize(width: 50, height: 50))
         
-        projectileSpeed = 2
+        configure(WeaponTextures.BasicBullet.getTexture(), size: CGSize(width: 20, height: 5), speed: 2)
         
-        physicsBody?.mass = 1
-        physicsBody?.density = 1
-        
-   
+        self.source = source
+               // print("REGULAR MASS\(physicsBody?.mass)")
         
     }
     
@@ -58,3 +56,64 @@ class BasicBullet: Projectile {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
+class BasicRoundBullet: BasicBullet {
+    
+    override init(source: Weapon) {
+        super.init(source: source)
+        
+        configure(WeaponTextures.EnergyBulletPurple.getTexture(), size: CGSize(width: 20, height: 20), speed: 4)
+        
+         self.source = source
+        
+       // print("ROUND MASS\(physicsBody?.mass)")
+
+    }
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class BasicMissile: BasicBullet {
+    
+    override  init(source: Weapon) {
+        super.init(source: source)
+        
+        configure(WeaponTextures.PlaceHolderMissile.getTexture(), size: CGSize(width: 50, height: 10), speed: 7)
+        
+      self.source = source
+        
+        // print("ROUND MASS\(physicsBody?.mass)")
+        
+    }
+    
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//

@@ -18,8 +18,7 @@ struct BasePlayerGun: PlayerWeapon {
     
     init(owner: SKSpriteNode) {
         self.owner = owner
-        
-        
+    
         
     }
     

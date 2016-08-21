@@ -18,7 +18,6 @@ class Player: SKSpriteNode, Destructable, Attacker {
         return position
     }
    
-    
     var _size = CGSize(width: 100, height: 40)
     
     var enginePower: EnginePower = EnginePower.x1

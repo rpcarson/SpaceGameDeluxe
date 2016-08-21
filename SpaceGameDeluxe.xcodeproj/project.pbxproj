@@ -37,15 +37,12 @@
 		5BA5AF201D4EBA1000192CFE /* SpawnPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA5AF1F1D4EBA1000192CFE /* SpawnPoint.swift */; };
 		5BA7578B1D5947A20014BD82 /* ContactHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7578A1D5947A20014BD82 /* ContactHandler.swift */; };
 		5BA7578E1D596F030014BD82 /* PhysicsBoundary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BA7578D1D596F030014BD82 /* PhysicsBoundary.swift */; };
-		5BB457511D5E90C40008E82F /* SceneComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB457501D5E90C40008E82F /* SceneComponent.swift */; };
 		5BB936B21D568D5D0015CFE6 /* FiringPattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB936B11D568D5D0015CFE6 /* FiringPattern.swift */; };
-		5BB936B41D568E430015CFE6 /* PlayerWeapons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BB936B31D568E430015CFE6 /* PlayerWeapons.swift */; };
 		5BBA80771D57CA5A00CD51CD /* EnemyWeapons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBA80761D57CA5A00CD51CD /* EnemyWeapons.swift */; };
 		5BBA80791D57CA6300CD51CD /* PlayerWeapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBA80781D57CA6300CD51CD /* PlayerWeapon.swift */; };
 		5BD2FA661D52A029001DF146 /* playground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD2FA651D52A029001DF146 /* playground.swift */; };
-		5BD524AB1D4D616B00D749C3 /* MinionGun.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD524AA1D4D616B00D749C3 /* MinionGun.swift */; };
-		5BDCDAF61D40209800DF7DFF /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDCDAF51D40209800DF7DFF /* Timer.swift */; };
 		5BDCDAF81D402D1D00DF7DFF /* RandomNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDCDAF71D402D1D00DF7DFF /* RandomNumbers.swift */; };
+		5BE05AC21D63C23B004E4996 /* TrackingMinion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE05AC11D63C23B004E4996 /* TrackingMinion.swift */; };
 		5BF4B1EC1D452B27005C4BBD /* Layers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF4B1EB1D452B27005C4BBD /* Layers.swift */; };
 /* End PBXBuildFile section */
 
@@ -103,15 +100,12 @@
 		5BA5AF1F1D4EBA1000192CFE /* SpawnPoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpawnPoint.swift; sourceTree = "<group>"; };
 		5BA7578A1D5947A20014BD82 /* ContactHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactHandler.swift; sourceTree = "<group>"; };
 		5BA7578D1D596F030014BD82 /* PhysicsBoundary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsBoundary.swift; sourceTree = "<group>"; };
-		5BB457501D5E90C40008E82F /* SceneComponent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneComponent.swift; sourceTree = "<group>"; };
 		5BB936B11D568D5D0015CFE6 /* FiringPattern.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FiringPattern.swift; sourceTree = "<group>"; };
-		5BB936B31D568E430015CFE6 /* PlayerWeapons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerWeapons.swift; sourceTree = "<group>"; };
 		5BBA80761D57CA5A00CD51CD /* EnemyWeapons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyWeapons.swift; sourceTree = "<group>"; };
 		5BBA80781D57CA6300CD51CD /* PlayerWeapon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerWeapon.swift; sourceTree = "<group>"; };
 		5BD2FA651D52A029001DF146 /* playground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = playground.swift; sourceTree = "<group>"; };
-		5BD524AA1D4D616B00D749C3 /* MinionGun.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MinionGun.swift; sourceTree = "<group>"; };
-		5BDCDAF51D40209800DF7DFF /* Timer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		5BDCDAF71D402D1D00DF7DFF /* RandomNumbers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomNumbers.swift; sourceTree = "<group>"; };
+		5BE05AC11D63C23B004E4996 /* TrackingMinion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingMinion.swift; sourceTree = "<group>"; };
 		5BF4B1EB1D452B27005C4BBD /* Layers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -147,6 +141,7 @@
 				5B5748091D4C022F005EB35D /* Minion.swift */,
 				5B0BE4AE1D4FFB50008DBD6C /* Mine.swift */,
 				5B1C9A881D62772B0079EFF5 /* BasicJet.swift */,
+				5BE05AC11D63C23B004E4996 /* TrackingMinion.swift */,
 			);
 			name = Enemies;
 			sourceTree = "<group>";
@@ -184,7 +179,6 @@
 		5B857D3A1D36F666008DE265 /* SpaceGameDeluxe */ = {
 			isa = PBXGroup;
 			children = (
-				5BDCDAF51D40209800DF7DFF /* Timer.swift */,
 				5BDCDAF71D402D1D00DF7DFF /* RandomNumbers.swift */,
 				5B32A2781D3C45A9008389C5 /* Stats.swift */,
 				5B857D411D36F666008DE265 /* GameViewController.swift */,
@@ -224,7 +218,6 @@
 				5BA5AF191D4E6F8A00192CFE /* Behavior.swift */,
 				5BA5AF1B1D4EA1A000192CFE /* ScenePatterns.swift */,
 				5B0F8C551D5E66B700D0C867 /* SpritePattern.swift */,
-				5BB457501D5E90C40008E82F /* SceneComponent.swift */,
 			);
 			name = Behavior;
 			sourceTree = "<group>";
@@ -253,8 +246,6 @@
 		5BD524A91D4D615E00D749C3 /* Weapons */ = {
 			isa = PBXGroup;
 			children = (
-				5BB936B31D568E430015CFE6 /* PlayerWeapons.swift */,
-				5BD524AA1D4D616B00D749C3 /* MinionGun.swift */,
 				5BBA80761D57CA5A00CD51CD /* EnemyWeapons.swift */,
 				5BBA80781D57CA6300CD51CD /* PlayerWeapon.swift */,
 				5BBA807A1D57CA9200CD51CD /* Weapon Components */,
@@ -446,23 +437,20 @@
 				5BB936B21D568D5D0015CFE6 /* FiringPattern.swift in Sources */,
 				5B1C9A871D62757A0079EFF5 /* Spawner.swift in Sources */,
 				5B857D3C1D36F666008DE265 /* AppDelegate.swift in Sources */,
-				5BB457511D5E90C40008E82F /* SceneComponent.swift in Sources */,
 				5B6528311D50643200AE2189 /* Destructable.swift in Sources */,
 				5BF4B1EC1D452B27005C4BBD /* Layers.swift in Sources */,
 				5B0F8C561D5E66B700D0C867 /* SpritePattern.swift in Sources */,
 				5B0BE4AF1D4FFB50008DBD6C /* Mine.swift in Sources */,
 				5BBA80771D57CA5A00CD51CD /* EnemyWeapons.swift in Sources */,
 				5BA5AF1A1D4E6F8A00192CFE /* Behavior.swift in Sources */,
-				5BB936B41D568E430015CFE6 /* PlayerWeapons.swift in Sources */,
 				5BBA80791D57CA6300CD51CD /* PlayerWeapon.swift in Sources */,
 				5B57480C1D4C0254005EB35D /* Textures.swift in Sources */,
-				5BDCDAF61D40209800DF7DFF /* Timer.swift in Sources */,
 				5B1C9A891D62772B0079EFF5 /* BasicJet.swift in Sources */,
-				5BD524AB1D4D616B00D749C3 /* MinionGun.swift in Sources */,
 				5B32A27B1D3C46BA008389C5 /* Player.swift in Sources */,
 				5BA5AF1C1D4EA1A000192CFE /* ScenePatterns.swift in Sources */,
 				5B32A27F1D3C4700008389C5 /* Protocols.swift in Sources */,
 				5B57480E1D4C0BD0005EB35D /* Extensions.swift in Sources */,
+				5BE05AC21D63C23B004E4996 /* TrackingMinion.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,6 +8,21 @@
 
 import SpriteKit
 
+
+enum ProjectileSpeed: Double {
+    case VerySlow = 14
+    case Slow = 10
+    case Medium = 5
+    case Fast = 2
+    case VeryFast = 1
+}
+
+struct RateOfFire {
+    static let fast = 0.20
+    static let medium = 0.75
+    static let slow = 1.25
+}
+
 protocol Weapon {
     var firePattern: FiringPattern { get set }
     var weaponType: WeaponType { get set }
@@ -17,7 +32,7 @@ protocol Weapon {
     
     func dumbfire()
     func trackingFire()
-    func fire()
+    func fire(delay: Double)
     
     init(owner: SKSpriteNode)
     
@@ -55,22 +70,20 @@ extension PlayerWeapon {
         guard let node = addNode() else { return }
         
         
-        
+        //TODO: - Fix fireing algorithm - it slows down the closer the target gets
         guard let location = touchLocation else { return }
         
         let adjustedX = location.x - Player.sharedInstance.position.x
         let adjustedY = location.y - Player.sharedInstance.position.y
+        
         let destination = CGPoint(x: location.x + adjustedX, y: location.y + adjustedY)
+
+        let screenWidth = UIScreen.mainScreen().bounds.width
+        let difference = screenWidth - location.x
+        let perc = Double(difference / screenWidth * 100)
+        let amount = (node.projectileSpeed * perc)/100
         
-        /*
-         print("Firing Coordinates")
-         print("DESTINATION \(destination)")
-         print("TOUCH Y \(location.y)")
-         print("TOUCH X \(location.x)")
-         print("PLAYER LOC \(Player.sharedInstance.position)")
-         */
-        
-        let moveAction = SKAction.moveTo(destination, duration: node.projectileSpeed)
+        let moveAction = SKAction.moveTo(destination, duration: (node.projectileSpeed - amount))
         let despawn = SKAction.removeFromParent()
         let sequence = SKAction.sequence([moveAction, despawn])
         let nodeRotation = atan2(adjustedY, adjustedX)
@@ -87,7 +100,7 @@ extension PlayerWeapon {
         
     }
     
-    func fire() {
+    func fire(delay: Double = 0) {
         
         
     }
@@ -170,10 +183,8 @@ extension EnemyWeapon {
          
          */
         guard let node = addNode() else { return }
-            let move = SKAction.moveByX(-UIScreen.mainScreen().bounds.width, y: 0, duration: projectile.projectileSpeed)
-            
+            let move = SKAction.moveByX(-UIScreen.mainScreen().bounds.width, y: 0, duration: node.projectileSpeed)
             let despawn = SKAction.removeFromParent()
-        let wait = SKAction.waitForDuration(2)
             let seq = SKAction.sequence([move,despawn])
             node.runAction(seq)
         
@@ -182,6 +193,35 @@ extension EnemyWeapon {
     }
     
     func trackingFire() {
+        let targetLocation = Player.sharedInstance.position
+        let bulletOrigin = owner.position
+        
+        guard let node = addNode() else { return }
+        
+        let adjustedX = targetLocation.x - bulletOrigin.x
+        let adjustedY = targetLocation.y - bulletOrigin.y
+        let destination = CGPoint(x: targetLocation.x + adjustedX, y: targetLocation.y + adjustedY)
+        
+        // get speed increase for projectile for relative position
+        let screenWidth = UIScreen.mainScreen().bounds.width
+        let difference = screenWidth - bulletOrigin.x
+        let perc = Double(difference / screenWidth * 100)
+        let amount = (node.projectileSpeed * perc)/100
+
+        
+        let moveAction = SKAction.moveTo(destination, duration: node.projectileSpeed - amount)
+        let despawn = SKAction.removeFromParent()
+        let sequence = SKAction.sequence([moveAction, despawn])
+        let nodeRotation = atan2(adjustedY, adjustedX)
+        
+        node.zRotation = nodeRotation
+        node.runAction(sequence, withKey: "fire")
+        node.runAction(sequence)
+
+        
+        
+        
+        /*
         guard let node = addNode() else { return }
         
         let X = Player.sharedInstance.position.x + Player.sharedInstance.size.width/2 - owner.position.x
@@ -196,11 +236,13 @@ extension EnemyWeapon {
         node.physicsBody?.applyImpulse(CGVectorMake(X/magnitude * CGFloat(projectile.projectileSpeed), Y/magnitude * CGFloat(projectile.projectileSpeed)))
         
         //print("MASS \(node.physicsBody?.mass)")
+ 
+ */
         
     }
     
-    func fire() {
-        firePattern.pattern(self)
+    func fire(delay: Double = 0) {
+        firePattern.pattern(self, delay: delay)
     }
 }
 

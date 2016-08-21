@@ -9,8 +9,18 @@
 import SpriteKit
 
 
+
 enum BehaviorType {
-    case Approach
+    case approach
+    case approachAndSlow
+    
+    
+//    func behavior<T: Behavior>() -> T {
+//        switch self {
+//        case .approach: return Approach()
+//        case .approachAndSlow: return ApproachAndSlow()
+//        }
+//    }
 }
 
 
@@ -24,6 +34,7 @@ extension Behavior {
     }
     
 }
+
 
 
 struct Approach: Behavior {
@@ -46,6 +57,50 @@ struct Approach: Behavior {
     init(duration: Double) {
         self.duration = duration
     }
+    
+    init() {
+        self.duration = 0
+    }
+    
+    mutating func lazyInit(duration: Double) {
+        self.duration = duration
+    }
+}
+
+
+struct ApproachAndSlow: Behavior {
+    
+    var delay: Double = 0
+    
+    var pattern: SKAction {
+        return enterAndSlow()
+    }
+    
+    func enterAndSlow() -> SKAction {
+    
+        let despawn = SKAction.removeFromParent()
+        let move = SKAction.moveToX(-screenWidth/2, duration: 4)
+        let decreaseSpeed = SKAction.speedBy(0.2, duration: 1.5)
+        let group = SKAction.group([decreaseSpeed, move])
+        let wait = SKAction.waitForDuration(delay)
+        
+        return SKAction.sequence([wait,group,despawn])
+        
+    }
+    
+  
+    
+    init(delay: Double) {
+        self.delay = delay
+      
+    }
+    
+      init() { }
+    
+    mutating func config(delay: Double) {
+        self.delay = delay
+    }
+    
 }
 
 

@@ -21,10 +21,19 @@ enum PlayerTextures: String {
 
 enum WeaponTextures: String {
     case BasicBullet = "gunfire1"
+    case EnergyBulletPurple = "EnergyBulletPurple"
+    case PlaceHolderMissile = "11"
+    
+//    let missileTex: SKTexture {
+//        let tex = SKTexture(imageNamed: "placeholderMissile")
+//        tex.size().height = 100
+//    }
     
     func getTexture() -> SKTexture {
         switch self {
         case .BasicBullet: return SKTexture(imageNamed: WeaponTextures.BasicBullet.rawValue)
+            case .EnergyBulletPurple: return SKTexture(imageNamed: "EnergyBulletPurple")
+            case .PlaceHolderMissile: return SKTexture(imageNamed: "placeholderMissile")
         }
     }
 }
@@ -68,6 +77,8 @@ enum EnemyTextures {
         
         return CGPoint(x: x - width/2, y: y)
     }
+    
+
     
     var healthValue: Double {
         switch self {

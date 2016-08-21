@@ -23,13 +23,26 @@ struct HealthValue {
     static let mine = 20.0
 }
 
+enum EnemyType {
+    case basicEnemy
+    case minion
+    case trackingMinion
+    case basicJet
+    
+    func enemy() -> BasicEnemy {
+        switch self {
+        case .basicEnemy: return BasicEnemy()
+        case .minion: return Minion()
+        case .trackingMinion: return TrackingMinion()
+        case .basicJet: return BasicJet()
+        }
+    }
+}
+
 
 class BasicEnemy: SKSpriteNode, Destructable, Attacker {
     
     var projectileOrigin: CGPoint {
-       // return CGPoint(x: self.position.x - self.size.width/2, y: self.position.y)
-       // print(self.position)
-
         return EnemyTextures.Minion.getProjectileOrigin(self.position)
     }
     

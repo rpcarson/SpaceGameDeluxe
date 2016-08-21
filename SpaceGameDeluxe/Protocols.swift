@@ -52,10 +52,6 @@ protocol Overheatable: WeaponType {
 
 
 
-protocol EnemyType: Destructable, Attacker {
-
-}
-
 
 
 

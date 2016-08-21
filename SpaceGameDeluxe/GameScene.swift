@@ -53,17 +53,22 @@ class GameScene: SKScene, ActionScene {
     
     let player = Player.sharedInstance
     
+
+    
     override func didMoveToView(view: SKView) {
-        
-        
+        size.width = UIScreen.mainScreen().bounds.width
+         size.height = UIScreen.mainScreen().bounds.height
         
         spawner = Spawner(actionScene: self)
         
         setupScene()
         
+        worldLayer.speed = simulationSpeed
        // pattern?.compileArray()
         
+    
         
+  
 
     }
     
