@@ -16,11 +16,15 @@ class Minion: BasicEnemy {
     override init() {
         super.init()
         
-        let burster = Burst(shotsInBurst: 5, burstSpeed: 10, timeBetween: 3)
+      //  let burst = Burst(shotsInBurst: 3, burstSpeed: BurstSpeed.fast.rawValue, timeBetween: 2)
         
-        let missile = Burst(shotsInBurst: 1, burstSpeed: 1, timeBetween: 5)
+      //  let wep = BaseGun(owner: self, pattern: burst, tracking: false)
         
-        configure(EnemyTextures.Minion.getTexture(), size: CGSize(width: 75, height: 40), health: EnemyTextures.Minion.healthValue, weapon: BaseGun(tracking: false, owner: self))
+       // let wep2 = Autocannon(owner: self)
+        
+        configure(EnemyTextures.Minion.getTexture(), size: CGSize(width: 54, height: 25), health: EnemyTextures.Minion.healthValue, weapon: BaseGun(owner: self))
+        
+   
 
     }
     
@@ -34,10 +38,6 @@ class MissileMinion: BasicEnemy {
     
     override init() {
         super.init()
-        
-        let burster = Burst(shotsInBurst: 5, burstSpeed: 10, timeBetween: 3)
-        
-        let missile = Burst(shotsInBurst: 1, burstSpeed: 1, timeBetween: 5)
         
        configure(EnemyTextures.Minion.getTexture(), size: CGSize(width: 75, height: 40), health: EnemyTextures.Minion.healthValue, weapon: BaseGun(owner: self))
         

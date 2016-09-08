@@ -10,7 +10,7 @@ import SpriteKit
 
 protocol ActionScene {
     var frameCount: Double { get set }
-    var pattern: ScenePattern? { get }
+    var pattern: ScenePattern? { get set }
     var spawner: Spawner? { get set }
     var worldLayer: WorldLayer { get  }
     var hudLayer: HUDLayer { get  }
@@ -18,11 +18,17 @@ protocol ActionScene {
     var actorLayer: ActorLayer { get  }
     var projectileLayer: ProjectileLayer { get  }
     var zoneLayer: ZoneLayer { get  }
+    
+   
+    
 }
 
 
 
 class GameScene: SKScene, ActionScene {
+    
+    var scrollingBackground: Scroller?
+    var scroller2: Scroller?
     
     var spawner: Spawner?
     
@@ -53,7 +59,10 @@ class GameScene: SKScene, ActionScene {
     
     let player = Player.sharedInstance
     
-
+    let bg1 = SKSpriteNode(imageNamed: "starOverlay")
+    let bg2 = SKSpriteNode(imageNamed: "starOverlay")
+    let bgMain = SKSpriteNode(imageNamed: "redStarBG1")
+    let bgMain1 = SKSpriteNode(imageNamed: "redStarBG1")
     
     override func didMoveToView(view: SKView) {
         size.width = UIScreen.mainScreen().bounds.width
@@ -63,14 +72,26 @@ class GameScene: SKScene, ActionScene {
         
         setupScene()
         
-        worldLayer.speed = simulationSpeed
-       // pattern?.compileArray()
-        
+        worldLayer.speed = simulationSpeed        
     
+        boundary.getDimensions()
         
-  
-
+     
+        let array = [bg1, bg2]
+        let array2 = [bgMain, bgMain1]
+        scrollingBackground = Scroller(scene: self, speed: 12, type: .debris)
+        scroller2 = Scroller(scene: self, speed: 0.5, type: .background)
+        
+        scroller2?.images = array2
+        
+        scroller2?.setup()
+        
+        scrollingBackground?.images = array
+        
+        scrollingBackground?.setup()
     }
+    
+ 
     
     func setupScene() {
         setupLayers()
@@ -134,132 +155,27 @@ class GameScene: SKScene, ActionScene {
     
     func didBeginContact(contact: SKPhysicsContact) {
         
-        //collisionHandler.didBeginContact(contact)
-        
-        /*
-        
-          print("physics contact")
-        
-        let nodeA = contact.bodyA.node
-        let nodeB = contact.bodyB.node
-        let categoryA = contact.bodyA.categoryBitMask
-        let categoryB = contact.bodyB.categoryBitMask
-        
-        let projectileIsA = categoryA == MaskValue.projectile
-        let destructableIsA = categoryA == MaskValue.destructable
-        let projectileIsB = categoryB == MaskValue.projectile
-        let destructableIsB = categoryB == MaskValue.destructable
-        
-        let projectile = categoryA == MaskValue.projectile ? nodeA : nodeB
-        let destructable = categoryA == MaskValue.destructable ? nodeA : nodeB
-        let enemyProjectile = categoryA == MaskValue.enemyProjectile ? nodeA : nodeB
-        let player = categoryA == MaskValue.player ? nodeA : nodeB
-        
-        
-        print(categoryA)
-        print(categoryB)
-        /*
-         if projectileIsA  {
-         print("projectile is A")
-         }
-         if projectileIsB {
-         print("projectile is B")
-         }
-         
-         if destructableIsB {
-         print("destruvtable is B")
-         }
-         
-         if destructableIsA {
-         print("destruvtable is A")
-         }
-         
-         print("body A \(contact.bodyA.categoryBitMask)")
-         print("body B\(contact.bodyB.categoryBitMask)")
-         
-         print("NODE A \(nodeA)")
-         print("NODE B \(nodeB)")
-         */
-        if (projectileIsA && destructableIsB) || (projectileIsB && destructableIsA) {
-            
-            projectile?.remove()
-            
-            if var enemy = destructable as? Destructable {
-                let damage = Player.sharedInstance.weapon2?.weaponType.damage
-                enemy.decreaseHealth(damage!)
-            }
-            
-            print("PROJ AND DESTRUCT CONATCT")
-            
-        }
-        if (categoryA == MaskValue.projectile && categoryB == MaskValue.boundary) || (categoryB == MaskValue.boundary && categoryA == MaskValue.projectile) {
-            
-            print("enemy proj contact plaer")
-            
-            if let projectile = projectile {
-                projectile.remove()
-                print("\(projectile) bing removed")
-            }
-            
-        }
-        
-        if (categoryA == MaskValue.projectile && categoryB == MaskValue.boundary) || (categoryB == MaskValue.projectile && categoryA == MaskValue.boundary) {
-
-            print("projectile vs boundary")
-            
-            if let projectile = projectile {
-                projectile.remove()
-                print("\(projectile) bing removed")
-            }
-            
-        }
-        
-        if (categoryA == MaskValue.enemyProjectile && categoryB == MaskValue.player) || (categoryB == MaskValue.enemyProjectile && categoryA == MaskValue.player) {
-            
-            print("projectile vs player")
-            
-            if let projectile = enemyProjectile {
-                projectile.remove()
-                       print("\(projectile) bing removed")
-            }
-            
-        }
- 
- */
+      
         
     }
     
     override func update(currentTime: CFTimeInterval) {
         
+        for node in worldLayer.children {
+            if node.position.x + node.frame.size.width/2 < 0 {
+                node.remove()
+                print("node removed")
+        
+            }
+        }
+        
         frameCount += 1
         
         pattern?.updateScene()
         
-        /*
-        
-        if frameCount % 100 == 0 {
-            BasicEnemy.spawn(inScene: self)
-            // print("100 frame spawn")
-        }
-        if frameCount % 70 == 0 {
-            // print("70 frame spawn")
-            Minion.spawn(inScene: self)
-        }
-        for enemy in enemies {
-            if enemy.actionForKey("move") == nil {
-                enemy.move()
-                
-            }
-            if enemy as BasicEnemy is Minion {
-                // enemy.attack(self)
-                print("minion attack")
-            }
-            
-            
-            
-        }
- */
-        
+
+        scroller2?.scroll()
+        scrollingBackground?.scroll()
         
         
     }

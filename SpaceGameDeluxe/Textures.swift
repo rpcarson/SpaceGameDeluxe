@@ -90,15 +90,7 @@ enum EnemyTextures {
         }
     }
     
-    var weapon: EnemyWeapon {
-        switch self {
-        case .BasicEnemy: return BaseGun()
-        case .Minion: return BaseGun()
-        case .Mine: return BaseGun()
-        case .SquareJet: return BaseGun()
-        case .Jet: return BaseGun()
-        }
-    }
+
     
     
 }

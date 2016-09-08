@@ -9,7 +9,14 @@
 import SpriteKit
 
 
-
+extension Player {
+    var gameScene: GameScene? {
+        if let scene = self.scene as? GameScene {
+            return scene
+        }
+        return nil
+    }
+}
 
 class Player: SKSpriteNode, Destructable, Attacker {
     static let sharedInstance = Player()
@@ -18,7 +25,7 @@ class Player: SKSpriteNode, Destructable, Attacker {
         return position
     }
    
-    var _size = CGSize(width: 100, height: 40)
+    var _size = CGSize(width: 75, height: 30)
     
     var enginePower: EnginePower = EnginePower.x1
     var agilityMultiplier: AgilityMultiplier = AgilityMultiplier.x1
@@ -63,8 +70,8 @@ class Player: SKSpriteNode, Destructable, Attacker {
         physicsBody?.linearDamping = 0.1
         physicsBody?.collisionBitMask = 0
         physicsBody?.categoryBitMask = MaskValue.player
-        physicsBody?.contactTestBitMask = MaskValue.enemy | MaskValue.enemyProjectile
-
+        physicsBody?.contactTestBitMask = MaskValue.enemyProjectile | MaskValue.enemy
+            
         configureAgility(agilityMultiplier)
     }
     
@@ -117,8 +124,16 @@ extension Player {
             }
         }
         
+        // TODO: Possible crash with force unwrapped currentImpulse
+        
         let currentImpulse = physicsBody?.velocity.dy
-        let adjustedImpulse = (impulseVector.dy - currentImpulse!)
+        var adjustedImpulse: CGFloat {
+            if let current = currentImpulse {
+                return impulseVector.dy - current
+            }
+            return 0
+        }
+        
         let impulseToApply = CGVectorMake(0, adjustedImpulse)
         
         physicsBody?.applyImpulse(impulseToApply)

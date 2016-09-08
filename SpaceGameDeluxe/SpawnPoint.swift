@@ -9,12 +9,23 @@
 import SpriteKit
 
 
-enum SpawnPoint {
+enum SpawnPoint: Int {
     case Bottom
     case MidBottom
     case Middle
     case MidTop
     case Top
+    case TopMinus20
+    case BottomPlus20
+    case RandomStrict
+    case OneTenth
+    case TwoTenths
+    case ThreeTenths
+    case FourTenths
+    case SixTenths
+    case SevenTenths
+    case EightTenths
+    case NineTenths
     
     var screen: CGRect {
         return UIScreen.mainScreen().bounds
@@ -42,6 +53,33 @@ enum SpawnPoint {
                 CGPoint(x: offscreenRight, y: screen.height * 0.75 - offsetY/2)
             case .Top: return
                 CGPoint(x: offscreenRight, y: screen.height - offsetY)
+            case TopMinus20: return
+                CGPoint(x: offscreenRight, y: screen.height - offsetY - 20)
+            case BottomPlus20: return
+                CGPoint(x: offscreenRight, y: offsetY + 20)
+            case .RandomStrict: return
+                SpawnPoint(rawValue: RandomNumbers.randomSpawnPoint())!.getPointForNode(node)
+                
+                
+            case .OneTenth: return
+                 CGPoint(x: offscreenRight, y: screen.height * 0.1)
+            case .TwoTenths: return
+                CGPoint(x: offscreenRight, y: screen.height * 0.2)
+            case .ThreeTenths: return
+                CGPoint(x: offscreenRight, y: screen.height * 0.3)
+            case .FourTenths: return
+                CGPoint(x: offscreenRight, y: screen.height * 0.4)
+            case .SixTenths: return
+                CGPoint(x: offscreenRight, y: screen.height * 0.6)
+            case .SevenTenths: return
+                CGPoint(x: offscreenRight, y: screen.height * 0.7)
+            case .EightTenths: return
+                CGPoint(x: offscreenRight, y: screen.height * 0.8)
+            case .NineTenths: return
+                CGPoint(x: offscreenRight, y: screen.height * 0.9)
+                
+                
+
                 
             }
         }

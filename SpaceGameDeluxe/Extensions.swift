@@ -22,7 +22,8 @@ extension GameScene {
     func startFiring() {
         guard let weapon = player.weapon else { return }
         fire()
-        timer = NSTimer.scheduledTimerWithTimeInterval(weapon.weaponType.rateOfFire, target: self, selector: #selector(GameScene.fire), userInfo: nil, repeats: true)
+           timer = NSTimer.scheduledTimerWithTimeInterval(weapon.rateOfFire, target: self, selector: #selector(GameScene.fire), userInfo: nil, repeats: true)
+     //   timer = NSTimer.scheduledTimerWithTimeInterval(weapon.weaponType.rateOfFire, target: self, selector: #selector(GameScene.fire), userInfo: nil, repeats: true)
     }
     func endFiring() {
         if timer != nil {
@@ -39,12 +40,14 @@ extension GameScene {
     
     
     func setupTouchZones() {
-        let nullSize = CGSize(width: self.frame.width * 0.25, height: self.frame.height)
-        let moveSize = CGSize(width: self.frame.width * 0.25, height: self.frame.height)
-        let fireSize = CGSize(width: self.frame.width * 0.5, height: self.frame.height)
+        
+        let moveSize = CGSize(width: self.frame.width * 0.20, height: self.frame.height)
+        let nullSize = CGSize(width: self.frame.width * 0.20, height: self.frame.height)
+        let fireSize = CGSize(width: self.frame.width, height: self.frame.height)
         let movePosition = CGPoint(x: moveSize.width/2, y: self.frame.height/2)
-        let firePosition = CGPoint(x: self.frame.width - fireSize.width/2, y: self.frame.height/2)
         let nullPosition = CGPoint(x: nullSize.width/2 + nullSize.width, y: self.frame.height/2)
+        let firePosition = CGPoint(x: fireSize.width/2 + (nullSize.width + moveSize.width), y: self.frame.height/2)
+    
         
         moveZone = SKShapeNode(rectOfSize: moveSize)
         moveZone.fillColor = UIColor.blueColor()
@@ -97,6 +100,7 @@ extension GameScene {
     func setupBoundary() {
         boundary.color = SKColor.redColor()
         boundary.size = CGSize(width: self.frame.width * 2, height: self.frame.height*2)
+        boundary.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         addChild(boundary)
         boundary.setup()
         

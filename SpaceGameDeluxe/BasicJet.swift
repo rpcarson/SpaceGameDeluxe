@@ -13,7 +13,7 @@ class BasicJet: BasicEnemy {
     override init() {
         super.init()
         
-        configure(EnemyTextures.Jet.getTexture(), size: CGSize(width: 75, height: 50), health: EnemyTextures.Jet.healthValue, weapon: BaseGun(owner: self))
+        configure(EnemyTextures.Jet.getTexture(), size: CGSize(width: 68, height: 45), health: EnemyTextures.Jet.healthValue, weapon: Autocannon(owner: self))
         
         
     }

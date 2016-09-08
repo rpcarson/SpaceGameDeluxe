@@ -17,6 +17,8 @@ import GameKit
 //}
 
 
+
+
 struct HealthValue {
     static let basicEnemy = 100.0
     static let minion = 10.0
@@ -28,6 +30,7 @@ enum EnemyType {
     case minion
     case trackingMinion
     case basicJet
+    case mine
     
     func enemy() -> BasicEnemy {
         switch self {
@@ -35,6 +38,7 @@ enum EnemyType {
         case .minion: return Minion()
         case .trackingMinion: return TrackingMinion()
         case .basicJet: return BasicJet()
+        case .mine: return Mine()
         }
     }
 }
@@ -55,6 +59,15 @@ class BasicEnemy: SKSpriteNode, Destructable, Attacker {
     var health: Double = 1000
     var maxHealth: Double = 1000
     
+    var armor: Double = 0
+    
+    var effectiveHealth: Double {
+        if let _self =  self as? Armored {
+            return _self.armor.mitigationFactor * health
+        }
+        return health + armor
+    }
+    
     //MARK: - Behaviors
     
     func destruct() {
@@ -72,7 +85,6 @@ class BasicEnemy: SKSpriteNode, Destructable, Attacker {
         self.texture = texture
         
         name = "enemy"
-       // print("name set \(self.name)")
         
         physicsBody = SKPhysicsBody(texture: texture, size: size)
         physicsBody?.dynamic = true
@@ -81,6 +93,9 @@ class BasicEnemy: SKSpriteNode, Destructable, Attacker {
         physicsBody?.collisionBitMask = 0
         physicsBody?.categoryBitMask = MaskValue.destructable
         physicsBody?.contactTestBitMask = MaskValue.playerProjectile
+        
+        physicsBody?.mass = 1
+        physicsBody?.linearDamping = 0.5
         
         
        
@@ -118,6 +133,14 @@ class BasicEnemy: SKSpriteNode, Destructable, Attacker {
     
 }
 
+extension BasicEnemy {
+    var gameScene: GameScene? {
+        if let scene = self.scene as? GameScene {
+            return scene
+        }
+        return nil
+    }
+}
 
 
 /*  thrown out code

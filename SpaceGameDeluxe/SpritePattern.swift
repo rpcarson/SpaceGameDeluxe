@@ -15,15 +15,16 @@ protocol Pattern {
     var behavior: Behavior { get set }
     var spawnPoint: SpawnPoint { get set }
     
-    func spawn(actionScene: ActionScene)
+    func spawn(actionScene: ActionScene, offSet: CGFloat)
     func run(hostile: Bool, scene: ActionScene)
     init(sprite: BasicEnemy, behavior: Behavior, spawnPoint: SpawnPoint)
 }
 
 extension Pattern {
     
-    internal func spawn(actionScene: ActionScene) {
-        sprite.position = spawnPoint.getPointForNode(sprite)
+    internal func spawn(actionScene: ActionScene, offSet: CGFloat = 0) {
+        let point = CGPoint(x: spawnPoint.getPointForNode(sprite).x, y: spawnPoint.getPointForNode(sprite).y + offSet)
+        sprite.position = point
         actionScene.worldLayer.addChild(sprite)
     }
     
@@ -37,6 +38,7 @@ extension Pattern {
         
         if hostile {
             sprite.weapon?.fire(fireDelay)
+              print("\(sprite) firing ")
         }
     
     }
@@ -55,6 +57,43 @@ struct SimplePattern: Pattern {
     var behavior: Behavior
     var spawnPoint: SpawnPoint
     
+}
+
+struct FollowerPattern: Pattern {
+    var sprite: BasicEnemy
+    var behavior: Behavior
+    var spawnPoint: SpawnPoint
+    
+    func run(hostile: Bool = true, fireDelay: Double = 0, scene: ActionScene) {
+        spawn(scene)
+        sprite.runAction(behavior.pattern, withKey: "moveIn")
+        
+        var array = scene.pattern?.spritesNeedUpdate
+        array?.append(sprite)
+        
+        if hostile {
+            sprite.weapon?.fire(fireDelay)
+          
+        }
+        
+    }
+}
+
+struct MinePattern: Pattern {
+    var sprite: BasicEnemy
+    var behavior: Behavior
+    var spawnPoint: SpawnPoint
+    
+    func run(hostile: Bool, scene: ActionScene) {
+        spawn(scene)
+        sprite.runAction(behavior.pattern)
+        sprite.physicsBody?.dynamic = true
+        sprite.physicsBody?.applyTorque(0.12)
+        
+        let randomVector = CGVector(dx: 0, dy: RandomNumbers.getRandomTo10WithNeg())
+        sprite.physicsBody?.applyImpulse(randomVector)
+        
+    }
 }
 
 /*

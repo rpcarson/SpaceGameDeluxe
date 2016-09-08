@@ -38,19 +38,15 @@ extension Behavior {
 
 
 struct Approach: Behavior {
-    
     var duration: Double
-   
     var pattern: SKAction {
         return moveRightToLeft()
     }
     
     func moveRightToLeft() -> SKAction {
-        
         let despawn = SKAction.removeFromParent()
         let move = SKAction.moveToX(-screenWidth/2, duration: duration)
         let sequence = SKAction.sequence([move, despawn])
-        
         return sequence
     }
     
@@ -67,11 +63,11 @@ struct Approach: Behavior {
     }
 }
 
+//TODO: solution for decreasing speed without affecting duration of move ~
+
 
 struct ApproachAndSlow: Behavior {
-    
     var delay: Double = 0
-    
     var pattern: SKAction {
         return enterAndSlow()
     }
@@ -80,27 +76,50 @@ struct ApproachAndSlow: Behavior {
     
         let despawn = SKAction.removeFromParent()
         let move = SKAction.moveToX(-screenWidth/2, duration: 4)
-        let decreaseSpeed = SKAction.speedBy(0.2, duration: 1.5)
+     //   let moveIn = SKAction.moveToX(screenWidth*0.75, duration: 1)
+        let decreaseSpeed = SKAction.speedBy(0.2, duration: 0.8)
+       // let group1 = SKAction.group([moveIn, decreaseSpeed])
         let group = SKAction.group([decreaseSpeed, move])
         let wait = SKAction.waitForDuration(delay)
         
-        return SKAction.sequence([wait,group,despawn])
+        return SKAction.sequence([wait,group, despawn])
         
     }
-    
-  
     
     init(delay: Double) {
         self.delay = delay
       
     }
     
-      init() { }
+    init() { }
     
     mutating func config(delay: Double) {
         self.delay = delay
     }
     
+}
+
+struct MoveInAndFollowPlayer: Behavior {
+    var pattern: SKAction {
+      return moveIn()
+    }
+
+    func moveIn() -> SKAction {
+        let move = SKAction.moveToX(screenWidth*0.75, duration: 2)
+        let decreaseSpeed = SKAction.speedBy(0, duration: 2)
+        let group = SKAction.group([decreaseSpeed, move])
+        return group
+    }
+    
+}
+
+
+
+struct DiveBomb: Behavior {
+    
+    var pattern: SKAction {
+        return SKAction.waitForDuration(1)
+    }
 }
 
 

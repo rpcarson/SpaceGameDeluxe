@@ -14,23 +14,17 @@ class Mine: BasicEnemy {
     var damage: Double = 50
     
     func spin() {
-      //  let spin = SKAction.applyTorque(RandomNumbers.getRandomTo10()/10, duration: 10)
-       // self.runAction(spin)
-        
-        print("spinning")
+            self.physicsBody?.applyTorque(50)
     }
     
     override init() {
         super.init()
         
-        configure(EnemyTextures.Mine.getTexture(), size: CGSize(width: 50, height: 50), health: 10, weapon: nil)
+        configure(EnemyTextures.Mine.getTexture(), size: CGSize(width: 25, height: 25), health: 10, weapon: nil)
         
         self.physicsBody?.dynamic = true
         
-        self.physicsBody?.applyImpulse(CGVector(dx: 100, dy: 0))
-        
-        spin()
-        
+            
     }
     
     required init?(coder aDecoder: NSCoder) {

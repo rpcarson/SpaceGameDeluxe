@@ -19,27 +19,15 @@ protocol PlayerType: Destructable, Attacker {
 
 
 
-protocol ArmorType {
-    var maxArmor: Double { get set }
-    var armorHealth: Double { get set }
-    var mitigationFactor: Double { get set }
-}
 
 
 
-protocol ShieldType {
-    var maxShield: Double { get set }
-    var shieldHealth: Int { get set }
-    var rechargeRate: Double { get set }
-    var rechargeDelay: Double { get set }
-    
-    func recharge(byAmount: Double)
-    
-}
+
+
 
 
 protocol Overheatable: WeaponType {
-   
+    
     var maxHeat: Double { get set }
     var cooldownRate: Double { get set }
     var heatupRate: Double { get set }
@@ -47,7 +35,7 @@ protocol Overheatable: WeaponType {
     
     func overheat()
     func adjustHeat(byAmount: Double)
-  
+    
 }
 
 

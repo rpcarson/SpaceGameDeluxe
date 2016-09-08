@@ -12,6 +12,7 @@
 		5B0F8C561D5E66B700D0C867 /* SpritePattern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B0F8C551D5E66B700D0C867 /* SpritePattern.swift */; };
 		5B1C9A871D62757A0079EFF5 /* Spawner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C9A861D62757A0079EFF5 /* Spawner.swift */; };
 		5B1C9A891D62772B0079EFF5 /* BasicJet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B1C9A881D62772B0079EFF5 /* BasicJet.swift */; };
+		5B2AF0B21D71D283001969CD /* Follower.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2AF0B11D71D283001969CD /* Follower.swift */; };
 		5B32A2791D3C45A9008389C5 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32A2781D3C45A9008389C5 /* Stats.swift */; };
 		5B32A27B1D3C46BA008389C5 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32A27A1D3C46BA008389C5 /* Player.swift */; };
 		5B32A27D1D3C46DB008389C5 /* Weapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B32A27C1D3C46DB008389C5 /* Weapon.swift */; };
@@ -41,8 +42,12 @@
 		5BBA80771D57CA5A00CD51CD /* EnemyWeapons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBA80761D57CA5A00CD51CD /* EnemyWeapons.swift */; };
 		5BBA80791D57CA6300CD51CD /* PlayerWeapon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BBA80781D57CA6300CD51CD /* PlayerWeapon.swift */; };
 		5BD2FA661D52A029001DF146 /* playground.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD2FA651D52A029001DF146 /* playground.swift */; };
+		5BD4966B1D7CC9480039E395 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD4966A1D7CC9480039E395 /* Background.swift */; };
+		5BD4B4CA1D77417E00CF4286 /* InputHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD4B4C91D77417E00CF4286 /* InputHandler.swift */; };
 		5BDCDAF81D402D1D00DF7DFF /* RandomNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDCDAF71D402D1D00DF7DFF /* RandomNumbers.swift */; };
 		5BE05AC21D63C23B004E4996 /* TrackingMinion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE05AC11D63C23B004E4996 /* TrackingMinion.swift */; };
+		5BE473A61D78D307002E2251 /* Shield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE473A51D78D307002E2251 /* Shield.swift */; };
+		5BE473A81D78D32A002E2251 /* Armor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE473A71D78D32A002E2251 /* Armor.swift */; };
 		5BF4B1EC1D452B27005C4BBD /* Layers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF4B1EB1D452B27005C4BBD /* Layers.swift */; };
 /* End PBXBuildFile section */
 
@@ -69,6 +74,7 @@
 		5B0F8C551D5E66B700D0C867 /* SpritePattern.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpritePattern.swift; sourceTree = "<group>"; };
 		5B1C9A861D62757A0079EFF5 /* Spawner.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spawner.swift; sourceTree = "<group>"; };
 		5B1C9A881D62772B0079EFF5 /* BasicJet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicJet.swift; sourceTree = "<group>"; };
+		5B2AF0B11D71D283001969CD /* Follower.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Follower.swift; sourceTree = "<group>"; };
 		5B32A2781D3C45A9008389C5 /* Stats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
 		5B32A27A1D3C46BA008389C5 /* Player.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		5B32A27C1D3C46DB008389C5 /* Weapon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weapon.swift; sourceTree = "<group>"; };
@@ -104,8 +110,12 @@
 		5BBA80761D57CA5A00CD51CD /* EnemyWeapons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnemyWeapons.swift; sourceTree = "<group>"; };
 		5BBA80781D57CA6300CD51CD /* PlayerWeapon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerWeapon.swift; sourceTree = "<group>"; };
 		5BD2FA651D52A029001DF146 /* playground.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = playground.swift; sourceTree = "<group>"; };
+		5BD4966A1D7CC9480039E395 /* Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
+		5BD4B4C91D77417E00CF4286 /* InputHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputHandler.swift; sourceTree = "<group>"; };
 		5BDCDAF71D402D1D00DF7DFF /* RandomNumbers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomNumbers.swift; sourceTree = "<group>"; };
 		5BE05AC11D63C23B004E4996 /* TrackingMinion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingMinion.swift; sourceTree = "<group>"; };
+		5BE473A51D78D307002E2251 /* Shield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shield.swift; sourceTree = "<group>"; };
+		5BE473A71D78D32A002E2251 /* Armor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Armor.swift; sourceTree = "<group>"; };
 		5BF4B1EB1D452B27005C4BBD /* Layers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -152,6 +162,9 @@
 				5B32A27E1D3C4700008389C5 /* Protocols.swift */,
 				5B6528301D50643200AE2189 /* Destructable.swift */,
 				5B6528341D510F9700AE2189 /* Attacker.swift */,
+				5B2AF0B11D71D283001969CD /* Follower.swift */,
+				5BE473A51D78D307002E2251 /* Shield.swift */,
+				5BE473A71D78D32A002E2251 /* Armor.swift */,
 			);
 			name = Protocols;
 			sourceTree = "<group>";
@@ -261,6 +274,8 @@
 				5B32A27A1D3C46BA008389C5 /* Player.swift */,
 				5BA7578A1D5947A20014BD82 /* ContactHandler.swift */,
 				5B1C9A861D62757A0079EFF5 /* Spawner.swift */,
+				5BD4B4C91D77417E00CF4286 /* InputHandler.swift */,
+				5BD4966A1D7CC9480039E395 /* Background.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -426,7 +441,9 @@
 				5B32A2791D3C45A9008389C5 /* Stats.swift in Sources */,
 				5BA7578B1D5947A20014BD82 /* ContactHandler.swift in Sources */,
 				5B32A27D1D3C46DB008389C5 /* Weapon.swift in Sources */,
+				5BE473A81D78D32A002E2251 /* Armor.swift in Sources */,
 				5BDCDAF81D402D1D00DF7DFF /* RandomNumbers.swift in Sources */,
+				5BD4B4CA1D77417E00CF4286 /* InputHandler.swift in Sources */,
 				5BA7578E1D596F030014BD82 /* PhysicsBoundary.swift in Sources */,
 				5BA5AF201D4EBA1000192CFE /* SpawnPoint.swift in Sources */,
 				5B0CD1B01D51778C00DDBA17 /* Projectiles.swift in Sources */,
@@ -439,11 +456,14 @@
 				5B857D3C1D36F666008DE265 /* AppDelegate.swift in Sources */,
 				5B6528311D50643200AE2189 /* Destructable.swift in Sources */,
 				5BF4B1EC1D452B27005C4BBD /* Layers.swift in Sources */,
+				5B2AF0B21D71D283001969CD /* Follower.swift in Sources */,
 				5B0F8C561D5E66B700D0C867 /* SpritePattern.swift in Sources */,
+				5BD4966B1D7CC9480039E395 /* Background.swift in Sources */,
 				5B0BE4AF1D4FFB50008DBD6C /* Mine.swift in Sources */,
 				5BBA80771D57CA5A00CD51CD /* EnemyWeapons.swift in Sources */,
 				5BA5AF1A1D4E6F8A00192CFE /* Behavior.swift in Sources */,
 				5BBA80791D57CA6300CD51CD /* PlayerWeapon.swift in Sources */,
+				5BE473A61D78D307002E2251 /* Shield.swift in Sources */,
 				5B57480C1D4C0254005EB35D /* Textures.swift in Sources */,
 				5B1C9A891D62772B0079EFF5 /* BasicJet.swift in Sources */,
 				5B32A27B1D3C46BA008389C5 /* Player.swift in Sources */,

@@ -11,6 +11,17 @@ import SpriteKit
 
 class PhysicsBoundary: SKSpriteNode {
     
+    func getDimensions() {
+        let dimensions = self.size
+        print("size = \(dimensions)")
+        
+        let _frame = self.frame
+        print("frame = \(_frame)")
+        
+        print("scene size = \(self.scene?.size)")
+        print("scene frame = \(self.scene?.frame)")
+    }
+    
     
     func setup() {
         physicsBody = SKPhysicsBody(edgeLoopFromRect: self.frame)

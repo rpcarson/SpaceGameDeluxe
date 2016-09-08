@@ -47,7 +47,7 @@ struct Spawner {
     }
     
     func spawnMinion(point: SpawnPoint, speed: Double, hostile: Bool = true) -> SKAction {
-        return SKAction.runBlock { SimplePattern(sprite: Minion(), behavior: Approach(duration: speed), spawnPoint: point).run(scene: self.scene)
+        return SKAction.runBlock { SimplePattern(sprite: Minion(), behavior: Approach(duration: speed), spawnPoint: point).run(hostile, fireDelay: 1, scene: self.scene)
         }
     }
     
@@ -69,10 +69,28 @@ struct Spawner {
         }
     }
     
+    
+   func spawnFollowerEnemy(enemy: BasicEnemy, point: SpawnPoint, hostile: Bool = true) -> (SKAction, SKSpriteNode) {
+    
+    let node = enemy
+    
+    return (SKAction.runBlock {
+        FollowerPattern(sprite: node, behavior: MoveInAndFollowPlayer(), spawnPoint: SpawnPoint.Middle).run(scene: self.scene)
+        
+    }, node)
+    
+    }
+    
     func spawnApproach(enemy: EnemyType, point: SpawnPoint, speed: Double, hostile: Bool) -> SKAction {
         return SKAction.runBlock {
             SimplePattern(sprite: enemy.enemy(), behavior: Approach(duration: speed), spawnPoint: point).run(scene: self.scene)
             
+        }
+    }
+    
+    func spawnMine(point: SpawnPoint, speed: Double) -> SKAction {
+        return SKAction.runBlock {
+            MinePattern(sprite: Mine(), behavior: Approach(duration: speed), spawnPoint: point).run(false, scene: self.scene)
         }
     }
     
