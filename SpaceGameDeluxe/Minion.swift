@@ -9,8 +9,6 @@
 import SpriteKit
 
 
-
-
 class Minion: BasicEnemy {
     
     override init() {

@@ -85,8 +85,8 @@ enum EnemyTextures {
         case .BasicEnemy: return 100
         case .Minion: return 10
         case .Mine: return 20
-        case .SquareJet: return 10
-        case .Jet: return 40
+        case .SquareJet: return 100
+        case .Jet: return 20
         }
     }
     

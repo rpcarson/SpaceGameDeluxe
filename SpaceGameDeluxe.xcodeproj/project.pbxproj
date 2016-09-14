@@ -48,6 +48,7 @@
 		5BE05AC21D63C23B004E4996 /* TrackingMinion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE05AC11D63C23B004E4996 /* TrackingMinion.swift */; };
 		5BE473A61D78D307002E2251 /* Shield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE473A51D78D307002E2251 /* Shield.swift */; };
 		5BE473A81D78D32A002E2251 /* Armor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE473A71D78D32A002E2251 /* Armor.swift */; };
+		5BED94D21D878F7700BDC5B9 /* MasterLevelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BED94D11D878F7700BDC5B9 /* MasterLevelController.swift */; };
 		5BF4B1EC1D452B27005C4BBD /* Layers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BF4B1EB1D452B27005C4BBD /* Layers.swift */; };
 /* End PBXBuildFile section */
 
@@ -116,6 +117,7 @@
 		5BE05AC11D63C23B004E4996 /* TrackingMinion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingMinion.swift; sourceTree = "<group>"; };
 		5BE473A51D78D307002E2251 /* Shield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shield.swift; sourceTree = "<group>"; };
 		5BE473A71D78D32A002E2251 /* Armor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Armor.swift; sourceTree = "<group>"; };
+		5BED94D11D878F7700BDC5B9 /* MasterLevelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MasterLevelController.swift; sourceTree = "<group>"; };
 		5BF4B1EB1D452B27005C4BBD /* Layers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Layers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -203,6 +205,7 @@
 				5BF4B1ED1D452B37005C4BBD /* Models */,
 				5BF4B1EE1D452B6B005C4BBD /* Supporting */,
 				5BD2FA651D52A029001DF146 /* playground.swift */,
+				5BED94D11D878F7700BDC5B9 /* MasterLevelController.swift */,
 			);
 			path = SpaceGameDeluxe;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				5B1C9A891D62772B0079EFF5 /* BasicJet.swift in Sources */,
 				5B32A27B1D3C46BA008389C5 /* Player.swift in Sources */,
 				5BA5AF1C1D4EA1A000192CFE /* ScenePatterns.swift in Sources */,
+				5BED94D21D878F7700BDC5B9 /* MasterLevelController.swift in Sources */,
 				5B32A27F1D3C4700008389C5 /* Protocols.swift in Sources */,
 				5B57480E1D4C0BD0005EB35D /* Extensions.swift in Sources */,
 				5BE05AC21D63C23B004E4996 /* TrackingMinion.swift in Sources */,

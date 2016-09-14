@@ -26,6 +26,8 @@ enum SpawnPoint: Int {
     case SevenTenths
     case EightTenths
     case NineTenths
+    case TopScreen
+    case BottomScreen
     
     var screen: CGRect {
         return UIScreen.mainScreen().bounds
@@ -77,6 +79,13 @@ enum SpawnPoint: Int {
                 CGPoint(x: offscreenRight, y: screen.height * 0.8)
             case .NineTenths: return
                 CGPoint(x: offscreenRight, y: screen.height * 0.9)
+                
+                
+            case .TopScreen: return
+                CGPoint(x: screen.width * 0.75, y: screen.height + node.size.height)
+            case .BottomScreen: return
+                CGPoint(x: screen.width * 0.75, y: -screen.height - node.size.height)
+                
                 
                 
 

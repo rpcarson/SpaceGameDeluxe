@@ -6,6 +6,9 @@
 //  Copyright © 2016 Reed Carson. All rights reserved.
 //
 
+
+
+
 import SpriteKit
 
 protocol ScenePattern {
@@ -31,7 +34,7 @@ struct ScenePatternOne: ScenePattern {
         return timeOfLastAction
     }
     var spawn: Spawner {
-        return scene.spawner!
+        return Spawner(actionScene: scene)
     }
     
     func runPattern() {
@@ -42,19 +45,51 @@ struct ScenePatternOne: ScenePattern {
     mutating func compilePattern() {
         
         
-        addPatternComponent(spawn.spawnMinion(.RandomStrict, speed: 20, hostile: false), wait: 0)
-        addPatternComponent(spawn.spawnMinion(.RandomStrict, speed: 20), wait: 0.5)
-        addPatternComponent(spawn.spawnMinion(.MidBottom, speed: 20), wait: 0.75)
-        
-        
-        addPatternComponent(spawn.cruiseJet(.TopMinus20, speed: 20), wait: 1)
+      //  addPatternComponent(spawn.evadeLate(.Middle, toPoint: .Top, enemy: BasicEnemy(), speed: 20, offset: 0), wait: 0)
         
         
       
+        addPatternComponent(spawn.spawnMinion(.TwoTenths, speed: 12), wait: 0)
+         addPatternComponent(spawn.spawnMinion(.ThreeTenths, speed: 12), wait: 0.75)
+         addPatternComponent(spawn.spawnMinion(.OneTenth, speed: 12), wait: 0)
+         addPatternComponent(spawn.spawnMinion(.FourTenths, speed: 12), wait: 0.75)
         
-        addPatternComponent(spawn.spawnMine(.TwoTenths, speed: 30), wait: 0)
-        addPatternComponent(spawn.spawnMine(.ThreeTenths, speed: 30), wait: 0)
-        addPatternComponent(spawn.spawnMine(.FourTenths, speed: 30), wait: 0)
+        
+        addPatternComponent(spawn.spawnMinion(.EightTenths, speed: 12), wait: 5)
+        addPatternComponent(spawn.spawnMinion(.SevenTenths, speed: 12), wait: 0.75)
+        addPatternComponent(spawn.spawnMinion(.NineTenths, speed: 12), wait: 0)
+        addPatternComponent(spawn.spawnMinion(.SixTenths, speed: 12), wait: 0.75)
+        
+        
+        
+        addPatternComponent(spawn.evadeLate(.SixTenths, toPoint: .EightTenths, enemy: Minion(), speed: 15, offset: 0), wait: 2)
+        addPatternComponent(spawn.evadeLate(.SixTenths, toPoint: .NineTenths, enemy: Minion(), speed: 15, offset: 20), wait: 0.4)
+        addPatternComponent(spawn.evadeLate(.SixTenths, toPoint: .Top, enemy: Minion(), speed: 15, offset: 40), wait: 0.4)
+        
+        
+
+
+        addPatternComponent(spawn.spawnEvasive(.Middle, toPoint: .MidTop, enemy: Minion(), speed: 12, offset: 20, evadeDelay: true), wait: 2)
+        addPatternComponent(spawn.spawnEvasive(.Middle, toPoint: .MidBottom, enemy: Minion(), speed: 12, offset: -20, evadeDelay: true), wait: 0)
+        addPatternComponent(spawn.spawnApproach(EnemyType.minion, point: .Middle, speed: 12, hostile: true), wait: 1)
+        
+        
+        addPatternComponent(spawn.spawnEvasive(.MidTop, toPoint: .FourTenths, enemy: Minion(), speed: 15, offset: 0, evadeDelay: false), wait: 5)
+        addPatternComponent(spawn.spawnEvasive(.MidBottom, toPoint: .SixTenths, enemy: Minion(), speed: 15, offset: 0, evadeDelay: false), wait: 0)
+        
+        addPatternComponent(spawn.cruiseJet(.EightTenths, speed: 0), wait: 4)
+         addPatternComponent(spawn.cruiseJet(.SevenTenths, speed: 0), wait: 1)
+         addPatternComponent(spawn.cruiseJet(.SixTenths, speed: 0), wait: 0.3)
+        
+        addFollowerComponent(spawn.spawnFollowerEnemy(TrackingMinion(), point: .Middle), wait: 4)
+        
+        addPatternComponent(spawn.spawnEvasive(.SevenTenths, toPoint: .ThreeTenths, enemy: Minion(), speed: 10, offset: 0, evadeDelay: false), wait: 4)
+        
+        
+     //   addFollowerComponent(spawn.spawnFollowerEnemy(TrackingMinion(), point: .Middle), wait: 1)
+
+      
+        
         
         /*
         
@@ -62,7 +97,6 @@ struct ScenePatternOne: ScenePattern {
         addPatternComponent(spawn.spawnJet(.BottomPlus20, speed: 20), wait: 0)
 
         
-        addFollowerComponent(spawn.spawnFollowerEnemy(TrackingMinion(), point: .Middle), wait: 0)
         
         addPatternComponent(spawn.spawnMinion(.Top, speed: 20), wait: 2)
         addPatternComponent(spawn.spawnMinion(.Bottom, speed: 20), wait: 0)

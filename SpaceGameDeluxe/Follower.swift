@@ -8,8 +8,6 @@
 
 import SpriteKit
 
-//TODO: tweak delayed follow solution. basis is ok, i think
-//TODO: add strict follow
 
 protocol Follower {
     func followPlayer(node: SKSpriteNode, strict: Bool)
@@ -25,9 +23,12 @@ extension Follower {
         let diff = Player.sharedInstance.position.y - node.position.y
         
         if node.speed == 0 {
+            let bool = node.actionForKey("moveIn")
+            print(bool)
             if node.actionForKey("moveIn") != nil {
                 node.removeActionForKey("moveIn")
                 node.speed = 1
+                print("0 and moveIn nil")
             }
             
         }

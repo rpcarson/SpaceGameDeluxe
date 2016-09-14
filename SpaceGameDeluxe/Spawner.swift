@@ -70,12 +70,12 @@ struct Spawner {
     }
     
     
-   func spawnFollowerEnemy(enemy: BasicEnemy, point: SpawnPoint, hostile: Bool = true) -> (SKAction, SKSpriteNode) {
+    func spawnFollowerEnemy(enemy: BasicEnemy, point: SpawnPoint, hostile: Bool = true) -> (SKAction, SKSpriteNode) {
     
     let node = enemy
     
     return (SKAction.runBlock {
-        FollowerPattern(sprite: node, behavior: MoveInAndFollowPlayer(), spawnPoint: SpawnPoint.Middle).run(scene: self.scene)
+        FollowerPattern(sprite: node, behavior: MoveInAndFollowPlayer(), spawnPoint: SpawnPoint.Middle).run(hostile, fireDelay: 0, scene: self.scene)
         
     }, node)
     
@@ -92,6 +92,27 @@ struct Spawner {
         return SKAction.runBlock {
             MinePattern(sprite: Mine(), behavior: Approach(duration: speed), spawnPoint: point).run(false, scene: self.scene)
         }
+    }
+    
+    
+    
+    
+    
+    
+    func spawnEvasive(point: SpawnPoint, toPoint: SpawnPoint, enemy: BasicEnemy, speed: Double, offset: CGFloat, evadeDelay: Bool) -> SKAction {
+        
+        return SKAction.runBlock {
+            EvasivePattern(sprite: enemy, behavior: Approach(), spawnPoint: point).run(true, fireDelay: 0, scene: self.scene, speed: speed, toPoint: toPoint, offset: offset, evadeDelay: evadeDelay)
+    }
+        
+    }
+    
+    func evadeLate(point: SpawnPoint, toPoint: SpawnPoint, enemy: BasicEnemy, speed: Double, offset: CGFloat) -> SKAction {
+        
+        return SKAction.runBlock {
+            EvadeLate(sprite: enemy, behavior: Approach(), spawnPoint: point).run(true, fireDelay: 0, scene: self.scene, speed: speed, toPoint: toPoint, offset: offset)
+        }
+        
     }
     
 

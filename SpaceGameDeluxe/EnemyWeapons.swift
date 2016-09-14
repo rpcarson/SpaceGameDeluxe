@@ -65,7 +65,7 @@ struct BaseGun: EnemyWeapon {
 struct BasicEnergyGun: EnemyWeapon {
     var damage: Double = 4
     var rateOfFire: Double = 2
-    var firePattern: EnemyFiringPattern = BurstThree()
+    var firePattern: EnemyFiringPattern = Burst(shotsInBurst: 1, burstSpeed: 1, timeBetween: 1)
     var projectile: Projectile = BasicRoundBullet()
     var owner: BasicEnemy
     var tracking: Bool = false

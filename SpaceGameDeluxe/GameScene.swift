@@ -11,7 +11,7 @@ import SpriteKit
 protocol ActionScene {
     var frameCount: Double { get set }
     var pattern: ScenePattern? { get set }
-    var spawner: Spawner? { get set }
+   // var spawner: Spawner? { get set }
     var worldLayer: WorldLayer { get  }
     var hudLayer: HUDLayer { get  }
     var backgroundLayer: BackgroundLayer { get  }
@@ -30,7 +30,7 @@ class GameScene: SKScene, ActionScene {
     var scrollingBackground: Scroller?
     var scroller2: Scroller?
     
-    var spawner: Spawner?
+   // var spawner: Spawner?
     
     let contactHandler = ContactHandler()
     
@@ -61,14 +61,24 @@ class GameScene: SKScene, ActionScene {
     
     let bg1 = SKSpriteNode(imageNamed: "starOverlay")
     let bg2 = SKSpriteNode(imageNamed: "starOverlay")
-    let bgMain = SKSpriteNode(imageNamed: "redStarBG1")
-    let bgMain1 = SKSpriteNode(imageNamed: "redStarBG1")
+    var bgMain: SKSpriteNode {
+    let node = SKSpriteNode(imageNamed: "bgspace")
+        node.size.height = self.size.height
+        node.size.width = self.size.width
+        return node
+    }
+    var bgMain1: SKSpriteNode {
+        let node = SKSpriteNode(imageNamed: "bgspace")
+        node.size.height = self.size.height
+        node.size.width = self.size.width
+        return node
+    }
     
     override func didMoveToView(view: SKView) {
         size.width = UIScreen.mainScreen().bounds.width
          size.height = UIScreen.mainScreen().bounds.height
         
-        spawner = Spawner(actionScene: self)
+      //  spawner = Spawner(actionScene: self)
         
         setupScene()
         
@@ -80,7 +90,7 @@ class GameScene: SKScene, ActionScene {
         let array = [bg1, bg2]
         let array2 = [bgMain, bgMain1]
         scrollingBackground = Scroller(scene: self, speed: 12, type: .debris)
-        scroller2 = Scroller(scene: self, speed: 0.5, type: .background)
+        scroller2 = Scroller(scene: self, speed: 1, type: .background)
         
         scroller2?.images = array2
         
@@ -164,7 +174,7 @@ class GameScene: SKScene, ActionScene {
         for node in worldLayer.children {
             if node.position.x + node.frame.size.width/2 < 0 {
                 node.remove()
-                print("node removed")
+               // print("node removed")
         
             }
         }

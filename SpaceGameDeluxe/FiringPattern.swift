@@ -9,6 +9,9 @@
 import SpriteKit
 
 
+//TODO:// Burst mechanics get weird for burstspeeds less than 1
+
+
 protocol FiringPattern {
     func pattern(weapon: Weapon, delay: Double)
 }
@@ -119,30 +122,15 @@ struct Burst: EnemyFiringPattern {
             for i in 1...self.shotsInBurst {
                 let wait = SKAction.waitForDuration(Double(Double(i)*self.burstSpeed))
                 let sequence = SKAction.sequence([wait, fire])
-              // print("wait = \(((Double(i)*self.burstSpeed)))")
-                //print("i = \(i)")
-                //print(self.burstSpeed)
-               
-                
-           //     if let scene = weapon.owner.scene as? GameScene {
-                    
-                  //  print("burst block scene")
+           
                     if let fireZone = scene.fireZone {
-                        
-                       // print("firezzone busrtblock")
-                        
                         let position = weapon.owner.position
                         if fireZone.containsPoint(position) {
                             scene.worldLayer.runAction(sequence)
-                          // print("busrtBlock")
                         }
                         
                     }
-               // }
- 
-                weapon.owner.runAction(sequence)
-               // scene.worldLayer.runAction(sequence)
-              //  print("burst")
+
                
             }
         }
@@ -159,11 +147,9 @@ struct Burst: EnemyFiringPattern {
           //  print("firezzone main block")
                 let position = weapon.owner.position
                // print(position)
-                if fireZone.containsPoint(position) {
-                  
+                if fireZone.containsPoint(position) {                  
                     weapon.owner.runAction(sequenceWithDelay)
-                    // scene.worldLayer.runAction(sequenceWithDelay)
-                   // print("firing")
+                 
                 }
                 
             }

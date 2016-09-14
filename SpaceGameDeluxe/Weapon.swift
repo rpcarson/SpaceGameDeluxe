@@ -188,8 +188,6 @@ protocol EnemyWeapon: Weapon {
 extension EnemyWeapon {
    
     func addNode() -> Projectile? {
-        
-       // print("\(owner) calling AddNode")
         guard let scene = owner.scene as? GameScene else { print("scene not success"); return nil }
         let node = projectile.dynamicType.init()
         node.position = owner.projectileOrigin
@@ -198,7 +196,6 @@ extension EnemyWeapon {
         node.name = "enemyProjectile"
         node.damage = self.damage
         scene.projectileLayer.addChild(node)
-       // print("Node Added")
         return node
     }
     

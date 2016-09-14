@@ -38,7 +38,6 @@ extension Pattern {
         
         if hostile {
             sprite.weapon?.fire(fireDelay)
-              print("\(sprite) firing ")
         }
     
     }
@@ -70,10 +69,11 @@ struct FollowerPattern: Pattern {
         
         var array = scene.pattern?.spritesNeedUpdate
         array?.append(sprite)
+        print("run with key moveIn")
         
         if hostile {
             sprite.weapon?.fire(fireDelay)
-          
+            
         }
         
     }
@@ -95,6 +95,84 @@ struct MinePattern: Pattern {
         
     }
 }
+
+
+struct EvasivePattern: Pattern {
+    var sprite: BasicEnemy
+    var behavior: Behavior
+    var spawnPoint: SpawnPoint
+    
+  
+    func run(hostile: Bool, fireDelay: Double, scene: ActionScene, speed: Double, toPoint: SpawnPoint, offset: CGFloat, evadeDelay: Bool) {
+        
+        
+        spawn(scene, offSet: offset)
+        
+        
+        guard let enemyScene = sprite.scene else { return  }
+
+        
+        let pointY = toPoint.getPointForNode(sprite).y
+        let point = CGPoint(x: enemyScene.size.width * 0.5, y: pointY)
+        
+        let moveIn = SKAction.moveToX(enemyScene.size.width * 0.75, duration: speed/4)
+        let dodge = SKAction.moveTo(point, duration: speed/4)
+        let moveOut = SKAction.moveToX(-enemyScene.size.width/2, duration: speed)
+        let sequence = SKAction.sequence([moveIn,dodge,moveOut])
+        
+        if evadeDelay {
+            sprite.runAction(sequence)
+
+        } else {
+            let newDodge = SKAction.moveTo(point, duration: speed/2)
+            let newSequence = SKAction.sequence([newDodge, moveOut])
+            sprite.runAction(newSequence)
+        }
+        
+        
+        if hostile {
+            sprite.weapon?.fire(fireDelay)
+        }
+        
+      
+        
+     
+    }
+    
+}
+
+
+struct EvadeLate: Pattern {
+    var sprite: BasicEnemy
+    var behavior: Behavior
+    var spawnPoint: SpawnPoint
+    
+    func run(hostile: Bool, fireDelay: Double, scene: ActionScene, speed: Double, toPoint: SpawnPoint, offset: CGFloat) {
+        
+        spawn(scene, offSet: offset)
+        
+        
+        guard let enemyScene = sprite.scene else { return  }
+        
+        let pointY = toPoint.getPointForNode(sprite).y
+        
+        let moveIn = SKAction.moveToX(enemyScene.size.width * 0.5, duration: speed/3)
+        let exitPoint = CGPoint(x:-sprite.size.width, y: pointY)
+        let evade = SKAction.moveTo(exitPoint, duration: speed/3)
+        let moveOut = SKAction.moveToX(-enemyScene.size.width/2, duration: speed/3)
+        
+        let sequence = SKAction.sequence([moveIn, evade, moveOut])
+
+        sprite.runAction(sequence)
+
+        if hostile {
+            sprite.weapon?.fire(fireDelay)
+        }
+        
+    }
+    
+}
+
 
 /*
 

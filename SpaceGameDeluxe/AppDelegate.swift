@@ -10,7 +10,7 @@ import UIKit
 
 var debugMode: Bool = false
 
-var simulationSpeed: CGFloat = 2
+var simulationSpeed: CGFloat = 1
 
 
 @UIApplicationMain

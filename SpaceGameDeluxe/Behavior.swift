@@ -9,6 +9,7 @@
 import SpriteKit
 
 
+//TODO: Make specific follower behavior
 
 enum BehaviorType {
     case approach
@@ -31,6 +32,9 @@ protocol Behavior {
 extension Behavior {
     var screenWidth: CGFloat {
       return UIScreen.mainScreen().bounds.width
+    }
+    var screenHeight: CGFloat {
+        return UIScreen.mainScreen().bounds.height
     }
     
 }
@@ -58,9 +62,6 @@ struct Approach: Behavior {
         self.duration = 0
     }
     
-    mutating func lazyInit(duration: Double) {
-        self.duration = duration
-    }
 }
 
 //TODO: solution for decreasing speed without affecting duration of move ~
@@ -75,9 +76,9 @@ struct ApproachAndSlow: Behavior {
     func enterAndSlow() -> SKAction {
     
         let despawn = SKAction.removeFromParent()
-        let move = SKAction.moveToX(-screenWidth/2, duration: 4)
-     //   let moveIn = SKAction.moveToX(screenWidth*0.75, duration: 1)
-        let decreaseSpeed = SKAction.speedBy(0.2, duration: 0.8)
+        let move = SKAction.moveToX(-screenWidth/2, duration: 5)
+      //  let moveIn = SKAction.moveToX(screenWidth*0.75, duration: 2)
+        let decreaseSpeed = SKAction.speedBy(0.2, duration: 0.5)
        // let group1 = SKAction.group([moveIn, decreaseSpeed])
         let group = SKAction.group([decreaseSpeed, move])
         let wait = SKAction.waitForDuration(delay)
@@ -108,12 +109,31 @@ struct MoveInAndFollowPlayer: Behavior {
         let move = SKAction.moveToX(screenWidth*0.75, duration: 2)
         let decreaseSpeed = SKAction.speedBy(0, duration: 2)
         let group = SKAction.group([decreaseSpeed, move])
+        print("MoveIn func")
         return group
     }
     
 }
 
+// only use with Top/Bottom Screen spawnPoints
 
+struct EnterFromTopOrBottomFollow: Behavior {
+    
+    var pattern: SKAction {
+        return enter()
+    }
+    
+    func enter() -> SKAction {
+        let move =  SKAction.moveToY(screenHeight*0.5, duration: 3)
+        let decreaseSpeed = SKAction.speedBy(0, duration: 2)
+        let group = SKAction.group([decreaseSpeed, move])
+        return group
+        //return move
+    }
+    
+}
+
+//// ^^^^^^^^
 
 struct DiveBomb: Behavior {
     
@@ -123,6 +143,50 @@ struct DiveBomb: Behavior {
 }
 
 
+enum DodgeDirection {
+    case Up
+    case Down
+}
+
+/*
+struct BasicEvasive: Behavior {
+    
+    var duration: Double
+    var direction: DodgeDirection
+    var nodePosition: CGPoint
+    
+    var pattern: SKAction {
+        return SKAction.waitForDuration(0)
+    }
+    
+    
+    func move() -> SKAction {
+        
+        var dodgePoint: CGPoint {
+            switch direction {
+            case .Up: return CGPoint(x: screenWidth*0.5, y: nodePosition.y + screenHeight * 0.25)
+            case .Down: return CGPoint(x: screenWidth*0.5, y: nodePosition.y - screenHeight * 0.25)
+            }
+        }
+        
+        let moveIn = SKAction.moveToX(screenWidth*0.75, duration: duration/4)
+        let dodge = SKAction.moveTo(dodgePoint, duration: duration/4)
+        let moveOut = SKAction.moveToX(-screenWidth/2, duration: duration/2)
+
+    }
+    
+    
+    init(duration: Double, direction: DodgeDirection) {
+        self.duration = duration
+        self.direction = direction
+    }
+    
+    init() {
+        self.duration = 0
+    }
+
+}
+*/
 
 
 
