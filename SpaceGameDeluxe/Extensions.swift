@@ -22,7 +22,7 @@ extension GameScene {
     func startFiring() {
         guard let weapon = player.weapon else { return }
         fire()
-           timer = NSTimer.scheduledTimerWithTimeInterval(weapon.rateOfFire, target: self, selector: #selector(GameScene.fire), userInfo: nil, repeats: true)
+           timer = Timer.scheduledTimer(timeInterval: weapon.rateOfFire, target: self, selector: #selector(GameScene.fire), userInfo: nil, repeats: true)
      //   timer = NSTimer.scheduledTimerWithTimeInterval(weapon.weaponType.rateOfFire, target: self, selector: #selector(GameScene.fire), userInfo: nil, repeats: true)
     }
     func endFiring() {
@@ -49,18 +49,18 @@ extension GameScene {
         let firePosition = CGPoint(x: fireSize.width/2 + (nullSize.width + moveSize.width), y: self.frame.height/2)
     
         
-        moveZone = SKShapeNode(rectOfSize: moveSize)
-        moveZone.fillColor = UIColor.blueColor()
+        moveZone = SKShapeNode(rectOf: moveSize)
+        moveZone.fillColor = UIColor.blue
         moveZone.zPosition = 10
         moveZone.position = movePosition
         
-        fireZone = SKShapeNode(rectOfSize: fireSize)
-        fireZone.fillColor = UIColor.redColor()
+        fireZone = SKShapeNode(rectOf: fireSize)
+        fireZone.fillColor = UIColor.red
         fireZone.zPosition = 10
         fireZone.position = firePosition
         
-        nullZone = SKShapeNode(rectOfSize: nullSize)
-        nullZone.fillColor = UIColor.grayColor()
+        nullZone = SKShapeNode(rectOf: nullSize)
+        nullZone.fillColor = UIColor.gray
         nullZone.zPosition = 10
         nullZone.position = nullPosition
         
@@ -69,9 +69,9 @@ extension GameScene {
             fireZone.alpha = 0.5
             nullZone.alpha = 0.3
         } else {
-            moveZone.hidden = true
-            fireZone.hidden = true
-            nullZone.hidden = true
+            moveZone.isHidden = true
+            fireZone.isHidden = true
+            nullZone.isHidden = true
         }
         
         zoneLayer.addChild(nullZone)
@@ -83,6 +83,12 @@ extension GameScene {
 }
 
 extension GameScene {
+    
+    
+    func loadLevel() {
+        masterLevelController = TestLevel(scene: self)
+    }
+    
     func setupLayers() {
         addChild(backgroundLayer)
         addChild(worldLayer)
@@ -93,12 +99,12 @@ extension GameScene {
         worldLayer.addChild(projectileLayer)
     }
     
-    func loadPattern() {
-        pattern = ScenePatternOne(scene: self)
-    }
+//    func loadPattern() {
+//        pattern = ScenePatternOne(scene: self)
+//    }
     
     func setupBoundary() {
-        boundary.color = SKColor.redColor()
+        boundary.color = SKColor.red
         boundary.size = CGSize(width: self.frame.width * 2, height: self.frame.height*2)
         boundary.position = CGPoint(x: self.frame.width/2, y: self.frame.height/2)
         addChild(boundary)

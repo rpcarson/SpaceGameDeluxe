@@ -47,13 +47,13 @@ enum EnemyType {
 class BasicEnemy: SKSpriteNode, Destructable, Attacker {
     
     var projectileOrigin: CGPoint {
-        return EnemyTextures.Minion.getProjectileOrigin(self.position)
+        return EnemyTextures.minion.getProjectileOrigin(self.position)
     }
     
     var healthValue = HealthValue.basicEnemy
     let level = 1
     
-    var enemyType: EnemyTextures = EnemyTextures.BasicEnemy
+    var enemyType: EnemyTextures = EnemyTextures.basicEnemy
     
     var weapon: Weapon?
     var health: Double = 1000
@@ -69,15 +69,19 @@ class BasicEnemy: SKSpriteNode, Destructable, Attacker {
     }
     
     //MARK: - Behaviors
-    
-    func destruct() {
-        self.remove()
-    }
+
+        func destruct() {
+            StatKeeper.sharedInstance.recieveBounty(amount: self.enemyType.bounty)
+            StatKeeper.sharedInstance.countEnemyDestroyed()
+            self.remove()
+        }
+
+  
 
     //MARK: - Setup and Init
     
   
-    func configure(texture: SKTexture, size: CGSize, health: Double, weapon: Weapon?) {
+    func configure(_ texture: SKTexture, size: CGSize, health: Double, weapon: Weapon?) {
         
         self.health = health
         self.weapon = weapon
@@ -87,7 +91,7 @@ class BasicEnemy: SKSpriteNode, Destructable, Attacker {
         name = "enemy"
         
         physicsBody = SKPhysicsBody(texture: texture, size: size)
-        physicsBody?.dynamic = true
+        physicsBody?.isDynamic = true
         physicsBody?.affectedByGravity = false
         physicsBody?.usesPreciseCollisionDetection = false
         physicsBody?.collisionBitMask = 0
@@ -107,16 +111,16 @@ class BasicEnemy: SKSpriteNode, Destructable, Attacker {
     }
     
     init() {
-        super.init(texture: EnemyTextures.BasicEnemy.getTexture(), color: UIColor.clearColor(), size: CGSize(width: 50, height: 50))
+        super.init(texture: EnemyTextures.basicEnemy.getTexture(), color: UIColor.clear, size: CGSize(width: 50, height: 50))
         
         
-        configure(EnemyTextures.BasicEnemy.getTexture(), size: EnemyTextures.BasicEnemy.getSize(), health: EnemyTextures.BasicEnemy.healthValue, weapon: nil)
+        configure(EnemyTextures.basicEnemy.getTexture(), size: EnemyTextures.basicEnemy.getSize(), health: EnemyTextures.basicEnemy.healthValue, weapon: nil)
         
     }
     
     convenience init(withBehavior behavior: SKAction) {
         self.init()
-        self.runAction(behavior)
+        self.run(behavior)
     }
     
     convenience init(texture: SKTexture, size: CGSize, health: Double, weapon: Weapon?) {
@@ -142,78 +146,12 @@ extension BasicEnemy {
     }
 }
 
+extension BasicEnemy {
+    var bounty: Double {
+        return self.enemyType.bounty
+    }
+    
 
-/*  thrown out code
- 
- 
- class func getType() -> BasicEnemy {
- return BasicEnemy()
- }
- 
- 
- class func spawn(inScene scene: SKScene) {
- let scene = scene as! GameScene
- let node = getType()
- let randomY = RandomNumbers.randomYForObject(inScene: scene, object: node)
- let locationX = scene.size.width + node.size.width
- let position = CGPoint(x: locationX, y: randomY)
- node.position = position
- 
- scene.addChild(node)
- enemies.append(node)
- 
- scene.enemies.append(node)
- 
- /*
- print("ENEMY COORDINATES")
- print(" RANDOM XXXXXXX\(randomY)")
- print(" scene width \(scene.size.width)")
- print(" frame width \(scene.frame.width)")
- print(" node position \(node.position)")
- print(" view width \(scene.view?.frame.width)")
- */
- 
- }
- 
- 
- func move() {
- 
- let destination = CGPoint(x: -self.size.width, y: position.y)
- let move = SKAction.moveTo(destination, duration: 10)
- let despawn = SKAction.removeFromParent()
- let sequence = SKAction.sequence([move, despawn])
- self.runAction(sequence, withKey: "move")
- 
- }
- 
- 
- func setupPhysicsBody() {
- body = SKPhysicsBody(texture: spriteTexture, size: _size)
- body.dynamic = false
- body.affectedByGravity = false
- body.usesPreciseCollisionDetection = true
- body.collisionBitMask = 0
- body.categoryBitMask = MaskValue.destructable
- body.contactTestBitMask = MaskValue.playerProjectile
- physicsBody = body
- 
- }
- 
- func setupSprite() {
- self.texture = spriteTexture
- self.size = _size
- setupPhysicsBody()
- 
- }
-
- var spriteTexture: SKTexture = EnemyTextures.BasicEnemy.getTexture()
- var body: SKPhysicsBody!
- var _size = CGSize(width: 50, height: 50)
-
- 
- */
-
-
-
+}
 
 

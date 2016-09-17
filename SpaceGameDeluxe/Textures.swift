@@ -8,6 +8,11 @@
 
 import SpriteKit
 
+enum LevelMultiplier: Double {
+    case levelOne = 1.0
+    case levelTwo = 1.25
+}
+
 
 enum PlayerTextures: String {
     case Player = "betterShittyPlayer"
@@ -21,6 +26,7 @@ enum PlayerTextures: String {
 
 enum WeaponTextures: String {
     case BasicBullet = "gunfire1"
+    case GreenBullet = "gunfire2"
     case EnergyBulletPurple = "EnergyBulletPurple"
     case PlaceHolderMissile = "11"
     
@@ -34,41 +40,42 @@ enum WeaponTextures: String {
         case .BasicBullet: return SKTexture(imageNamed: WeaponTextures.BasicBullet.rawValue)
             case .EnergyBulletPurple: return SKTexture(imageNamed: "EnergyBulletPurple")
             case .PlaceHolderMissile: return SKTexture(imageNamed: "placeholderMissile")
+        case .GreenBullet: return SKTexture(imageNamed: "gunfire2")
         }
     }
 }
 
 enum EnemyTextures {
   
-    case BasicEnemy
-    case Minion
-    case Mine
-    case SquareJet
-    case Jet
+    case basicEnemy
+    case minion
+    case mine
+    case squareJet
+    case jet
     
     func getTexture() -> SKTexture {
         switch self {
-        case .BasicEnemy: return SKTexture(imageNamed: "alien1")
-        case .Minion: return SKTexture(imageNamed: "stupidAssMinion1")
-        case .Mine: return SKTexture(imageNamed: "mine1")
-        case .SquareJet: return SKTexture(imageNamed: "strafeJet")
-        case .Jet: return SKTexture(imageNamed: "crapEnemy1")
+        case .basicEnemy: return SKTexture(imageNamed: "alien1")
+        case .minion: return SKTexture(imageNamed: "stupidAssMinion1")
+        case .mine: return SKTexture(imageNamed: "mine1")
+        case .squareJet: return SKTexture(imageNamed: "strafeJet")
+        case .jet: return SKTexture(imageNamed: "crapEnemy1")
             
         }
     }
     
     func getSize() -> CGSize {
         switch self {
-        case .BasicEnemy: return CGSize(width: 50, height: 50)
-        case .Minion: return CGSize(width: 50, height: 50)
-        case .Mine: return CGSize(width: 50, height: 50)
-        case .SquareJet: return CGSize(width: 50, height: 50)
-        case .Jet: return CGSize(width: 50, height: 50)
+        case .basicEnemy: return CGSize(width: 50, height: 50)
+        case .minion: return CGSize(width: 50, height: 50)
+        case .mine: return CGSize(width: 50, height: 50)
+        case .squareJet: return CGSize(width: 50, height: 50)
+        case .jet: return CGSize(width: 50, height: 50)
     }
         
     }
     
-    func getProjectileOrigin(position: CGPoint) -> CGPoint {
+    func getProjectileOrigin(_ position: CGPoint) -> CGPoint {
         let x = position.x
         let y = position.y
        // let height = getTexture().size().height
@@ -82,11 +89,22 @@ enum EnemyTextures {
     
     var healthValue: Double {
         switch self {
-        case .BasicEnemy: return 100
-        case .Minion: return 10
-        case .Mine: return 20
-        case .SquareJet: return 100
-        case .Jet: return 20
+        case .basicEnemy: return 100
+        case .minion: return 6
+        case .mine: return 30
+        case .squareJet: return 24
+        case .jet: return 12
+        }
+    }
+    
+    
+    var bounty: Double {
+        switch self {
+        case .basicEnemy: return 100
+        case .minion: return 25
+        case .mine: return 10
+        case .squareJet: return 100
+        case .jet: return 40
         }
     }
     

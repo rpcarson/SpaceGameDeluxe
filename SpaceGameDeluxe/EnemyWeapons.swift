@@ -79,7 +79,7 @@ struct BasicEnergyGun: EnemyWeapon {
 struct Autocannon: EnemyWeapon {
     var damage: Double = 1
     var rateOfFire: Double = RateOfFire.fast
-    var projectile: Projectile = BasicBullet()
+    var projectile: Projectile = UraniumBullet()
     var owner: BasicEnemy
     var tracking: Bool = false
     

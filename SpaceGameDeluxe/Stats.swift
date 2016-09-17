@@ -9,7 +9,6 @@
 import Foundation
 
 
-
 class StatKeeper {
     
     static let sharedInstance = StatKeeper()
@@ -21,5 +20,21 @@ class StatKeeper {
     var damageDealt: Double = 0
     
     var damageTaken: Double = 0
+    
+    func recieveBounty(amount: Double) {
+        playerMoney += amount
+        
+        if showStats {print("Stats - Player Money: \(playerMoney)")}
+    }
+    
+    func trackDamageDealth(amount: Double) {
+        damageDealt += amount
+          if showStats && (damageDealt.truncatingRemainder(dividingBy: 100) == 0) {print("Stats - Damage Dealt: \(damageDealt)")}
+    }
+    
+    func countEnemyDestroyed() {
+        enemiesDestroyed += 1
+          if showStats {print("Stats - Enemies Destroyed: \(enemiesDestroyed)")}
+    }
     
 }

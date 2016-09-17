@@ -36,7 +36,7 @@ struct ContactMaskValue {
 
 class ContactHandler: NSObject, SKPhysicsContactDelegate {
     
-    func didBeginContact(contact: SKPhysicsContact) {
+    func didBegin(_ contact: SKPhysicsContact) {
        // print("Collision Detected")
         
       //  print(contact.bodyB.node?.name)
@@ -124,6 +124,7 @@ class ContactHandler: NSObject, SKPhysicsContactDelegate {
             guard let projectile = playerProjectile else { return }
             if var enemy = destructable.node as? Destructable {
                     enemy.decreaseHealth(projectile.damage)
+                    StatKeeper.sharedInstance.trackDamageDealth(amount: projectile.damage)
                     projectile.remove()
             }
             if debugMode { print("Player shot Destructable") }
@@ -162,7 +163,7 @@ class ContactHandler: NSObject, SKPhysicsContactDelegate {
         
     }
     
-    func didEndContact(contact: SKPhysicsContact) {
+    func didEnd(_ contact: SKPhysicsContact) {
         
         
     }

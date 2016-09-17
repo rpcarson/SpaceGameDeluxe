@@ -10,11 +10,11 @@ import SpriteKit
 
 
 enum ProjectileSpeed: Double {
-    case VerySlow = 12
-    case Slow = 8
-    case Medium = 4
-    case Fast = 3
-    case VeryFast = 2
+    case verySlow = 12
+    case slow = 8
+    case medium = 4
+    case fast = 3
+    case veryFast = 2
 }
 
 
@@ -24,14 +24,14 @@ class Projectile: SKSpriteNode {
     var projectileSpeed: Double = 10
     var damage: Double = 0
     
-    func configure(texture: SKTexture, size: CGSize, speed: Double) {
+    func configure(_ texture: SKTexture, size: CGSize, speed: Double) {
         self.texture = texture
         self.size = size
         self.projectileSpeed = speed
         
         name = "projectile"
         physicsBody = SKPhysicsBody(texture: texture, size: size)
-        physicsBody?.dynamic = true
+        physicsBody?.isDynamic = true
         physicsBody?.affectedByGravity = false
         physicsBody?.usesPreciseCollisionDetection = true
         physicsBody?.collisionBitMask = 0
@@ -46,8 +46,19 @@ class Projectile: SKSpriteNode {
 
 class BasicBullet: Projectile {
      init() {
-         super.init(texture: WeaponTextures.BasicBullet.getTexture(), color: UIColor.clearColor(), size: CGSize(width: 50, height: 50))
-        configure(WeaponTextures.BasicBullet.getTexture(), size: CGSize(width: 20, height: 5), speed: ProjectileSpeed.VeryFast.rawValue)
+         super.init(texture: WeaponTextures.BasicBullet.getTexture(), color: UIColor.clear, size: CGSize(width: 50, height: 50))
+        configure(WeaponTextures.BasicBullet.getTexture(), size: CGSize(width: 20, height: 5), speed: ProjectileSpeed.veryFast.rawValue)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
+class UraniumBullet: BasicBullet {
+    override init() {
+        super.init()
+        configure(WeaponTextures.GreenBullet.getTexture(), size: CGSize(width: 20, height: 5), speed: ProjectileSpeed.veryFast.rawValue)
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -58,7 +69,7 @@ class BasicBullet: Projectile {
 class BasicRoundBullet: BasicBullet {
     override init() {
         super.init()
-       configure(WeaponTextures.EnergyBulletPurple.getTexture(), size: CGSize(width: 20, height: 20), speed: ProjectileSpeed.Slow.rawValue)
+       configure(WeaponTextures.EnergyBulletPurple.getTexture(), size: CGSize(width: 20, height: 20), speed: ProjectileSpeed.slow.rawValue)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

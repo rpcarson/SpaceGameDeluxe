@@ -15,23 +15,23 @@ struct RandomNumbers {
         let randomBool = GKRandomSource.sharedRandom().nextBool()
         
         if randomBool {
-            return CGFloat(GKRandomSource.sharedRandom().nextIntWithUpperBound(20))
+            return CGFloat(GKRandomSource.sharedRandom().nextInt(upperBound: 20))
         } else {
-            return CGFloat(GKRandomSource.sharedRandom().nextIntWithUpperBound(20)) * -1
+            return CGFloat(GKRandomSource.sharedRandom().nextInt(upperBound: 20)) * -1
         }
         
         
     }
     static func getRandomTo10() -> CGFloat {
       
-            return CGFloat(GKRandomSource.sharedRandom().nextIntWithUpperBound(10)) * -1
+            return CGFloat(GKRandomSource.sharedRandom().nextInt(upperBound: 10)) * -1
     
         
         
     }
     
     static func randomSpawnPoint() -> Int {
-        return GKRandomSource.sharedRandom().nextIntWithUpperBound(9)
+        return GKRandomSource.sharedRandom().nextInt(upperBound: 9)
     }
     
    
@@ -39,7 +39,7 @@ struct RandomNumbers {
     static func randomXFromLeft(inScene scene: SKScene) -> CGFloat {
         
         let sceneXInt = Int(scene.size.width)
-        let random = GKRandomSource.sharedRandom().nextIntWithUpperBound(sceneXInt)
+        let random = GKRandomSource.sharedRandom().nextInt(upperBound: sceneXInt)
         return CGFloat(random)
         
         
@@ -51,7 +51,7 @@ struct RandomNumbers {
         
         let upperBounds = Int(scene.frame.width) - buffer
         
-        let randomRange = GKRandomSource.sharedRandom().nextIntWithUpperBound(upperBounds)
+        let randomRange = GKRandomSource.sharedRandom().nextInt(upperBound: upperBounds)
         
         return CGFloat(randomRange + buffer/2)
         
@@ -62,7 +62,7 @@ struct RandomNumbers {
         
         let upperBounds = Int(scene.frame.height) - buffer
         
-        let randomRange = GKRandomSource.sharedRandom().nextIntWithUpperBound(upperBounds)
+        let randomRange = GKRandomSource.sharedRandom().nextInt(upperBound: upperBounds)
         
         return CGFloat(randomRange + buffer/2)
         

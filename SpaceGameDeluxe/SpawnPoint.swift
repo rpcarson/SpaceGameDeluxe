@@ -10,30 +10,30 @@ import SpriteKit
 
 
 enum SpawnPoint: Int {
-    case Bottom
-    case MidBottom
-    case Middle
-    case MidTop
-    case Top
-    case TopMinus20
-    case BottomPlus20
-    case RandomStrict
-    case OneTenth
-    case TwoTenths
-    case ThreeTenths
-    case FourTenths
-    case SixTenths
-    case SevenTenths
-    case EightTenths
-    case NineTenths
-    case TopScreen
-    case BottomScreen
+    case bottom
+    case midBottom
+    case middle
+    case midTop
+    case top
+    case topMinus20
+    case bottomPlus20
+    case randomStrict
+    case oneTenth
+    case twoTenths
+    case threeTenths
+    case fourTenths
+    case sixTenths
+    case sevenTenths
+    case eightTenths
+    case nineTenths
+    case topScreen
+    case bottomScreen
     
     var screen: CGRect {
-        return UIScreen.mainScreen().bounds
+        return UIScreen.main.bounds
     }
     
-    func getPointForNode(node: SKSpriteNode) -> CGPoint {
+    func getPointForNode(_ node: SKSpriteNode) -> CGPoint {
         
         var offscreenRight: CGFloat {
             return screen.width + node.size.width
@@ -45,45 +45,45 @@ enum SpawnPoint: Int {
         
         var point: CGPoint {
             switch self {
-            case .Bottom: return
+            case .bottom: return
                 CGPoint(x: offscreenRight, y: offsetY)
-            case .MidBottom: return
+            case .midBottom: return
                 CGPoint(x: offscreenRight, y: screen.height * 0.25 + offsetY/2)
-            case .Middle: return
+            case .middle: return
                 CGPoint(x: offscreenRight, y: screen.height/2)
-            case .MidTop: return
+            case .midTop: return
                 CGPoint(x: offscreenRight, y: screen.height * 0.75 - offsetY/2)
-            case .Top: return
+            case .top: return
                 CGPoint(x: offscreenRight, y: screen.height - offsetY)
-            case TopMinus20: return
+            case .topMinus20: return
                 CGPoint(x: offscreenRight, y: screen.height - offsetY - 20)
-            case BottomPlus20: return
+            case .bottomPlus20: return
                 CGPoint(x: offscreenRight, y: offsetY + 20)
-            case .RandomStrict: return
+            case .randomStrict: return
                 SpawnPoint(rawValue: RandomNumbers.randomSpawnPoint())!.getPointForNode(node)
                 
                 
-            case .OneTenth: return
+            case .oneTenth: return
                  CGPoint(x: offscreenRight, y: screen.height * 0.1)
-            case .TwoTenths: return
+            case .twoTenths: return
                 CGPoint(x: offscreenRight, y: screen.height * 0.2)
-            case .ThreeTenths: return
+            case .threeTenths: return
                 CGPoint(x: offscreenRight, y: screen.height * 0.3)
-            case .FourTenths: return
+            case .fourTenths: return
                 CGPoint(x: offscreenRight, y: screen.height * 0.4)
-            case .SixTenths: return
+            case .sixTenths: return
                 CGPoint(x: offscreenRight, y: screen.height * 0.6)
-            case .SevenTenths: return
+            case .sevenTenths: return
                 CGPoint(x: offscreenRight, y: screen.height * 0.7)
-            case .EightTenths: return
+            case .eightTenths: return
                 CGPoint(x: offscreenRight, y: screen.height * 0.8)
-            case .NineTenths: return
+            case .nineTenths: return
                 CGPoint(x: offscreenRight, y: screen.height * 0.9)
                 
                 
-            case .TopScreen: return
+            case .topScreen: return
                 CGPoint(x: screen.width * 0.75, y: screen.height + node.size.height)
-            case .BottomScreen: return
+            case .bottomScreen: return
                 CGPoint(x: screen.width * 0.75, y: -screen.height - node.size.height)
                 
                 

@@ -27,7 +27,7 @@ protocol Weapon {
     
     func dumbfire()
     func trackingFire()
-    func fire(delay: Double)
+    func fire(_ delay: Double)
     
 }
 
@@ -120,7 +120,7 @@ extension PlayerWeapon {
     
     func addNode() -> Projectile? {
         guard let scene = owner.gameScene else { return nil }
-        let node = projectile.dynamicType.init()
+        let node = type(of: projectile).init()
         node.position = owner.projectileOrigin
         node.physicsBody?.categoryBitMask = MaskValue.playerProjectile
         node.physicsBody?.contactTestBitMask = MaskValue.destructable
@@ -141,33 +141,33 @@ extension PlayerWeapon {
         
         let destination = CGPoint(x: location.x + adjustedX, y: location.y + adjustedY)
 
-        let screenWidth = UIScreen.mainScreen().bounds.width
+        let screenWidth = UIScreen.main.bounds.width
         let difference = screenWidth - location.x
         let perc = Double(difference / screenWidth * 100)
         let amount = (node.projectileSpeed * perc)/100
         
-        let moveAction = SKAction.moveTo(destination, duration: (node.projectileSpeed - amount))
+        let moveAction = SKAction.move(to: destination, duration: (node.projectileSpeed - amount))
         let despawn = SKAction.removeFromParent()
         let sequence = SKAction.sequence([moveAction, despawn])
         let nodeRotation = atan2(adjustedY, adjustedX)
         
         node.zRotation = nodeRotation
-        node.runAction(sequence, withKey: "fire")
-        node.runAction(sequence)
+        node.run(sequence, withKey: "fire")
+        node.run(sequence)
         
         
     }
     
     func dumbfire() {
         guard let node = addNode() else { return }
-        let move = SKAction.moveByX(-UIScreen.mainScreen().bounds.width, y: 0, duration: node.projectileSpeed)
+        let move = SKAction.moveBy(x: -UIScreen.main.bounds.width, y: 0, duration: node.projectileSpeed)
         let despawn = SKAction.removeFromParent()
         let seq = SKAction.sequence([move,despawn])
-        node.runAction(seq)
+        node.run(seq)
         
     }
     
-    func fire(delay: Double = 0) {
+    func fire(_ delay: Double = 0) {
         
         
     }
@@ -189,7 +189,7 @@ extension EnemyWeapon {
    
     func addNode() -> Projectile? {
         guard let scene = owner.scene as? GameScene else { print("scene not success"); return nil }
-        let node = projectile.dynamicType.init()
+        let node = type(of: projectile).init()
         node.position = owner.projectileOrigin
         node.physicsBody?.categoryBitMask = MaskValue.enemyProjectile
         node.physicsBody?.contactTestBitMask = MaskValue.player
@@ -202,10 +202,10 @@ extension EnemyWeapon {
     func dumbfire() {
 
         guard let node = addNode() else { return }
-            let move = SKAction.moveByX(-UIScreen.mainScreen().bounds.width, y: 0, duration: node.projectileSpeed)
+            let move = SKAction.moveBy(x: -UIScreen.main.bounds.width, y: 0, duration: node.projectileSpeed)
             let despawn = SKAction.removeFromParent()
             let seq = SKAction.sequence([move,despawn])
-            node.runAction(seq)
+            node.run(seq)
         
        
         
@@ -222,25 +222,25 @@ extension EnemyWeapon {
         let destination = CGPoint(x: targetLocation.x + adjustedX, y: targetLocation.y + adjustedY)
         
         // get speed increase for projectile for relative position
-        let screenWidth = UIScreen.mainScreen().bounds.width
+        let screenWidth = UIScreen.main.bounds.width
         let difference = screenWidth - bulletOrigin.x
         let perc = Double(difference / screenWidth * 100)
         let amount = (node.projectileSpeed * perc)/100
 
         
-        let moveAction = SKAction.moveTo(destination, duration: node.projectileSpeed - amount)
+        let moveAction = SKAction.move(to: destination, duration: node.projectileSpeed - amount)
         let despawn = SKAction.removeFromParent()
         let sequence = SKAction.sequence([moveAction, despawn])
         let nodeRotation = atan2(adjustedY, adjustedX)
         
         node.zRotation = nodeRotation
-        node.runAction(sequence, withKey: "fire")
-        node.runAction(sequence)
+        node.run(sequence, withKey: "fire")
+        node.run(sequence)
 
         
     }
     
-    func fire(delay: Double = 0) {
+    func fire(_ delay: Double = 0) {
         firePattern.pattern(self, delay: delay)
     }
  

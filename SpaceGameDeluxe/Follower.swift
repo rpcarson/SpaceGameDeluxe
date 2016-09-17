@@ -10,23 +10,23 @@ import SpriteKit
 
 
 protocol Follower {
-    func followPlayer(node: SKSpriteNode, strict: Bool)
+    func followPlayer(_ node: SKSpriteNode, strict: Bool)
 }
 
 
 
 extension Follower {
-    func followPlayer(node: SKSpriteNode, strict: Bool) {
+    func followPlayer(_ node: SKSpriteNode, strict: Bool) {
         
         let vectorUp = CGVector(dx: 0, dy: 20)
         let vectorDown = CGVector(dx: 0, dy: -20)
         let diff = Player.sharedInstance.position.y - node.position.y
         
         if node.speed == 0 {
-            let bool = node.actionForKey("moveIn")
+            let bool = node.action(forKey: "moveIn")
             print(bool)
-            if node.actionForKey("moveIn") != nil {
-                node.removeActionForKey("moveIn")
+            if node.action(forKey: "moveIn") != nil {
+                node.removeAction(forKey: "moveIn")
                 node.speed = 1
                 print("0 and moveIn nil")
             }
@@ -40,27 +40,27 @@ extension Follower {
         } else {
             
             if (diff <= 10) && (diff >= -10) {
-                if node.actionForKey("goUp") != nil {
-                    node.removeActionForKey("goUp")
+                if node.action(forKey: "goUp") != nil {
+                    node.removeAction(forKey: "goUp")
                     //print("removing up")
                 }
-                if node.actionForKey("goDown") != nil {
-                    node.removeActionForKey("goDown")
+                if node.action(forKey: "goDown") != nil {
+                    node.removeAction(forKey: "goDown")
                     // print("removing down")
                 }
             }
             
             if Player.sharedInstance.position.y > node.position.y {
                 let goUp = SKAction.applyImpulse(vectorUp, duration: 0.5)
-                if node.actionForKey("goUp") == nil {
-                    node.runAction(goUp, withKey: "goUp")
+                if node.action(forKey: "goUp") == nil {
+                    node.run(goUp, withKey: "goUp")
                 }
                 
             }
             if Player.sharedInstance.position.y < node.position.y {
                 let goDown = SKAction.applyImpulse(vectorDown, duration: 0.5)
-                if node.actionForKey("goDown") == nil {
-                    node.runAction(goDown, withKey: "goDown")
+                if node.action(forKey: "goDown") == nil {
+                    node.run(goDown, withKey: "goDown")
                 }
                 
             }

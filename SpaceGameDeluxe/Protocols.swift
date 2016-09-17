@@ -34,7 +34,7 @@ protocol Overheatable: WeaponType {
     var overheatDelay: Double { get set }
     
     func overheat()
-    func adjustHeat(byAmount: Double)
+    func adjustHeat(_ byAmount: Double)
     
 }
 

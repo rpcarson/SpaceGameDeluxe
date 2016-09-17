@@ -51,28 +51,30 @@ class Player: SKSpriteNode, Destructable, Attacker {
     func destruct() {
         //unknown
     }
-    func decreaseHealth(amount: Double) {
+    func decreaseHealth(_ amount: Double) {
         //unknown
     }
     
-    func configureAgility(multiplier: AgilityMultiplier) {
+    func configureAgility(_ multiplier: AgilityMultiplier) {
         physicsBody?.mass = baseAgility / multiplier.rawValue
     }
     
-    func adjustEnginePower(power: EnginePower) {
+    func adjustEnginePower(_ power: EnginePower) {
         enginePower = power
     }
     
     func setupPhysicsBody() {
         physicsBody = SKPhysicsBody(texture: playerTexture, size: _size)
         physicsBody?.affectedByGravity = false
-        physicsBody?.dynamic = true
+        physicsBody?.isDynamic = true
         physicsBody?.linearDamping = 0.1
         physicsBody?.collisionBitMask = 0
         physicsBody?.categoryBitMask = MaskValue.player
         physicsBody?.contactTestBitMask = MaskValue.enemyProjectile | MaskValue.enemy
             
         configureAgility(agilityMultiplier)
+        
+    
     }
     
     func setupSprite() {
@@ -84,7 +86,7 @@ class Player: SKSpriteNode, Destructable, Attacker {
     }
     
     init() {
-        super.init(texture: playerTexture, color: UIColor.clearColor(), size: playerTexture.size())
+        super.init(texture: playerTexture, color: UIColor.clear, size: playerTexture.size())
         
 
         weapon = BasePlayerGun(owner: self)
@@ -106,7 +108,7 @@ class Player: SKSpriteNode, Destructable, Attacker {
 
 extension Player {
     
-    func move(point: CGPoint) {
+    func move(_ point: CGPoint) {
         
         let currentPositionY = self.position.y
         let indicatedY = point.y
@@ -117,9 +119,9 @@ extension Player {
         
         var impulseVector: CGVector {
             switch directionOfTap {
-            case _ where directionOfTap > 0: return CGVectorMake(0, -100 * enginePower.rawValue)
-            case _ where directionOfTap < 0: return CGVectorMake(0, 100 * enginePower.rawValue)
-            case 0: return CGVectorMake(0, 0)
+            case _ where directionOfTap > 0: return CGVector(dx: 0, dy: -100 * enginePower.rawValue)
+            case _ where directionOfTap < 0: return CGVector(dx: 0, dy: 100 * enginePower.rawValue)
+            case 0: return CGVector(dx: 0, dy: 0)
             default: print("impulseVector failure \n");fatalError()
             }
         }
@@ -134,7 +136,7 @@ extension Player {
             return 0
         }
         
-        let impulseToApply = CGVectorMake(0, adjustedImpulse)
+        let impulseToApply = CGVector(dx: 0, dy: adjustedImpulse)
         
         physicsBody?.applyImpulse(impulseToApply)
         
@@ -191,6 +193,14 @@ extension Player {
         case x150 = 1.5
         case x175 = 1.75
         case x2 = 2
+    }
+    
+}
+
+
+extension Player {
+    func recieveBounty(amount: Double) {
+        StatKeeper.sharedInstance.playerMoney += amount
     }
     
 }

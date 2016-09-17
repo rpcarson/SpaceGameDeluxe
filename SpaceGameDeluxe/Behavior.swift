@@ -31,10 +31,10 @@ protocol Behavior {
 
 extension Behavior {
     var screenWidth: CGFloat {
-      return UIScreen.mainScreen().bounds.width
+      return UIScreen.main.bounds.width
     }
     var screenHeight: CGFloat {
-        return UIScreen.mainScreen().bounds.height
+        return UIScreen.main.bounds.height
     }
     
 }
@@ -49,7 +49,7 @@ struct Approach: Behavior {
     
     func moveRightToLeft() -> SKAction {
         let despawn = SKAction.removeFromParent()
-        let move = SKAction.moveToX(-screenWidth/2, duration: duration)
+        let move = SKAction.moveTo(x: -screenWidth/2, duration: duration)
         let sequence = SKAction.sequence([move, despawn])
         return sequence
     }
@@ -76,12 +76,12 @@ struct ApproachAndSlow: Behavior {
     func enterAndSlow() -> SKAction {
     
         let despawn = SKAction.removeFromParent()
-        let move = SKAction.moveToX(-screenWidth/2, duration: 5)
+        let move = SKAction.moveTo(x: -screenWidth/2, duration: 5)
       //  let moveIn = SKAction.moveToX(screenWidth*0.75, duration: 2)
-        let decreaseSpeed = SKAction.speedBy(0.2, duration: 0.5)
+        let decreaseSpeed = SKAction.speed(by: 0.2, duration: 0.5)
        // let group1 = SKAction.group([moveIn, decreaseSpeed])
         let group = SKAction.group([decreaseSpeed, move])
-        let wait = SKAction.waitForDuration(delay)
+        let wait = SKAction.wait(forDuration: delay)
         
         return SKAction.sequence([wait,group, despawn])
         
@@ -94,7 +94,7 @@ struct ApproachAndSlow: Behavior {
     
     init() { }
     
-    mutating func config(delay: Double) {
+    mutating func config(_ delay: Double) {
         self.delay = delay
     }
     
@@ -106,8 +106,8 @@ struct MoveInAndFollowPlayer: Behavior {
     }
 
     func moveIn() -> SKAction {
-        let move = SKAction.moveToX(screenWidth*0.75, duration: 2)
-        let decreaseSpeed = SKAction.speedBy(0, duration: 2)
+        let move = SKAction.moveTo(x: screenWidth*0.75, duration: 2)
+        let decreaseSpeed = SKAction.speed(by: 0, duration: 2)
         let group = SKAction.group([decreaseSpeed, move])
         print("MoveIn func")
         return group
@@ -124,8 +124,8 @@ struct EnterFromTopOrBottomFollow: Behavior {
     }
     
     func enter() -> SKAction {
-        let move =  SKAction.moveToY(screenHeight*0.5, duration: 3)
-        let decreaseSpeed = SKAction.speedBy(0, duration: 2)
+        let move =  SKAction.moveTo(y: screenHeight*0.5, duration: 3)
+        let decreaseSpeed = SKAction.speed(by: 0, duration: 2)
         let group = SKAction.group([decreaseSpeed, move])
         return group
         //return move
@@ -138,14 +138,14 @@ struct EnterFromTopOrBottomFollow: Behavior {
 struct DiveBomb: Behavior {
     
     var pattern: SKAction {
-        return SKAction.waitForDuration(1)
+        return SKAction.wait(forDuration: 1)
     }
 }
 
 
 enum DodgeDirection {
-    case Up
-    case Down
+    case up
+    case down
 }
 
 /*

@@ -20,8 +20,9 @@ class Minion: BasicEnemy {
         
        // let wep2 = Autocannon(owner: self)
         
-        configure(EnemyTextures.Minion.getTexture(), size: CGSize(width: 54, height: 25), health: EnemyTextures.Minion.healthValue, weapon: BaseGun(owner: self))
+        configure(EnemyTextures.minion.getTexture(), size: CGSize(width: 54, height: 25), health: EnemyTextures.minion.healthValue, weapon: BaseGun(owner: self))
         
+        enemyType = EnemyTextures.minion
    
 
     }
@@ -37,7 +38,7 @@ class MissileMinion: BasicEnemy {
     override init() {
         super.init()
         
-       configure(EnemyTextures.Minion.getTexture(), size: CGSize(width: 75, height: 40), health: EnemyTextures.Minion.healthValue, weapon: BaseGun(owner: self))
+       configure(EnemyTextures.minion.getTexture(), size: CGSize(width: 75, height: 40), health: EnemyTextures.minion.healthValue, weapon: BaseGun(owner: self))
         
     }
     

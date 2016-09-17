@@ -15,82 +15,82 @@ struct Spawner {
     var scene: ActionScene
     
     
-    func spawnTrackingMinion(point: SpawnPoint, speed: Double, hostile: Bool = true) -> SKAction {
-        return SKAction.runBlock { SimplePattern(sprite: TrackingMinion(), behavior: Approach(duration: speed), spawnPoint: point).run(scene: self.scene)
+    func spawnTrackingMinion(_ point: SpawnPoint, speed: Double, hostile: Bool = true) -> SKAction {
+        return SKAction.run { SimplePattern(sprite: TrackingMinion(), behavior: Approach(duration: speed), spawnPoint: point).run(scene: self.scene)
         }
     }
     
-    func spawnMissileMinion(point: SpawnPoint, speed: Double, hostile: Bool = true) -> SKAction {
-        return SKAction.runBlock { SimplePattern(sprite: MissileMinion(), behavior: Approach(duration: speed), spawnPoint: point).run(scene: self.scene)
+    func spawnMissileMinion(_ point: SpawnPoint, speed: Double, hostile: Bool = true) -> SKAction {
+        return SKAction.run { SimplePattern(sprite: MissileMinion(), behavior: Approach(duration: speed), spawnPoint: point).run(scene: self.scene)
         }
     }
     
     
     func tripleJetCruiseIn() -> SKAction {
-        return SKAction.runBlock {
-            SimplePattern(sprite: BasicJet(), behavior: ApproachAndSlow(delay: 1), spawnPoint: .MidTop).run(fireDelay: 1, scene: self.scene)
-            SimplePattern(sprite: BasicJet(), behavior: ApproachAndSlow(delay: 1.3), spawnPoint: .MidBottom).run(fireDelay: 1, scene: self.scene)
-            SimplePattern(sprite: BasicJet(), behavior: ApproachAndSlow(delay: 0), spawnPoint: .Middle).run(fireDelay: 1, scene: self.scene)
+        return SKAction.run {
+            SimplePattern(sprite: BasicJet(), behavior: ApproachAndSlow(delay: 1), spawnPoint: .midTop).run(fireDelay: 1, scene: self.scene)
+            SimplePattern(sprite: BasicJet(), behavior: ApproachAndSlow(delay: 1.3), spawnPoint: .midBottom).run(fireDelay: 1, scene: self.scene)
+            SimplePattern(sprite: BasicJet(), behavior: ApproachAndSlow(delay: 0), spawnPoint: .middle).run(fireDelay: 1, scene: self.scene)
         }
     }
     
     
-    func threeMinApproach(point: SpawnPoint = .Middle, speed: Double = 0, hostile: Bool = true) -> SKAction {
+    func threeMinApproach(_ point: SpawnPoint = .middle, speed: Double = 0, hostile: Bool = true) -> SKAction {
         
         let block = {
-            SimplePattern(sprite: Minion(), behavior: Approach(duration: 14), spawnPoint: SpawnPoint.Middle).run(scene: self.scene)
-            SimplePattern(sprite: Minion(), behavior: Approach(duration: 14), spawnPoint: SpawnPoint.Top).run(scene: self.scene)
-            SimplePattern(sprite: Minion(), behavior: Approach(duration: 14), spawnPoint: SpawnPoint.Bottom).run(scene: self.scene)
+            SimplePattern(sprite: Minion(), behavior: Approach(duration: 14), spawnPoint: SpawnPoint.middle).run(scene: self.scene)
+            SimplePattern(sprite: Minion(), behavior: Approach(duration: 14), spawnPoint: SpawnPoint.top).run(scene: self.scene)
+            SimplePattern(sprite: Minion(), behavior: Approach(duration: 14), spawnPoint: SpawnPoint.bottom).run(scene: self.scene)
         }
         
-        return SKAction.runBlock(block)
+        return SKAction.run(block)
     }
     
-    func spawnMinion(point: SpawnPoint, speed: Double, hostile: Bool = true) -> SKAction {
-        return SKAction.runBlock { SimplePattern(sprite: Minion(), behavior: Approach(duration: speed), spawnPoint: point).run(hostile, fireDelay: 1, scene: self.scene)
+    func spawnMinion(_ point: SpawnPoint, speed: Double, hostile: Bool = true) -> SKAction {
+        return SKAction.run { SimplePattern(sprite: Minion(), behavior: Approach(duration: speed), spawnPoint: point).run(hostile, fireDelay: 1, scene: self.scene)
         }
     }
     
-    func spawnJet(point: SpawnPoint, speed: Double, hostile: Bool = true) -> SKAction {
-        return SKAction.runBlock { SimplePattern(sprite: BasicJet(), behavior: Approach(duration: speed), spawnPoint: point).run(scene: self.scene)
+    func spawnJet(_ point: SpawnPoint, speed: Double, hostile: Bool = true) -> SKAction {
+        return SKAction.run { SimplePattern(sprite: BasicJet(), behavior: Approach(duration: speed), spawnPoint: point).run(scene: self.scene)
         }
     }
     
-    func cruiseJet(point: SpawnPoint, speed: Double, hostile: Bool = true) -> SKAction {
-        return SKAction.runBlock { SimplePattern(sprite: BasicJet(), behavior: ApproachAndSlow(), spawnPoint: point).run(scene: self.scene)
+    func cruiseJet(_ point: SpawnPoint, speed: Double, hostile: Bool = true) -> SKAction {
+        return SKAction.run { SimplePattern(sprite: BasicJet(), behavior: ApproachAndSlow(), spawnPoint: point).run(scene: self.scene)
         }
     }
     
     
     
-    func runCustomPattern(enemy: EnemyType, behavior: Behavior, spawnPoint: SpawnPoint, fireDelay: Double, hostile: Bool) -> SKAction {
-        return SKAction.runBlock {
+    func runCustomPattern(_ enemy: EnemyType, behavior: Behavior, spawnPoint: SpawnPoint, fireDelay: Double, hostile: Bool) -> SKAction {
+        return SKAction.run {
            SimplePattern(sprite: enemy.enemy(), behavior: behavior, spawnPoint: spawnPoint).run(hostile, fireDelay: fireDelay, scene: self.scene)
         }
     }
     
     
-    func spawnFollowerEnemy(enemy: BasicEnemy, point: SpawnPoint, hostile: Bool = true) -> (SKAction, SKSpriteNode) {
+    func spawnFollowerEnemy(_ enemy: BasicEnemy, point: SpawnPoint, hostile: Bool = true) -> (SKAction, SKSpriteNode) {
     
     let node = enemy
     
-    return (SKAction.runBlock {
-        FollowerPattern(sprite: node, behavior: MoveInAndFollowPlayer(), spawnPoint: SpawnPoint.Middle).run(hostile, fireDelay: 0, scene: self.scene)
+    return (SKAction.run {
+        FollowerPattern(sprite: node, behavior: MoveInAndFollowPlayer(), spawnPoint: SpawnPoint.middle).run(hostile, fireDelay: 0, scene: self.scene)
         
     }, node)
     
     }
     
-    func spawnApproach(enemy: EnemyType, point: SpawnPoint, speed: Double, hostile: Bool) -> SKAction {
-        return SKAction.runBlock {
+    func spawnApproach(_ enemy: EnemyType, point: SpawnPoint, speed: Double, hostile: Bool) -> SKAction {
+        return SKAction.run {
             SimplePattern(sprite: enemy.enemy(), behavior: Approach(duration: speed), spawnPoint: point).run(scene: self.scene)
             
         }
     }
     
-    func spawnMine(point: SpawnPoint, speed: Double) -> SKAction {
-        return SKAction.runBlock {
-            MinePattern(sprite: Mine(), behavior: Approach(duration: speed), spawnPoint: point).run(false, scene: self.scene)
+    func spawnMine(_ point: SpawnPoint, speed: Double, offset: CGFloat) -> SKAction {
+        return SKAction.run {
+            MinePattern(sprite: Mine(), behavior: Approach(duration: speed), spawnPoint: point).run(false, scene: self.scene, offset: offset)
         }
     }
     
@@ -99,17 +99,17 @@ struct Spawner {
     
     
     
-    func spawnEvasive(point: SpawnPoint, toPoint: SpawnPoint, enemy: BasicEnemy, speed: Double, offset: CGFloat, evadeDelay: Bool) -> SKAction {
+    func spawnEvasive(_ point: SpawnPoint, toPoint: SpawnPoint, enemy: BasicEnemy, speed: Double, offset: CGFloat, evadeDelay: Bool) -> SKAction {
         
-        return SKAction.runBlock {
+        return SKAction.run {
             EvasivePattern(sprite: enemy, behavior: Approach(), spawnPoint: point).run(true, fireDelay: 0, scene: self.scene, speed: speed, toPoint: toPoint, offset: offset, evadeDelay: evadeDelay)
     }
         
     }
     
-    func evadeLate(point: SpawnPoint, toPoint: SpawnPoint, enemy: BasicEnemy, speed: Double, offset: CGFloat) -> SKAction {
+    func evadeLate(_ point: SpawnPoint, toPoint: SpawnPoint, enemy: BasicEnemy, speed: Double, offset: CGFloat) -> SKAction {
         
-        return SKAction.runBlock {
+        return SKAction.run {
             EvadeLate(sprite: enemy, behavior: Approach(), spawnPoint: point).run(true, fireDelay: 0, scene: self.scene, speed: speed, toPoint: toPoint, offset: offset)
         }
         

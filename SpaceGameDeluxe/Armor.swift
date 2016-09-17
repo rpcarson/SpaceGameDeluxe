@@ -20,12 +20,12 @@ protocol ArmorType {
     var mitigationFactor: Double { get set }
     var isBroken: Bool { get set }
     
-    mutating func degrade(amount: Double)
+    mutating func degrade(_ amount: Double)
     mutating func breakDown()
 }
 
 extension ArmorType {
-    mutating func degrade(amount: Double) {
+    mutating func degrade(_ amount: Double) {
         
         if isBroken { return }
         

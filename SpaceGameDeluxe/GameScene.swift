@@ -9,8 +9,11 @@
 import SpriteKit
 
 protocol ActionScene {
+    
+    var masterLevelController: MasterLevelController? { get set }
+    
     var frameCount: Double { get set }
-    var pattern: ScenePattern? { get set }
+   // var pattern: ScenePattern? { get set }
    // var spawner: Spawner? { get set }
     var worldLayer: WorldLayer { get  }
     var hudLayer: HUDLayer { get  }
@@ -26,6 +29,9 @@ protocol ActionScene {
 
 
 class GameScene: SKScene, ActionScene {
+    
+    
+    var masterLevelController: MasterLevelController?
     
     var scrollingBackground: Scroller?
     var scroller2: Scroller?
@@ -48,57 +54,28 @@ class GameScene: SKScene, ActionScene {
     
     var frameCount: Double = 0
     
-    var pattern: ScenePattern?
+   // var pattern: ScenePattern?
     
     var moveZone: SKShapeNode!
     var fireZone: SKShapeNode!
     var nullZone: SKShapeNode!
     
-    var timer: NSTimer!
-    let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+    var timer: Timer!
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     let player = Player.sharedInstance
     
-    let bg1 = SKSpriteNode(imageNamed: "starOverlay")
-    let bg2 = SKSpriteNode(imageNamed: "starOverlay")
-    var bgMain: SKSpriteNode {
-    let node = SKSpriteNode(imageNamed: "bgspace")
-        node.size.height = self.size.height
-        node.size.width = self.size.width
-        return node
-    }
-    var bgMain1: SKSpriteNode {
-        let node = SKSpriteNode(imageNamed: "bgspace")
-        node.size.height = self.size.height
-        node.size.width = self.size.width
-        return node
-    }
+  //  var scrolling: TestBackground?
     
-    override func didMoveToView(view: SKView) {
-        size.width = UIScreen.mainScreen().bounds.width
-         size.height = UIScreen.mainScreen().bounds.height
-        
-      //  spawner = Spawner(actionScene: self)
+    override func didMove(to view: SKView) {
+       // size.width = UIScreen.main.bounds.width
+        // size.height = UIScreen.main.bounds.height
         
         setupScene()
         
         worldLayer.speed = simulationSpeed        
     
-        boundary.getDimensions()
-        
-     
-        let array = [bg1, bg2]
-        let array2 = [bgMain, bgMain1]
-        scrollingBackground = Scroller(scene: self, speed: 12, type: .debris)
-        scroller2 = Scroller(scene: self, speed: 1, type: .background)
-        
-        scroller2?.images = array2
-        
-        scroller2?.setup()
-        
-        scrollingBackground?.images = array
-        
-        scrollingBackground?.setup()
+ 
     }
     
  
@@ -107,87 +84,95 @@ class GameScene: SKScene, ActionScene {
         setupLayers()
         setupTouchZones()
         setupPhysics()
-        loadPattern()
         setupBoundary()
         addPlayer()
+        loadLevel()
         
-        backgroundColor = UIColor.blackColor()
+        backgroundColor = UIColor.black
         
     }
     
   
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         for touch in touches {
-            let location = touch.locationInNode(self)
-            if nullZone.containsPoint(location) {
+            let location = touch.location(in: self)
+            if nullZone.contains(location) {
                 endFiring()
             }
-            if fireZone.containsPoint(location) {
+            if fireZone.contains(location) {
                 fireTouchLocation = location
             }
         }
         
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        for enemy in enemies {
-            if enemy as BasicEnemy is Minion {
-                // enemy.attack(self)
-            }
-        }
         
         for touch in touches {
-            let location = touch.locationInNode(self)
+            let location = touch.location(in: self)
             
-            if fireZone.containsPoint(location) {
+            if fireZone.contains(location) {
                 fireTouchLocation = location
                 startFiring()
             }
-            if moveZone.containsPoint(location) {
+            if moveZone.contains(location) {
                 player.move(location)
             }
-            if nullZone.containsPoint(location) {
+            if nullZone.contains(location) {
                 endFiring()
             }
         }
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
-            let location = touch.locationInNode(self)
-            if fireZone.containsPoint(location) || nullZone.containsPoint(location) {
+            let location = touch.location(in: self)
+            if fireZone.contains(location) || nullZone.contains(location) {
                 endFiring()
             }
         }
     }
+
     
-    func didBeginContact(contact: SKPhysicsContact) {
+    func keepPlayerInBounds() {
+        if player.position.y < player.size.height/2 {
+            player.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+            player.position.y = player.size.height/2 + 1
+        }
         
-      
-        
+        if player.position.y > self.size.height - player.size.height/2 {
+            player.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+            player.position.y = self.size.height - player.size.height/2 - 1
+        }
     }
     
-    override func update(currentTime: CFTimeInterval) {
-        
+    func cullNodes() {
         for node in worldLayer.children {
             if node.position.x + node.frame.size.width/2 < 0 {
                 node.remove()
-               // print("node removed")
-        
+                // print("node removed")
+                
             }
         }
+    }
+    
+    func runLevelController() {
+        masterLevelController?.pattern.updateScene()
+        masterLevelController?.background.scroll()
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
         
         frameCount += 1
         
-        pattern?.updateScene()
+        keepPlayerInBounds()
+      
+        cullNodes()
         
-
-        scroller2?.scroll()
-        scrollingBackground?.scroll()
-        
-        
+        runLevelController()
+    
     }
     
 }

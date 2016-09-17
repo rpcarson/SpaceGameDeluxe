@@ -9,10 +9,11 @@
 import SpriteKit
 
 enum ZPosition: CGFloat {
-    case Background = -2
-    case World = 2
-    case HUD = 4
+    case background = -2
+    case world = 2
+    case hud = 4
     case scrollingBackground = -10
+    case scrollingDebris = -9
 }
 
 class BackgroundLayer: SKNode {

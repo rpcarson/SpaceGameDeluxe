@@ -39,51 +39,84 @@ struct ScenePatternOne: ScenePattern {
     
     func runPattern() {
         let group = SKAction.group(actions)
-        scene.worldLayer.runAction(group)
+        scene.worldLayer.run(group)
     }
     
     mutating func compilePattern() {
         
         
-      //  addPatternComponent(spawn.evadeLate(.Middle, toPoint: .Top, enemy: BasicEnemy(), speed: 20, offset: 0), wait: 0)
+        
+        
+        
+        addPatternComponent(spawn.spawnMinion(.middle, speed: 10), wait: 0)
+            addPatternComponent(spawn.spawnMinion(.fourTenths, speed: 10), wait: 1)
+            addPatternComponent(spawn.spawnMinion(.sixTenths, speed: 10), wait: 0)
+            addPatternComponent(spawn.spawnMinion(.eightTenths, speed: 10), wait: 1)
+            addPatternComponent(spawn.spawnMinion(.twoTenths, speed: 10), wait: 0)
         
         
       
-        addPatternComponent(spawn.spawnMinion(.TwoTenths, speed: 12), wait: 0)
-         addPatternComponent(spawn.spawnMinion(.ThreeTenths, speed: 12), wait: 0.75)
-         addPatternComponent(spawn.spawnMinion(.OneTenth, speed: 12), wait: 0)
-         addPatternComponent(spawn.spawnMinion(.FourTenths, speed: 12), wait: 0.75)
+        addPatternComponent(spawn.spawnMinion(.twoTenths, speed: 12), wait: 2)
+         addPatternComponent(spawn.spawnMinion(.threeTenths, speed: 12), wait: 0.75)
+         addPatternComponent(spawn.spawnMinion(.oneTenth, speed: 12), wait: 0)
+         addPatternComponent(spawn.spawnMinion(.fourTenths, speed: 12), wait: 0.75)
         
         
-        addPatternComponent(spawn.spawnMinion(.EightTenths, speed: 12), wait: 5)
-        addPatternComponent(spawn.spawnMinion(.SevenTenths, speed: 12), wait: 0.75)
-        addPatternComponent(spawn.spawnMinion(.NineTenths, speed: 12), wait: 0)
-        addPatternComponent(spawn.spawnMinion(.SixTenths, speed: 12), wait: 0.75)
+        addPatternComponent(spawn.spawnMinion(.eightTenths, speed: 12), wait: 4)
+        addPatternComponent(spawn.spawnMinion(.sevenTenths, speed: 12), wait: 0.75)
+        addPatternComponent(spawn.spawnMinion(.nineTenths, speed: 12), wait: 0)
+        addPatternComponent(spawn.spawnMinion(.sixTenths, speed: 12), wait: 0.75)
+        
+        addPatternComponent(spawn.spawnMine(.middle, speed: 25, offset: 0), wait: 0)
+        addPatternComponent(spawn.spawnMine(.middle, speed: 25, offset: 20), wait: 0)
+        addPatternComponent(spawn.spawnMine(.middle, speed: 25, offset: -20), wait: 0)
+        addPatternComponent(spawn.spawnMine(.middle, speed: 25, offset: -40), wait: 0.5)
+            addPatternComponent(spawn.spawnMine(.middle, speed: 25, offset: 40), wait: 0)
+            addPatternComponent(spawn.spawnMine(.middle, speed: 25, offset: 0), wait: 0.5)
         
         
         
-        addPatternComponent(spawn.evadeLate(.SixTenths, toPoint: .EightTenths, enemy: Minion(), speed: 15, offset: 0), wait: 2)
-        addPatternComponent(spawn.evadeLate(.SixTenths, toPoint: .NineTenths, enemy: Minion(), speed: 15, offset: 20), wait: 0.4)
-        addPatternComponent(spawn.evadeLate(.SixTenths, toPoint: .Top, enemy: Minion(), speed: 15, offset: 40), wait: 0.4)
+        addPatternComponent(spawn.evadeLate(.sixTenths, toPoint: .eightTenths, enemy: Minion(), speed: 15, offset: 0), wait: 2)
+        addPatternComponent(spawn.evadeLate(.sixTenths, toPoint: .nineTenths, enemy: Minion(), speed: 15, offset: 20), wait: 0.4)
+        addPatternComponent(spawn.evadeLate(.sixTenths, toPoint: .top, enemy: Minion(), speed: 15, offset: 40), wait: 0.4)
         
         
 
 
-        addPatternComponent(spawn.spawnEvasive(.Middle, toPoint: .MidTop, enemy: Minion(), speed: 12, offset: 20, evadeDelay: true), wait: 2)
-        addPatternComponent(spawn.spawnEvasive(.Middle, toPoint: .MidBottom, enemy: Minion(), speed: 12, offset: -20, evadeDelay: true), wait: 0)
-        addPatternComponent(spawn.spawnApproach(EnemyType.minion, point: .Middle, speed: 12, hostile: true), wait: 1)
+        addPatternComponent(spawn.spawnEvasive(.middle, toPoint: .midTop, enemy: Minion(), speed: 12, offset: 20, evadeDelay: true), wait: 2)
+        addPatternComponent(spawn.spawnEvasive(.middle, toPoint: .midBottom, enemy: Minion(), speed: 12, offset: -20, evadeDelay: true), wait: 0)
+        addPatternComponent(spawn.spawnApproach(EnemyType.minion, point: .middle, speed: 12, hostile: true), wait: 1)
         
         
-        addPatternComponent(spawn.spawnEvasive(.MidTop, toPoint: .FourTenths, enemy: Minion(), speed: 15, offset: 0, evadeDelay: false), wait: 5)
-        addPatternComponent(spawn.spawnEvasive(.MidBottom, toPoint: .SixTenths, enemy: Minion(), speed: 15, offset: 0, evadeDelay: false), wait: 0)
+        addPatternComponent(spawn.spawnEvasive(.midTop, toPoint: .fourTenths, enemy: Minion(), speed: 15, offset: 0, evadeDelay: false), wait: 5)
+        addPatternComponent(spawn.spawnEvasive(.midBottom, toPoint: .sixTenths, enemy: Minion(), speed: 15, offset: 0, evadeDelay: false), wait: 0)
         
-        addPatternComponent(spawn.cruiseJet(.EightTenths, speed: 0), wait: 4)
-         addPatternComponent(spawn.cruiseJet(.SevenTenths, speed: 0), wait: 1)
-         addPatternComponent(spawn.cruiseJet(.SixTenths, speed: 0), wait: 0.3)
+        addPatternComponent(spawn.cruiseJet(.eightTenths, speed: 0), wait: 4)
+         addPatternComponent(spawn.cruiseJet(.sevenTenths, speed: 0), wait: 1)
+         addPatternComponent(spawn.cruiseJet(.sixTenths, speed: 0), wait: 0.3)
         
-        addFollowerComponent(spawn.spawnFollowerEnemy(TrackingMinion(), point: .Middle), wait: 4)
+        addFollowerComponent(spawn.spawnFollowerEnemy(TrackingMinion(), point: .middle), wait: 4)
         
-        addPatternComponent(spawn.spawnEvasive(.SevenTenths, toPoint: .ThreeTenths, enemy: Minion(), speed: 10, offset: 0, evadeDelay: false), wait: 4)
+        addPatternComponent(spawn.spawnEvasive(.sevenTenths, toPoint: .threeTenths, enemy: Minion(), speed: 10, offset: 0, evadeDelay: false), wait: 4)
+        
+        
+        
+        
+        addPatternComponent(spawn.spawnMine(.top, speed: 25, offset: 0), wait: 0)
+        addPatternComponent(spawn.spawnMine(.bottom, speed: 25, offset: 0), wait: 0)
+        
+        addPatternComponent(spawn.spawnMine(.nineTenths, speed: 25, offset: 0), wait: 0.5)
+        addPatternComponent(spawn.spawnMine(.oneTenth, speed: 25, offset: 0), wait: 0)
+        
+        addPatternComponent(spawn.cruiseJet(.eightTenths, speed: 0), wait: 1)
+        addPatternComponent(spawn.cruiseJet(.twoTenths, speed: 0), wait: 0)
+        
+        addPatternComponent(spawn.spawnMinion(.middle, speed: 7, hostile: false), wait: 2)
+        addPatternComponent(spawn.spawnMinion(.fourTenths, speed: 7, hostile: false), wait: 0.4)
+        addPatternComponent(spawn.spawnMinion(.sixTenths, speed: 7, hostile: false), wait: 0.0)
+        
+        
+
         
         
      //   addFollowerComponent(spawn.spawnFollowerEnemy(TrackingMinion(), point: .Middle), wait: 1)
@@ -146,19 +179,19 @@ struct ScenePatternOne: ScenePattern {
     
     typealias PatternComponent = SKAction
     
-    private mutating func createPatternComponent(wait: Double, action: SKAction) -> (PatternComponent) {
+    fileprivate mutating func createPatternComponent(_ wait: Double, action: SKAction) -> (PatternComponent) {
         let time = wait + timeOfLastAction
-        let delay = SKAction.waitForDuration(time)
+        let delay = SKAction.wait(forDuration: time)
         timeOfLastAction = time
         return (SKAction.sequence([delay, action]))
     }
     
-    private mutating func addPatternComponent(action: SKAction, wait: Double) {
+    fileprivate mutating func addPatternComponent(_ action: SKAction, wait: Double) {
         let component = createPatternComponent(wait, action: action)
         actions.append(component)
     }
     
-    private mutating func addFollowerComponent(tuple: (SKAction, SKSpriteNode), wait: Double) {
+    fileprivate mutating func addFollowerComponent(_ tuple: (SKAction, SKSpriteNode), wait: Double) {
         let component = createPatternComponent(wait, action: tuple.0)
         let node = tuple.1
         spritesNeedUpdate.append(node)
@@ -170,7 +203,7 @@ struct ScenePatternOne: ScenePattern {
     mutating func updateScene() {
         let count = scene.frameCount
         
-        if count % 30 == 0 {
+        if count.truncatingRemainder(dividingBy: 30) == 0 {
             totalTimeElapsed += 1
             print(totalTimeElapsed)
         }

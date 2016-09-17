@@ -15,26 +15,26 @@ protocol Pattern {
     var behavior: Behavior { get set }
     var spawnPoint: SpawnPoint { get set }
     
-    func spawn(actionScene: ActionScene, offSet: CGFloat)
-    func run(hostile: Bool, scene: ActionScene)
+    func spawn(_ actionScene: ActionScene, offSet: CGFloat)
+    func run(_ hostile: Bool, scene: ActionScene)
     init(sprite: BasicEnemy, behavior: Behavior, spawnPoint: SpawnPoint)
 }
 
 extension Pattern {
     
-    internal func spawn(actionScene: ActionScene, offSet: CGFloat = 0) {
+    internal func spawn(_ actionScene: ActionScene, offSet: CGFloat = 0) {
         let point = CGPoint(x: spawnPoint.getPointForNode(sprite).x, y: spawnPoint.getPointForNode(sprite).y + offSet)
         sprite.position = point
         actionScene.worldLayer.addChild(sprite)
     }
     
-    func run(hostile: Bool, scene: ActionScene) {
+    func run(_ hostile: Bool, scene: ActionScene) {
         
     }
     
-    func run(hostile: Bool = true, fireDelay: Double = 0, scene: ActionScene) {
+    func run(_ hostile: Bool = true, fireDelay: Double = 0, scene: ActionScene) {
         spawn(scene)
-        sprite.runAction(behavior.pattern)
+        sprite.run(behavior.pattern)
         
         if hostile {
             sprite.weapon?.fire(fireDelay)
@@ -63,11 +63,11 @@ struct FollowerPattern: Pattern {
     var behavior: Behavior
     var spawnPoint: SpawnPoint
     
-    func run(hostile: Bool = true, fireDelay: Double = 0, scene: ActionScene) {
+    func run(_ hostile: Bool = true, fireDelay: Double = 0, scene: ActionScene) {
         spawn(scene)
-        sprite.runAction(behavior.pattern, withKey: "moveIn")
+        sprite.run(behavior.pattern, withKey: "moveIn")
         
-        var array = scene.pattern?.spritesNeedUpdate
+        var array = scene.masterLevelController?.pattern.spritesNeedUpdate
         array?.append(sprite)
         print("run with key moveIn")
         
@@ -84,10 +84,10 @@ struct MinePattern: Pattern {
     var behavior: Behavior
     var spawnPoint: SpawnPoint
     
-    func run(hostile: Bool, scene: ActionScene) {
-        spawn(scene)
-        sprite.runAction(behavior.pattern)
-        sprite.physicsBody?.dynamic = true
+    func run(_ hostile: Bool, scene: ActionScene, offset: CGFloat) {
+        spawn(scene, offSet: offset)
+        sprite.run(behavior.pattern)
+        sprite.physicsBody?.isDynamic = true
         sprite.physicsBody?.applyTorque(0.12)
         
         let randomVector = CGVector(dx: 0, dy: RandomNumbers.getRandomTo10WithNeg())
@@ -103,7 +103,7 @@ struct EvasivePattern: Pattern {
     var spawnPoint: SpawnPoint
     
   
-    func run(hostile: Bool, fireDelay: Double, scene: ActionScene, speed: Double, toPoint: SpawnPoint, offset: CGFloat, evadeDelay: Bool) {
+    func run(_ hostile: Bool, fireDelay: Double, scene: ActionScene, speed: Double, toPoint: SpawnPoint, offset: CGFloat, evadeDelay: Bool) {
         
         
         spawn(scene, offSet: offset)
@@ -115,18 +115,18 @@ struct EvasivePattern: Pattern {
         let pointY = toPoint.getPointForNode(sprite).y
         let point = CGPoint(x: enemyScene.size.width * 0.5, y: pointY)
         
-        let moveIn = SKAction.moveToX(enemyScene.size.width * 0.75, duration: speed/4)
-        let dodge = SKAction.moveTo(point, duration: speed/4)
-        let moveOut = SKAction.moveToX(-enemyScene.size.width/2, duration: speed)
+        let moveIn = SKAction.moveTo(x: enemyScene.size.width * 0.75, duration: speed/4)
+        let dodge = SKAction.move(to: point, duration: speed/4)
+        let moveOut = SKAction.moveTo(x: -enemyScene.size.width/2, duration: speed)
         let sequence = SKAction.sequence([moveIn,dodge,moveOut])
         
         if evadeDelay {
-            sprite.runAction(sequence)
+            sprite.run(sequence)
 
         } else {
-            let newDodge = SKAction.moveTo(point, duration: speed/2)
+            let newDodge = SKAction.move(to: point, duration: speed/2)
             let newSequence = SKAction.sequence([newDodge, moveOut])
-            sprite.runAction(newSequence)
+            sprite.run(newSequence)
         }
         
         
@@ -147,7 +147,7 @@ struct EvadeLate: Pattern {
     var behavior: Behavior
     var spawnPoint: SpawnPoint
     
-    func run(hostile: Bool, fireDelay: Double, scene: ActionScene, speed: Double, toPoint: SpawnPoint, offset: CGFloat) {
+    func run(_ hostile: Bool, fireDelay: Double, scene: ActionScene, speed: Double, toPoint: SpawnPoint, offset: CGFloat) {
         
         spawn(scene, offSet: offset)
         
@@ -156,14 +156,14 @@ struct EvadeLate: Pattern {
         
         let pointY = toPoint.getPointForNode(sprite).y
         
-        let moveIn = SKAction.moveToX(enemyScene.size.width * 0.5, duration: speed/3)
+        let moveIn = SKAction.moveTo(x: enemyScene.size.width * 0.5, duration: speed/3)
         let exitPoint = CGPoint(x:-sprite.size.width, y: pointY)
-        let evade = SKAction.moveTo(exitPoint, duration: speed/3)
-        let moveOut = SKAction.moveToX(-enemyScene.size.width/2, duration: speed/3)
+        let evade = SKAction.move(to: exitPoint, duration: speed/3)
+        let moveOut = SKAction.moveTo(x: -enemyScene.size.width/2, duration: speed/3)
         
         let sequence = SKAction.sequence([moveIn, evade, moveOut])
 
-        sprite.runAction(sequence)
+        sprite.run(sequence)
 
         if hostile {
             sprite.weapon?.fire(fireDelay)

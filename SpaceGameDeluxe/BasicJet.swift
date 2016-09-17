@@ -16,8 +16,9 @@ class BasicJet: BasicEnemy {
         let burst = Burst(shotsInBurst: 5, burstSpeed: 0.25, timeBetween: 1)
         let weapon = BaseGun(owner: self, pattern: burst, tracking: false)
         
-        configure(EnemyTextures.Jet.getTexture(), size: CGSize(width: 68, height: 45), health: EnemyTextures.Jet.healthValue, weapon: weapon)
+        configure(EnemyTextures.jet.getTexture(), size: CGSize(width: 68, height: 45), health: EnemyTextures.jet.healthValue, weapon: Autocannon(owner: self))
         
+        enemyType = EnemyTextures.jet
         
     }
     

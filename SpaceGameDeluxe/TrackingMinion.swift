@@ -16,7 +16,9 @@ class TrackingMinion: BasicEnemy, Follower {
         
         let burster = Burst(shotsInBurst: 3, burstSpeed: 1, timeBetween: 2)
                 
-        configure(EnemyTextures.SquareJet.getTexture(), size: CGSize(width: 75, height: 40), health: EnemyTextures.SquareJet.healthValue, weapon: BasicEnergyGun(owner: self, pattern: burster, tracking: true))
+        configure(EnemyTextures.squareJet.getTexture(), size: CGSize(width: 75, height: 40), health: EnemyTextures.squareJet.healthValue, weapon: BasicEnergyGun(owner: self, pattern: burster, tracking: true))
+        
+        enemyType = EnemyTextures.squareJet
         
     }
     

@@ -12,13 +12,15 @@ import Foundation
 protocol Destructable {
     var maxHealth: Double { get set }
     var health: Double { get set }
-    mutating func decreaseHealth(amount: Double)
+    mutating func decreaseHealth(_ amount: Double)
     func destruct()
 }
 
+
+
 extension Destructable {
     
-    mutating func decreaseHealth(amount: Double) {
+    mutating func decreaseHealth(_ amount: Double) {
         
         var damageToHealth: Double = 0
         

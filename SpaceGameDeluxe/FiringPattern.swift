@@ -13,11 +13,11 @@ import SpriteKit
 
 
 protocol FiringPattern {
-    func pattern(weapon: Weapon, delay: Double)
+    func pattern(_ weapon: Weapon, delay: Double)
 }
 
 protocol EnemyFiringPattern {
- func pattern(weapon: EnemyWeapon, delay: Double)
+ func pattern(_ weapon: EnemyWeapon, delay: Double)
 
 }
 
@@ -33,9 +33,9 @@ enum BurstSpeed: Double {
 
 struct BurstThree: EnemyFiringPattern {
     
-    func pattern(weapon: EnemyWeapon, delay: Double = 0) {
-        let fireDelay = SKAction.waitForDuration(delay)
-        let fire = SKAction.runBlock {
+    func pattern(_ weapon: EnemyWeapon, delay: Double = 0) {
+        let fireDelay = SKAction.wait(forDuration: delay)
+        let fire = SKAction.run {
             if weapon.tracking {
                 weapon.trackingFire()
             } else {
@@ -45,26 +45,26 @@ struct BurstThree: EnemyFiringPattern {
         
         let burstBlock = {
             for i in 0..<3 {
-                let wait = SKAction.waitForDuration(Double(i))
+                let wait = SKAction.wait(forDuration: Double(i))
                 let sequence = SKAction.sequence([wait, fire])
                 if let scene = weapon.owner.scene as? GameScene {
-                        scene.worldLayer.runAction(sequence)
+                        scene.worldLayer.run(sequence)
                 }
             }
         }
-        let block = SKAction.runBlock(burstBlock)
+        let block = SKAction.run(burstBlock)
         let sequenceWithDelay = SKAction.sequence([fireDelay, block])
         
-        (weapon.owner.scene as! GameScene).worldLayer.runAction(sequenceWithDelay)
+        (weapon.owner.scene as! GameScene).worldLayer.run(sequenceWithDelay)
     }
     
 }
 
 struct QuickBurst: EnemyFiringPattern {
     
-    func pattern(weapon: EnemyWeapon, delay: Double = 0) {
-        let fireDelay = SKAction.waitForDuration(delay)
-        let fire = SKAction.runBlock {
+    func pattern(_ weapon: EnemyWeapon, delay: Double = 0) {
+        let fireDelay = SKAction.wait(forDuration: delay)
+        let fire = SKAction.run {
             if weapon.tracking {
                 weapon.trackingFire()
             } else {
@@ -74,21 +74,21 @@ struct QuickBurst: EnemyFiringPattern {
         
         let burstBlock = {
             for i in 1...3 {
-                let wait = SKAction.waitForDuration(Double(Double(i)/5))
+                let wait = SKAction.wait(forDuration: Double(Double(i)/5))
                 let sequence = SKAction.sequence([wait, fire])
                 if let scene = weapon.owner.scene as? GameScene {
-                    scene.worldLayer.runAction(sequence)
+                    scene.worldLayer.run(sequence)
                 }
             }
         }
-        let block = SKAction.runBlock(burstBlock)
+        let block = SKAction.run(burstBlock)
         let sequenceWithDelay = SKAction.sequence([fireDelay, block])
         
         if let scene = weapon.owner.scene as? GameScene {
             if let fireZone = scene.fireZone {
                 let position = weapon.owner.position
-                if fireZone.containsPoint(position) {
-                    scene.worldLayer.runAction(sequenceWithDelay)
+                if fireZone.contains(position) {
+                    scene.worldLayer.run(sequenceWithDelay)
                 }
                 
             }
@@ -103,14 +103,14 @@ struct Burst: EnemyFiringPattern {
     var burstSpeed: Double
     var timeBetweenBursts: Double
     
-    func pattern(weapon: EnemyWeapon, delay: Double = 0) {
+    func pattern(_ weapon: EnemyWeapon, delay: Double = 0) {
         
         
         guard let scene = weapon.owner.scene as? GameScene  else { return }
 
         
-        let fireDelay = SKAction.waitForDuration(delay)
-        let fire = SKAction.runBlock {
+        let fireDelay = SKAction.wait(forDuration: delay)
+        let fire = SKAction.run {
             if weapon.tracking {
                 weapon.trackingFire()
             } else {
@@ -120,13 +120,13 @@ struct Burst: EnemyFiringPattern {
         
         let burstBlock = {
             for i in 1...self.shotsInBurst {
-                let wait = SKAction.waitForDuration(Double(Double(i)*self.burstSpeed))
+                let wait = SKAction.wait(forDuration: Double(Double(i)*self.burstSpeed))
                 let sequence = SKAction.sequence([wait, fire])
            
                     if let fireZone = scene.fireZone {
                         let position = weapon.owner.position
-                        if fireZone.containsPoint(position) {
-                            scene.worldLayer.runAction(sequence)
+                        if fireZone.contains(position) {
+                            scene.worldLayer.run(sequence)
                         }
                         
                     }
@@ -134,11 +134,11 @@ struct Burst: EnemyFiringPattern {
                
             }
         }
-        let block = SKAction.runBlock(burstBlock)
+        let block = SKAction.run(burstBlock)
         let tie = timeBetweenBursts + (burstSpeed * Double(shotsInBurst))
-        let timeBetween = SKAction.waitForDuration(tie)
+        let timeBetween = SKAction.wait(forDuration: tie)
         let fireSequence = SKAction.sequence([block, timeBetween])
-        let repeater = SKAction.repeatActionForever(fireSequence)
+        let repeater = SKAction.repeatForever(fireSequence)
         let sequenceWithDelay = SKAction.sequence([fireDelay, repeater])
         
         if let scene = weapon.owner.scene as? GameScene {
@@ -147,8 +147,8 @@ struct Burst: EnemyFiringPattern {
           //  print("firezzone main block")
                 let position = weapon.owner.position
                // print(position)
-                if fireZone.containsPoint(position) {                  
-                    weapon.owner.runAction(sequenceWithDelay)
+                if fireZone.contains(position) {                  
+                    weapon.owner.run(sequenceWithDelay)
                  
                 }
                 
@@ -170,9 +170,9 @@ struct SteadyFire: EnemyFiringPattern {
     
     var frequency: Double
     
-    func pattern(weapon: EnemyWeapon, delay: Double = 0) {
-        let fireDelay = SKAction.waitForDuration(delay)
-        let fire = SKAction.runBlock {
+    func pattern(_ weapon: EnemyWeapon, delay: Double = 0) {
+        let fireDelay = SKAction.wait(forDuration: delay)
+        let fire = SKAction.run {
             if weapon.tracking {
                 weapon.trackingFire()
             } else {
@@ -180,19 +180,19 @@ struct SteadyFire: EnemyFiringPattern {
             }
         }
         
-        let timeBetweenShots = SKAction.waitForDuration(frequency)
+        let timeBetweenShots = SKAction.wait(forDuration: frequency)
         
         let sequence = SKAction.sequence([timeBetweenShots,fire])
         
-        let repeater = SKAction.repeatActionForever(sequence)
+        let repeater = SKAction.repeatForever(sequence)
         
         let fullSequence = SKAction.sequence([fireDelay,repeater])
         
         if let scene = weapon.owner.scene as? GameScene {
             if let fireZone = scene.fireZone {
                 let position = weapon.owner.position
-                if fireZone.containsPoint(position) {
-                   weapon.owner.runAction(fullSequence)
+                if fireZone.contains(position) {
+                   weapon.owner.run(fullSequence)
                     
                     //scene.worldLayer.runAction(fullSequence)
                 }

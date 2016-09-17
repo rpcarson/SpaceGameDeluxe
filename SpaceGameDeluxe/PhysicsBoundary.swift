@@ -24,12 +24,12 @@ class PhysicsBoundary: SKSpriteNode {
     
     
     func setup() {
-        physicsBody = SKPhysicsBody(edgeLoopFromRect: self.frame)
+        physicsBody = SKPhysicsBody(edgeLoopFrom: self.frame)
         position = self.scene!.position
         physicsBody?.categoryBitMask = MaskValue.boundary
         physicsBody?.contactTestBitMask = MaskValue.playerProjectile | MaskValue.enemyProjectile
         name = "boundary"
-        hidden = true
+        isHidden = true
     }
    
 }

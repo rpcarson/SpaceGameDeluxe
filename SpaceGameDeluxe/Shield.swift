@@ -22,8 +22,8 @@ protocol ShieldType {
     var isBroken: Bool { get set }
     var isCharging: Bool { get set }
     
-    mutating func recharge(amount: Double)
-    mutating func degrade(amount: Double)
+    mutating func recharge(_ amount: Double)
+    mutating func degrade(_ amount: Double)
     mutating func shatter()
     
 }
@@ -33,7 +33,7 @@ protocol ShieldType {
 
 extension ShieldType {
     
-    mutating func recharge(amount: Double)
+    mutating func recharge(_ amount: Double)
     {
         
         if isBroken { return }
@@ -52,7 +52,7 @@ extension ShieldType {
         shieldHealth = 0
     }
     
-    mutating func degrade(amount: Double) {
+    mutating func degrade(_ amount: Double) {
         
         if shieldHealth - amount <= 0 {
             shieldHealth = 0
