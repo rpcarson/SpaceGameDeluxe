@@ -45,6 +45,7 @@
 		5BD4966B1D7CC9480039E395 /* Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD4966A1D7CC9480039E395 /* Background.swift */; };
 		5BD4B4CA1D77417E00CF4286 /* InputHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD4B4C91D77417E00CF4286 /* InputHandler.swift */; };
 		5BDCDAF81D402D1D00DF7DFF /* RandomNumbers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDCDAF71D402D1D00DF7DFF /* RandomNumbers.swift */; };
+		5BDFDAD51D8E070600718BA3 /* ShopScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDFDAD41D8E070600718BA3 /* ShopScene.swift */; };
 		5BE05AC21D63C23B004E4996 /* TrackingMinion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE05AC11D63C23B004E4996 /* TrackingMinion.swift */; };
 		5BE473A61D78D307002E2251 /* Shield.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE473A51D78D307002E2251 /* Shield.swift */; };
 		5BE473A81D78D32A002E2251 /* Armor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BE473A71D78D32A002E2251 /* Armor.swift */; };
@@ -114,6 +115,7 @@
 		5BD4966A1D7CC9480039E395 /* Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Background.swift; sourceTree = "<group>"; };
 		5BD4B4C91D77417E00CF4286 /* InputHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InputHandler.swift; sourceTree = "<group>"; };
 		5BDCDAF71D402D1D00DF7DFF /* RandomNumbers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RandomNumbers.swift; sourceTree = "<group>"; };
+		5BDFDAD41D8E070600718BA3 /* ShopScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShopScene.swift; sourceTree = "<group>"; };
 		5BE05AC11D63C23B004E4996 /* TrackingMinion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackingMinion.swift; sourceTree = "<group>"; };
 		5BE473A51D78D307002E2251 /* Shield.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Shield.swift; sourceTree = "<group>"; };
 		5BE473A71D78D32A002E2251 /* Armor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Armor.swift; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				5BDCDAF71D402D1D00DF7DFF /* RandomNumbers.swift */,
 				5B32A2781D3C45A9008389C5 /* Stats.swift */,
 				5B857D411D36F666008DE265 /* GameViewController.swift */,
+				5BDFDAD31D8E064500718BA3 /* Master Level Controller */,
 				5BA5AF181D4E6F7600192CFE /* Behavior */,
 				5B5748081D4C021E005EB35D /* Enemies */,
 				5BD524A91D4D615E00D749C3 /* Weapons */,
@@ -205,7 +208,6 @@
 				5BF4B1ED1D452B37005C4BBD /* Models */,
 				5BF4B1EE1D452B6B005C4BBD /* Supporting */,
 				5BD2FA651D52A029001DF146 /* playground.swift */,
-				5BED94D11D878F7700BDC5B9 /* MasterLevelController.swift */,
 			);
 			path = SpaceGameDeluxe;
 			sourceTree = "<group>";
@@ -241,6 +243,7 @@
 		5BA7578C1D596EF50014BD82 /* GameScene */ = {
 			isa = PBXGroup;
 			children = (
+				5BF4B1EB1D452B27005C4BBD /* Layers.swift */,
 				5B57480D1D4C0BD0005EB35D /* Extensions.swift */,
 				5B857D3F1D36F666008DE265 /* GameScene.swift */,
 				5BA7578D1D596F030014BD82 /* PhysicsBoundary.swift */,
@@ -267,6 +270,22 @@
 				5BBA807A1D57CA9200CD51CD /* Weapon Components */,
 			);
 			name = Weapons;
+			sourceTree = "<group>";
+		};
+		5BDFDAD31D8E064500718BA3 /* Master Level Controller */ = {
+			isa = PBXGroup;
+			children = (
+				5BED94D11D878F7700BDC5B9 /* MasterLevelController.swift */,
+			);
+			name = "Master Level Controller";
+			sourceTree = "<group>";
+		};
+		5BDFDAD61D8E070C00718BA3 /* ShopScene */ = {
+			isa = PBXGroup;
+			children = (
+				5BDFDAD41D8E070600718BA3 /* ShopScene.swift */,
+			);
+			name = ShopScene;
 			sourceTree = "<group>";
 		};
 		5BF4B1ED1D452B37005C4BBD /* Models */ = {
@@ -299,7 +318,7 @@
 		5BF4B1EF1D452B94005C4BBD /* Scenes */ = {
 			isa = PBXGroup;
 			children = (
-				5BF4B1EB1D452B27005C4BBD /* Layers.swift */,
+				5BDFDAD61D8E070C00718BA3 /* ShopScene */,
 				5BA7578C1D596EF50014BD82 /* GameScene */,
 			);
 			name = Scenes;
@@ -445,6 +464,7 @@
 				5B6528351D510F9700AE2189 /* Attacker.swift in Sources */,
 				5B857D401D36F666008DE265 /* GameScene.swift in Sources */,
 				5B32A2791D3C45A9008389C5 /* Stats.swift in Sources */,
+				5BDFDAD51D8E070600718BA3 /* ShopScene.swift in Sources */,
 				5BA7578B1D5947A20014BD82 /* ContactHandler.swift in Sources */,
 				5B32A27D1D3C46DB008389C5 /* Weapon.swift in Sources */,
 				5BE473A81D78D32A002E2251 /* Armor.swift in Sources */,

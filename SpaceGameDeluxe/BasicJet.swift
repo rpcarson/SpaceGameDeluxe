@@ -13,12 +13,12 @@ class BasicJet: BasicEnemy {
     override init() {
         super.init()
         
-        let burst = Burst(shotsInBurst: 5, burstSpeed: 0.25, timeBetween: 1)
-        let weapon = BaseGun(owner: self, pattern: burst, tracking: false)
+       // let burst = Burst(shotsInBurst: 5, burstSpeed: 0.25, timeBetween: 1)
+       // let weapon = BaseGun(owner: self, pattern: burst, tracking: false)
         
-        configure(EnemyTextures.jet.getTexture(), size: CGSize(width: 68, height: 45), health: EnemyTextures.jet.healthValue, weapon: Autocannon(owner: self))
+        configure(EnemyTraits.jet.getTexture(), size: CGSize(width: 68, height: 45), health: EnemyTraits.jet.healthValue, weapon: Autocannon(owner: self))
         
-        enemyType = EnemyTextures.jet
+        enemyType = EnemyTraits.jet
         
     }
     

@@ -20,11 +20,11 @@ class Mine: BasicEnemy {
     override init() {
         super.init()
         
-        configure(EnemyTextures.mine.getTexture(), size: CGSize(width: 25, height: 25), health: 10, weapon: nil)
+        configure(EnemyTraits.mine.getTexture(), size: CGSize(width: 25, height: 25), health: 10, weapon: nil)
         
         self.physicsBody?.isDynamic = true
         
-        enemyType = EnemyTextures.mine
+        enemyType = EnemyTraits.mine
             
     }
     

@@ -6,7 +6,7 @@
 //  Copyright © 2016 Reed Carson. All rights reserved.
 //
 
-import Foundation
+import SpriteKit
 
 protocol Shielded {
     var shield: ShieldType { get set }
@@ -76,6 +76,28 @@ struct BasicShield: ShieldType {
     var isCharging: Bool = false
 }
 
+
+class TextShield: SKSpriteNode, ShieldType {
+    var maxShield: Double = 100
+    var shieldHealth: Double = 100
+    var rechargeRate: Double = 1
+    var rechargeDelay: Double = 2
+    var isBroken: Bool = false
+    var isCharging: Bool = false
+    
+    init() {
+        super.init(texture: ShieldTextures.testShield.getTexture(), color: UIColor.clear, size: CGSize(width: 50, height: 50))
+        
+        
+        
+        
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+}
 
 
 

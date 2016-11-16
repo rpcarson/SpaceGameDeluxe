@@ -13,6 +13,16 @@ enum LevelMultiplier: Double {
     case levelTwo = 1.25
 }
 
+enum ShieldTextures: String {
+    case testShield = "TestShield1"
+    
+    func getTexture() -> SKTexture {
+        switch self {
+        case .testShield: return SKTexture(imageNamed: self.rawValue)
+        }
+    }
+}
+
 
 enum PlayerTextures: String {
     case Player = "betterShittyPlayer"
@@ -45,7 +55,7 @@ enum WeaponTextures: String {
     }
 }
 
-enum EnemyTextures {
+enum EnemyTraits {
   
     case basicEnemy
     case minion

@@ -33,8 +33,8 @@ class GameScene: SKScene, ActionScene {
     
     var masterLevelController: MasterLevelController?
     
-    var scrollingBackground: Scroller?
-    var scroller2: Scroller?
+   // var scrollingBackground: Scroller?
+   // var scroller2: Scroller?
     
    // var spawner: Spawner?
     
@@ -158,11 +158,6 @@ class GameScene: SKScene, ActionScene {
         }
     }
     
-    func runLevelController() {
-        masterLevelController?.pattern.updateScene()
-        masterLevelController?.background.scroll()
-    }
-    
     override func update(_ currentTime: TimeInterval) {
         
         frameCount += 1
@@ -171,7 +166,7 @@ class GameScene: SKScene, ActionScene {
       
         cullNodes()
         
-        runLevelController()
+        masterLevelController?.run()
     
     }
     

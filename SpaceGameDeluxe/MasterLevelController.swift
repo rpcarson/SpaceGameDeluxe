@@ -92,6 +92,8 @@ struct TestBackground: ScrollingBackground {
         }
     }
     
+
+    
     init(scene: ActionScene) {
         self.scene = scene
        // scrollingBackgroundArray = [bgMain, bgMain1]
@@ -107,12 +109,19 @@ protocol MasterLevelController {
     
     var pattern: ScenePattern { get set }
     
+    mutating func run()
 }
 
 struct TestLevel: MasterLevelController {
     var scene: ActionScene
     var background: ScrollingBackground
     var pattern: ScenePattern
+    
+    mutating func run() {
+        background.scroll()
+        pattern.updateScene()
+        
+    }
     
     init(scene: ActionScene) {
         self.scene = scene

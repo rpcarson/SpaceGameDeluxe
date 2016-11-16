@@ -47,13 +47,13 @@ enum EnemyType {
 class BasicEnemy: SKSpriteNode, Destructable, Attacker {
     
     var projectileOrigin: CGPoint {
-        return EnemyTextures.minion.getProjectileOrigin(self.position)
+        return EnemyTraits.minion.getProjectileOrigin(self.position)
     }
     
     var healthValue = HealthValue.basicEnemy
     let level = 1
     
-    var enemyType: EnemyTextures = EnemyTextures.basicEnemy
+    var enemyType: EnemyTraits = EnemyTraits.basicEnemy
     
     var weapon: Weapon?
     var health: Double = 1000
@@ -111,10 +111,10 @@ class BasicEnemy: SKSpriteNode, Destructable, Attacker {
     }
     
     init() {
-        super.init(texture: EnemyTextures.basicEnemy.getTexture(), color: UIColor.clear, size: CGSize(width: 50, height: 50))
+        super.init(texture: EnemyTraits.basicEnemy.getTexture(), color: UIColor.clear, size: CGSize(width: 50, height: 50))
         
         
-        configure(EnemyTextures.basicEnemy.getTexture(), size: EnemyTextures.basicEnemy.getSize(), health: EnemyTextures.basicEnemy.healthValue, weapon: nil)
+        configure(EnemyTraits.basicEnemy.getTexture(), size: EnemyTraits.basicEnemy.getSize(), health: EnemyTraits.basicEnemy.healthValue, weapon: nil)
         
     }
     
